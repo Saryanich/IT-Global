@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Global :: GloBIT Кубики</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Ретро-стиль: зелёный фон, чёрный текст */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: #001a00; /* Тёмно-зелёный фон */
+            color: #00ff00; /* Зелёный текст */
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Эффект сканирующих линий (ретро-эффект) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(0, 255, 0, 0.03) 50%,
+                transparent 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.3;
+        }
+        
+        /* Контейнер в стиле терминала */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: rgba(0, 34, 0, 0.9);
+            border: 3px solid #00aa00;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(0, 255, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        /* Эффект свечения по краям */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff00, #003300, #00ff00);
+            z-index: -1;
+            border-radius: 17px;
+            opacity: 0.1;
+        }
+        
+        /* Заголовок-логотип */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px dashed #00aa00;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 4.5rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 15px #00ff00, 0 0 30px rgba(0, 255, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 5px;
+            position: relative;
+            padding: 15px 30px;
+            border-radius: 15px;
+            background: rgba(0, 50, 0, 0.3);
+            border: 3px solid transparent;
+        }
+        
+        .logo:hover {
+            text-shadow: 0 0 25px #00ff00, 0 0 50px #00ff00;
+            transform: scale(1.05);
+            border-color: #00ff00;
+            background: rgba(0, 80, 0, 0.3);
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
+        }
+        
+        .logo .it {
+            color: #ffffff;
+            background: linear-gradient(45deg, #005500, #008800);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-right: 15px;
+            text-shadow: 0 0 10px #fff;
+        }
+        
+        .logo .global {
+            letter-spacing: 12px;
+            background: linear-gradient(90deg, #00aa00, #00ff00, #00aa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            color: #00cc00;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        /* Контейнер для кубиков - УВЕЛИЧЕН */
+        .cube-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 колонки для ПК */
+            gap: 50px; /* Увеличил расстояние между кубиками */
+            margin: 60px 0;
+            min-height: 400px;
+            position: relative;
+            padding: 30px;
+            justify-items: center;
+            align-items: center;
+        }
+        
+        /* Стиль кубиков - КРУПНЕЕ */
+        .cube {
+            width: 220px; /* Увеличил размер */
+            height: 250px; /* Увеличил высоту для кнопки */
+            background: linear-gradient(145deg, #002200, #004400);
+            border: 4px solid #00aa00;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            z-index: 2;
+        }
+        
+        .cube::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff00, #003300, #00ff00);
+            z-index: -1;
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .cube:hover {
+            transform: translateY(-20px) rotateY(15deg) scale(1.08);
+            box-shadow: 0 25px 50px rgba(0, 255, 0, 0.6);
+            border-color: #00ff00;
+        }
+        
+        .cube:hover::before {
+            opacity: 0.4;
+        }
+        
+        .cube-logo {
+            width: 90px; /* Немного уменьшил для места под кнопку */
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 12px #00ff00);
+            transition: transform 0.3s;
+        }
+        
+        .cube:hover .cube-logo {
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .cube-title {
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 1.4rem; /* Увеличил */
+            margin-bottom: 6px;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+        }
+        
+        .cube-desc {
+            font-size: 0.9rem; /* Чуть уменьшил */
+            color: #00cc00;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            min-height: 40px;
+        }
+        
+        /* Кнопка каталога в кубике */
+        .catalog-btn {
+            background: linear-gradient(90deg, #008800, #00aa00);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 90%;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #00ff00;
+        }
+        
+        .catalog-btn:hover {
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        /* Блок описания снизу */
+        .description {
+            background: rgba(0, 30, 0, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 50px 0;
+            border-left: 6px solid #00aa00;
+            text-align: center;
+        }
+        
+        .description h2 {
+            color: #00ff00;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        
+        .description p {
+            font-size: 1.3rem;
+            color: #00cc00;
+            max-width: 900px;
+            margin: 0 auto 25px;
+            line-height: 1.8;
+        }
+        
+        /* Выплывающий блок */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 20, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .popup-content {
+            background: linear-gradient(145deg, #002200, #003300);
+            width: 90%;
+            max-width: 800px;
+            border: 4px solid #00aa00;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 0 60px rgba(0, 255, 0, 0.5);
+            animation: slideUp 0.4s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .close-popup {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff3333;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10001;
+        }
+        
+        .close-popup:hover {
+            background: #ff5555;
+            transform: rotate(90deg);
+        }
+        
+        .popup-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .popup-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 0 auto 20px;
+            display: block;
+            filter: drop-shadow(0 0 15px #00ff00);
+        }
+        
+        .popup-title {
+            color: #00ff00;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #00ff00;
+        }
+        
+        .popup-subtitle {
+            color: #00cc00;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+        }
+        
+        .popup-description {
+            color: #00cc00;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        /* Кнопка каталога в попапе */
+        .popup-catalog-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #008800, #00aa00);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+            text-decoration: none;
+            text-align: center;
+            border: 2px solid #00ff00;
+        }
+        
+        .popup-catalog-btn:hover {
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        /* Форма отправки сообщения */
+        .contact-form {
+            background: rgba(0, 40, 0, 0.4);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #00aa00;
+        }
+        
+        .form-title {
+            color: #00ff00;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #00cc00;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 20, 0, 0.7);
+            border: 2px solid #00aa00;
+            border-radius: 10px;
+            color: #00ff00;
+            font-size: 1.2rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        .send-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            color: #001a00;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .send-button:hover {
+            background: linear-gradient(90deg, #00ff00, #00aa00);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        /* Футер с соцсетями */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px dashed #00aa00;
+            color: #00aa00;
+            position: relative;
+        }
+        
+        footer::before {
+            content: "[IT-GLOBAL-SOCIAL]";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #001a00;
+            padding: 0 20px;
+            font-size: 1rem;
+            color: #00aa00;
+        }
+        
+        .social-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .social-card {
+            background: rgba(0, 40, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #00aa00;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .social-card:hover {
+            border-color: #00ff00;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.3);
+        }
+        
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .telegram .social-icon { color: #0088cc; }
+        .whatsapp .social-icon { color: #25D366; }
+        .youtube .social-icon { color: #FF0000; }
+        
+        .social-title {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            background: rgba(0, 60, 0, 0.5);
+            color: #00cc00;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: all 0.3s;
+            border: 1px solid #00aa00;
+        }
+        
+        .social-link:hover {
+            background: rgba(0, 80, 0, 0.7);
+            color: #00ff00;
+            border-color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #00aa00;
+            font-size: 1rem;
+            color: #00aa00;
+        }
+        
+        /* Анимация кубиков */
+        .cube.hidden {
+            opacity: 0;
+            transform: translateY(60px) scale(0.3) rotate(180deg);
+        }
+        
+        .cube.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
+        }
+        
+        /* Инструкция */
+        .instructions {
+            text-align: center;
+            color: #00cc00;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(0, 40, 0, 0.3);
+            border-radius: 10px;
+            border: 1px dashed #00aa00;
+        }
+
+        /* Кнопка для мобильной навигации */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #00aa00;
+            color: #001a00;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            z-index: 9999;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: #00ff00;
+            transform: scale(1.1);
+        }
+        
+        /* Адаптивность для мобильных (9:16 ориентация) */
+        @media (max-width: 1200px) {
+            /* Для планшетов и небольших ноутбуков */
+            .cube-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+            }
+            
+            .cube {
+                width: 200px;
+                height: 230px;
+            }
+            
+            .cube-logo {
+                width: 85px;
+                height: 85px;
+            }
+            
+            .logo {
+                font-size: 3.8rem;
+            }
+        }
+        
+        @media (max-width: 992px) and (orientation: landscape) {
+            /* Планшеты в альбомной ориентации */
+            .cube-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+            
+            .cube {
+                width: 180px;
+                height: 210px;
+            }
+            
+            .cube-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .logo {
+                font-size: 3.2rem;
+            }
+            
+            .social-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Планшеты и крупные телефоны */
+            .cube-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                padding: 20px;
+            }
+            
+            .cube {
+                width: 180px;
+                height: 210px;
+            }
+            
+            .cube-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .logo {
+                font-size: 2.8rem;
+                letter-spacing: 4px;
+                padding: 10px 20px;
+            }
+            
+            .logo .global {
+                letter-spacing: 8px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .description h2 {
+                font-size: 1.8rem;
+            }
+            
+            .description p {
+                font-size: 1.1rem;
+            }
+            
+            .social-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 600px) and (orientation: portrait) {
+            /* Телефоны в портретной ориентации (9:16) */
+            .cube-container {
+                grid-template-columns: 1fr; /* Одна колонка */
+                gap: 25px;
+                margin: 30px 0;
+            }
+            
+            .cube {
+                width: 280px; /* Крупнее для удобства нажатия */
+                height: 280px;
+                margin: 0 auto;
+            }
+            
+            .cube-logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .cube-title {
+                font-size: 1.6rem;
+            }
+            
+            .cube-desc {
+                font-size: 1.1rem;
+            }
+            
+            .catalog-btn {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+                padding: 10px 20px;
+            }
+            
+            .logo .global {
+                letter-spacing: 5px;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+                padding: 0 10px;
+            }
+            
+            .popup-content {
+                width: 95%;
+                padding: 25px;
+                max-height: 85vh;
+            }
+            
+            .popup-title {
+                font-size: 2rem;
+            }
+            
+            .popup-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .popup-description {
+                font-size: 1.1rem;
+            }
+            
+            .popup-catalog-btn {
+                padding: 12px;
+                font-size: 1.1rem;
+            }
+            
+            .form-title {
+                font-size: 1.5rem;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                font-size: 1rem;
+                padding: 12px;
+            }
+            
+            .send-button {
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+            
+            .description {
+                padding: 20px;
+                margin: 30px 0;
+            }
+            
+            .description h2 {
+                font-size: 1.6rem;
+            }
+            
+            .description p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            
+            .instructions {
+                font-size: 1rem;
+                margin-top: 20px;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) and (orientation: portrait) {
+            /* Маленькие телефоны в портретной ориентации */
+            .cube {
+                width: 240px;
+                height: 260px;
+            }
+            
+            .cube-logo {
+                width: 85px;
+                height: 85px;
+            }
+            
+            .cube-title {
+                font-size: 1.4rem;
+            }
+            
+            .cube-desc {
+                font-size: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .logo .it {
+                padding: 5px 10px;
+            }
+            
+            .popup-content {
+                padding: 20px;
+            }
+            
+            .popup-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .social-card {
+                padding: 20px;
+            }
+            
+            .social-title {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-height: 600px) and (orientation: landscape) {
+            /* Для низких экранов в альбомной ориентации */
+            .cube-container {
+                gap: 20px;
+                margin: 30px 0;
+                min-height: 300px;
+            }
+            
+            .cube {
+                width: 160px;
+                height: 190px;
+            }
+            
+            .cube-logo {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 10px;
+            }
+            
+            .cube-title {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+            
+            .cube-desc {
+                font-size: 0.8rem;
+            }
+            
+            .catalog-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .header {
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+            }
+            
+            .description {
+                padding: 20px;
+                margin: 30px 0;
+            }
+            
+            .description h2 {
+                font-size: 1.6rem;
+                margin-bottom: 15px;
+            }
+            
+            .description p {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            footer {
+                margin-top: 30px;
+            }
+        }
+        
+        /* Улучшения для очень широких экранов (16:9 и больше) */
+        @media (min-width: 1600px) {
+            .container {
+                max-width: 1600px;
+                padding: 40px;
+            }
+            
+            .cube-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 60px;
+                margin: 80px 0;
+            }
+            
+            .cube {
+                width: 250px;
+                height: 280px;
+            }
+            
+            .cube-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .cube-title {
+                font-size: 1.6rem;
+            }
+            
+            .cube-desc {
+                font-size: 1.1rem;
+            }
+            
+            .catalog-btn {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            
+            .logo {
+                font-size: 5rem;
+                letter-spacing: 8px;
+            }
+            
+            .logo .global {
+                letter-spacing: 16px;
+            }
+            
+            .tagline {
+                font-size: 1.6rem;
+            }
+            
+            .description h2 {
+                font-size: 2.5rem;
+            }
+            
+            .description p {
+                font-size: 1.5rem;
+                max-width: 1200px;
+            }
+        }
+        
+        /* Для сверхшироких мониторов */
+        @media (min-width: 2000px) {
+            .cube-container {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            
+            body::before {
+                background-size: 100% 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Кнопка мобильного меню -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo" id="mainLogo">
+                <span class="it">IT</span><span class="global">GLOBAL</span>
+            </div>
+            <p class="tagline">>_ Нажмите на любой кубик для получения информации и заказа</p>
+        </div>
+        
+        <div class="cube-container" id="cubeContainer">
+            <!-- Кубики будут созданы через JavaScript -->
+        </div>
+        
+        <div class="description">
+            <h2>Кубики GloBIT от IT Global</h2>
+            <p>Каждый кубик представляет собой уникальный продукт или сервис нашей компании. Нажмите на любой кубик, чтобы увидеть подробную информацию и возможность заказа аналогичного решения для вашего бизнеса.</p>
+            <p>Мы создаем инновационные цифровые продукты под брендом GloBIT. От игровых платформ до систем безопасности — каждый наш продукт тщательно проработан и готов к использованию.</p>
+            <p><strong>Для каждого продукта доступен каталог готовых работ!</strong> Нажмите кнопку "Каталог готовых работ" чтобы увидеть примеры реализованных проектов.</p>
+        </div>
+        
+        <div class="instructions">
+            <i class="fas fa-mouse-pointer"></i> Нажмите на любой кубик для просмотра подробной информации и формы заказа
+        </div>
+        
+        <!-- Футер с соцсетями -->
+        <footer>
+            <div class="social-section">
+                <!-- Telegram -->
+                <div class="social-card telegram">
+                    <i class="fab fa-telegram social-icon"></i>
+                    <h3 class="social-title">Telegram канал</h3>
+                    <p>IT Global - официальный канал</p>
+                    <a href="https://t.me/robloxgameoriginal" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i> Подписаться: @robloxgameoriginal
+                    </a>
+                </div>
+                
+                <!-- WhatsApp -->
+                <div class="social-card whatsapp">
+                    <i class="fab fa-whatsapp social-icon"></i>
+                    <h3 class="social-title">WhatsApp контакт</h3>
+                    <p>Свяжитесь с нами напрямую</p>
+                    <a href="https://wa.me/79950091935" target="_blank" class="social-link">
+                        <i class="fab fa-whatsapp"></i> Написать: +7 (995) 009-19-35
+                    </a>
+                </div>
+                
+                <!-- YouTube -->
+                <div class="social-card youtube">
+                    <i class="fab fa-youtube social-icon"></i>
+                    <h3 class="social-title">YouTube канал</h3>
+                    <p>Саряныч - обзоры и IT новости</p>
+                    <a href="https://www.youtube.com/@saryanis389" target="_blank" class="social-link">
+                        <i class="fab fa-youtube"></i> Подписаться: @saryanis389
+                    </a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2024 IT Global. Все права защищены.</p>
+                <p>Связь с разработчиком сайта: vasiliy.novikov389@gmail.com</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Выплывающий блок -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <button class="close-popup" id="closePopup">×</button>
+            
+            <div class="popup-header">
+                <img id="popupLogo" class="popup-logo" src="" alt="Логотип">
+                <h1 id="popupTitle" class="popup-title"></h1>
+                <h2 id="popupSubtitle" class="popup-subtitle"></h2>
+            </div>
+            
+            <p id="popupDescription" class="popup-description"></p>
+            
+            <!-- Кнопка каталога в попапе -->
+            <a id="popupCatalogBtn" class="popup-catalog-btn" href="#" target="_blank">
+                <i class="fas fa-folder-open"></i> Открыть каталог готовых работ
+            </a>
+            
+            <div class="contact-form">
+                <h3 class="form-title">Заказать подобный продукт</h3>
+                <form id="emailForm">
+                    <div class="form-group">
+                        <label for="emailTo">Кому:</label>
+                        <input type="text" id="emailTo" value="vasiliy.novikov389@gmail.com" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emailSubject">Тема:</label>
+                        <input type="text" id="emailSubject" value="" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userName">Ваше имя:</label>
+                        <input type="text" id="userName" placeholder="Введите ваше имя" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userMessage">Ваше сообщение:</label>
+                        <textarea id="userMessage" placeholder="Опишите, какой продукт вы хотите заказать или задайте вопрос..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="send-button">
+                        <i class="fas fa-paper-plane"></i> Отправить сообщение
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные о кубиках GloBIT с ссылками на каталоги
+        const globitProducts = [
+            {
+                id: 1,
+                name: "IT Global",
+                title: "Основная компания",
+                description: "Головная компания, объединяющая все проекты GloBIT. Мы создаем инновационные цифровые решения для бизнеса и развлечений. Специализируемся на разработке веб-приложений, игр, систем безопасности и AI-технологий.",
+                logoUrl: "https://i.ibb.co/pBS7G57b/IT-Global.jpg",
+                catalogUrl: "#" // Основная компания без отдельного каталога
+            },
+            {
+                id: 2,
+                name: "GloBIT",
+                title: "Базовые приложения",
+                description: "Основной пакет приложений для повседневных задач. Включает инструменты для работы с документами, коммуникации, планирования и управления задачами. Оптимизирован для скорости и удобства использования.",
+                logoUrl: "https://i.ibb.co/S4nmJH9M/Glo-BIT.jpg",
+                catalogUrl: "https://drive.google.com/drive/folders/1zAutS6tNFNoz8apbS4xbpRJq-w51mNac?usp=drive_link"
+            },
+            {
+                id: 3,
+                name: "GloBIT Arcade",
+                title: "Игровая платформа",
+                description: "Платформа ретро и современных игр. Поддерживает мультиплеер, достижения и турниры. Идеально подходит для геймеров, которые ценят классику и современные игровые механики.",
+                logoUrl: "https://i.ibb.co/wFK0H7rM/Glo-BIT-Arcade.jpg",
+                catalogUrl: "https://drive.google.com/drive/folders/1mAcKP117t2Lcic7s9TKcQZ8aOB0tqZS9?usp=drive_link"
+            },
+            {
+                id: 4,
+                name: "HumoRock",
+                title: "ИИ-композитор",
+                description: "Искусственный интеллект для генерации музыки. Создает уникальные композиции в различных жанрах, обучается на ваших предпочтениях и может работать в реальном времени. Идеален для музыкантов и создателей контента.",
+                logoUrl: "https://i.ibb.co/fzLVKnMn/Humo-Rock.jpg",
+                catalogUrl: "https://drive.google.com/drive/folders/1mi5sBTaL4OXH41MVMoHhXgYKZfoiHpq6?usp=drive_link"
+            },
+            {
+                id: 5,
+                name: "ITeep Scan",
+                title: "Система безопасности",
+                description: "Комплексная система проверки на вирусы, уязвимости и легальность ПО. Использует машинное обучение для обнаружения новых угроз. Подходит для бизнеса и индивидуальных пользователей.",
+                logoUrl: "https://i.ibb.co/N2xX2Fvq/ITeep-Scan.jpg",
+                catalogUrl: "https://drive.google.com/drive/folders/1tcScNf87KX6ltREX5t_JC4KVLCCmR90M?usp=drive_link"
+            },
+            {
+                id: 6,
+                name: "Worldbal",
+                title: "Электронная библиотека",
+                description: "Обширная библиотека с книгами, статьями и научными работами. Интеллектуальная система рекомендаций, поддержка форматов и удобное чтение. Для студентов, исследователей и любителей чтения.",
+                logoUrl: "https://i.ibb.co/TBGrCX30/Worldbal.jpg",
+                catalogUrl: "https://drive.google.com/drive/folders/16B-ZOEHZ2ml0m_nDKLqArkD6VTxRt4EU?usp=drive_link"
+            },
+            {
+                id: 7,
+                name: "Саряныч",
+                title: "Медиа-канал",
+                description: "Канал с обзорами технологий, гаджетов и IT-новинок. Регулярный контент, экспертные мнения и тестирование продуктов. Для всех, кто хочет быть в курсе технологических трендов.",
+                logoUrl: "https://i.ibb.co/xtm6zqKq/Saryanich-new.jpg",
+                catalogUrl: "#" // YouTube канал уже сам по себе каталог
+            }
+        ];
+
+        // Элементы DOM
+        const mainLogo = document.getElementById('mainLogo');
+        const cubeContainer = document.getElementById('cubeContainer');
+        const popup = document.getElementById('popup');
+        const closePopup = document.getElementById('closePopup');
+        const popupLogo = document.getElementById('popupLogo');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupSubtitle = document.getElementById('popupSubtitle');
+        const popupDescription = document.getElementById('popupDescription');
+        const popupCatalogBtn = document.getElementById('popupCatalogBtn');
+        const emailSubject = document.getElementById('emailSubject');
+        const emailForm = document.getElementById('emailForm');
+        const userMessage = document.getElementById('userMessage');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+        // Определение типа устройства и ориентации
+        function getDeviceType() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const aspectRatio = width / height;
+            
+            // Для мобильных в портретной ориентации (9:16 ≈ 0.56)
+            if (aspectRatio < 0.75 && width < 768) {
+                return 'mobile-portrait';
+            }
+            // Для мобильных в альбомной ориентации
+            else if (aspectRatio > 1.3 && height < 768) {
+                return 'mobile-landscape';
+            }
+            // Для ПК (16:9 ≈ 1.78)
+            else if (aspectRatio > 1.5) {
+                return 'desktop';
+            }
+            // Для планшетов
+            else {
+                return 'tablet';
+            }
+        }
+
+        // Создание кубиков с учетом устройства
+        function createCubes() {
+            cubeContainer.innerHTML = '';
+            
+            const deviceType = getDeviceType();
+            
+            // Настраиваем количество колонок в зависимости от устройства
+            if (deviceType === 'mobile-portrait') {
+                cubeContainer.style.gridTemplateColumns = '1fr';
+            } else if (deviceType === 'mobile-landscape') {
+                cubeContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            } else if (deviceType === 'tablet') {
+                cubeContainer.style.gridTemplateColumns = 'repeat(2, 1fr)';
+            } else {
+                // Для ПК используем изначальную сетку
+                cubeContainer.style.gridTemplateColumns = 'repeat(4, 1fr)';
+            }
+            
+            globitProducts.forEach(product => {
+                const cube = document.createElement('div');
+                cube.className = 'cube hidden';
+                cube.id = `cube-${product.id}`;
+                cube.dataset.product = product.name;
+                
+                // Создаем содержимое кубика
+                const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
+                
+                cube.innerHTML = `
+                    <img src="${product.logoUrl}" alt="${product.name}" class="cube-logo">
+                    <div class="cube-title">${product.name}</div>
+                    <div class="cube-desc">${product.title}</div>
+                    ${hasCatalog ? 
+                        `<button class="catalog-btn" data-catalog-url="${product.catalogUrl}">
+                            <i class="fas fa-folder"></i> Каталог готовых работ
+                        </button>` 
+                        : ''
+                    }
+                `;
+                
+                // Добавляем обработчик клика на кубик
+                cube.addEventListener('click', (e) => {
+                    // Проверяем, не нажали ли мы на кнопку каталога
+                    if (!e.target.closest('.catalog-btn')) {
+                        showPopup(product);
+                    }
+                });
+                
+                // Добавляем обработчик для кнопки каталога в кубике
+                const catalogBtn = cube.querySelector('.catalog-btn');
+                if (catalogBtn) {
+                    catalogBtn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Останавливаем всплытие события
+                        const url = catalogBtn.dataset.catalogUrl;
+                        if (url && url !== '#') {
+                            window.open(url, '_blank');
+                        }
+                    });
+                }
+                
+                cubeContainer.appendChild(cube);
+            });
+            
+            // Анимация появления кубиков
+            setTimeout(() => {
+                const cubes = document.querySelectorAll('.cube');
+                cubes.forEach((cube, index) => {
+                    setTimeout(() => {
+                        cube.classList.remove('hidden');
+                        cube.classList.add('visible');
+                    }, index * 150);
+                });
+            }, 300);
+        }
+        
+        // Показать попап с информацией
+        function showPopup(product) {
+            // Заполняем данные
+            popupLogo.src = product.logoUrl;
+            popupTitle.textContent = product.name;
+            popupSubtitle.textContent = product.title;
+            popupDescription.textContent = product.description;
+            
+            // Настраиваем кнопку каталога в попапе
+            const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
+            if (hasCatalog) {
+                popupCatalogBtn.href = product.catalogUrl;
+                popupCatalogBtn.style.display = 'block';
+                popupCatalogBtn.innerHTML = `<i class="fas fa-folder-open"></i> Открыть каталог готовых работ`;
+            } else {
+                popupCatalogBtn.style.display = 'none';
+            }
+            
+            // Устанавливаем тему письма
+            emailSubject.value = product.name;
+            
+            // Устанавливаем текст по умолчанию в сообщение
+            userMessage.value = `Здравствуйте! \n\nМеня интересует продукт "${product.name}" (${product.title}). \n\nХотел бы заказать аналогичное решение/узнать больше информации. \n\nМои требования/пожелания: `;
+            
+            // Показываем попап
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Закрыть попап
+        function closePopupFunc() {
+            popup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Обработка отправки формы
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const emailTo = document.getElementById('emailTo').value;
+            const subject = document.getElementById('emailSubject').value;
+            const name = document.getElementById('userName').value;
+            const message = document.getElementById('userMessage').value;
+            
+            // Формируем mailto ссылку
+            const mailtoLink = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Имя: ${name}\n\nСообщение:\n${message}`)}`;
+            
+            // Открываем почтовый клиент
+            window.location.href = mailtoLink;
+            
+            // Закрываем попап через 0.5 секунды
+            setTimeout(() => {
+                closePopupFunc();
+                alert('Открывается почтовый клиент. Пожалуйста, отправьте сообщение через него.');
+            }, 500);
+        }
+
+        // Прокрутка к кубикам на мобильных
+        function scrollToCubes() {
+            const deviceType = getDeviceType();
+            if (deviceType === 'mobile-portrait' || deviceType === 'mobile-landscape') {
+                cubeContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            createCubes();
+            
+            // Обработчики событий
+            closePopup.addEventListener('click', closePopupFunc);
+            emailForm.addEventListener('submit', handleSubmit);
+            
+            // Обработчик для мобильного меню
+            mobileMenuBtn.addEventListener('click', scrollToCubes);
+            
+            // Закрытие попапа по клику вне его
+            popup.addEventListener('click', (event) => {
+                if (event.target === popup) {
+                    closePopupFunc();
+                }
+            });
+            
+            // Анимация логотипа
+            mainLogo.addEventListener('click', () => {
+                const cubes = document.querySelectorAll('.cube');
+                
+                // Анимация "прыжка" всех кубиков
+                cubes.forEach((cube, index) => {
+                    setTimeout(() => {
+                        cube.style.transform = 'translateY(-30px)';
+                        setTimeout(() => {
+                            cube.style.transform = 'translateY(0)';
+                        }, 300);
+                    }, index * 100);
+                });
+                
+                // Анимация самого логотипа
+                mainLogo.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    mainLogo.style.transform = 'scale(1)';
+                }, 300);
+            });
+            
+            // Добавляем поддержку клавиши Escape для закрытия попапа
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && popup.style.display === 'flex') {
+                    closePopupFunc();
+                }
+            });
+            
+            // Добавляем обработчики для соцсетей
+            document.querySelectorAll('.social-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    console.log(`Переход на: ${this.href}`);
+                });
+            });
+            
+            // Обработчик изменения ориентации и размера окна
+            window.addEventListener('resize', () => {
+                createCubes();
+            });
+            
+            window.addEventListener('orientationchange', () => {
+                setTimeout(() => {
+                    createCubes();
+                }, 300);
+            });
+        });
+        
+        // Консольное сообщение
+        console.log(`
+        ╔══════════════════════════════════════════════════════╗
+        ║               IT GLOBAL WEBSITE                      ║
+        ║                                                      ║
+        ║  • Адаптивный дизайн: 9:16 и 16:9                  ║
+        ║  • 7 интерактивных кубиков продуктов                ║
+        ║  • Каталоги готовых работ для каждого продукта      ║
+        ║  • Соцсети: Telegram, WhatsApp, YouTube             ║
+        ║  • Форма заказа с автоматической темой              ║
+        ║  • Ретро-дизайн в стиле терминала                   ║
+        ║                                                      ║
+        ║  Сайт готов к использованию!                        ║
+        ╚══════════════════════════════════════════════════════╝
+        `);
+    </script>
+</body>
+</html>
