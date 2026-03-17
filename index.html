@@ -267,7 +267,7 @@
         /* Стиль кубиков - КРУПНЕЕ */
         .cube {
             width: 220px; /* Увеличил размер */
-            height: 250px; /* Увеличил высоту для кнопки */
+            height: 280px; /* Увеличена высота для двух кнопок */
             background: linear-gradient(145deg, #002200, #004400);
             border: 4px solid #00aa00;
             border-radius: 20px;
@@ -313,7 +313,7 @@
             width: 90px; /* Немного уменьшил для места под кнопку */
             height: 90px;
             object-fit: contain;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             filter: drop-shadow(0 0 12px #00ff00);
             transition: transform 0.3s;
         }
@@ -326,16 +326,16 @@
             font-weight: bold;
             color: #ffffff;
             font-size: 1.4rem; /* Увеличил */
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
         }
         
         .cube-desc {
             font-size: 0.9rem; /* Чуть уменьшил */
             color: #00cc00;
-            line-height: 1.4;
-            margin-bottom: 10px;
-            min-height: 40px;
+            line-height: 1.3;
+            margin-bottom: 8px;
+            min-height: 35px;
         }
         
         /* Кнопка каталога в кубике */
@@ -348,7 +348,7 @@
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s;
-            width: 90%;
+            width: 100%;
             margin-top: 5px;
             display: flex;
             align-items: center;
@@ -361,6 +361,31 @@
             background: linear-gradient(90deg, #00aa00, #00ff00);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        /* Специальная кнопка для верификатора */
+        .verify-btn {
+            background: linear-gradient(90deg, #0066aa, #0088cc);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #00aaff;
+        }
+        
+        .verify-btn:hover {
+            background: linear-gradient(90deg, #0088cc, #00aaff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 150, 255, 0.4);
         }
         
         /* Блок описания снизу */
@@ -722,7 +747,7 @@
             
             .cube {
                 width: 200px;
-                height: 230px;
+                height: 260px;
             }
             
             .cube-logo {
@@ -748,7 +773,7 @@
             
             .cube {
                 width: 180px;
-                height: 210px;
+                height: 240px;
             }
             
             .cube-logo {
@@ -784,7 +809,7 @@
             
             .cube {
                 width: 180px;
-                height: 210px;
+                height: 240px;
             }
             
             .cube-logo {
@@ -854,7 +879,7 @@
             
             .cube {
                 width: 280px; /* Крупнее для удобства нажатия */
-                height: 280px;
+                height: 300px;
                 margin: 0 auto;
             }
             
@@ -871,7 +896,7 @@
                 font-size: 1.1rem;
             }
             
-            .catalog-btn {
+            .catalog-btn, .verify-btn {
                 padding: 10px 15px;
                 font-size: 1rem;
             }
@@ -976,7 +1001,7 @@
             /* Маленькие телефоны в портретной ориентации */
             .cube {
                 width: 240px;
-                height: 260px;
+                height: 280px;
             }
             
             .cube-logo {
@@ -1032,27 +1057,27 @@
             
             .cube {
                 width: 160px;
-                height: 190px;
+                height: 210px;
             }
             
             .cube-logo {
                 width: 70px;
                 height: 70px;
-                margin-bottom: 10px;
+                margin-bottom: 8px;
             }
             
             .cube-title {
                 font-size: 1.2rem;
-                margin-bottom: 5px;
+                margin-bottom: 4px;
             }
             
             .cube-desc {
                 font-size: 0.8rem;
             }
             
-            .catalog-btn {
-                padding: 6px 10px;
-                font-size: 0.8rem;
+            .catalog-btn, .verify-btn {
+                padding: 5px 8px;
+                font-size: 0.75rem;
             }
             
             .logo {
@@ -1114,7 +1139,7 @@
             
             .cube {
                 width: 250px;
-                height: 280px;
+                height: 300px;
             }
             
             .cube-logo {
@@ -1130,7 +1155,7 @@
                 font-size: 1.1rem;
             }
             
-            .catalog-btn {
+            .catalog-btn, .verify-btn {
                 padding: 10px 15px;
                 font-size: 1rem;
             }
@@ -1489,7 +1514,8 @@
                 title: "Основная компания",
                 description: "Головная компания, объединяющая все проекты GloBIT. Мы создаем инновационные цифровые решения для бизнеса и развлечений. Специализируемся на разработке веб-приложений, игр, систем безопасности и AI-технологий.",
                 logoUrl: "https://i.ibb.co/pBS7G57b/IT-Global.jpg",
-                catalogUrl: "#" // Основная компания без отдельного каталога
+                catalogUrl: "#", // Основная компания без отдельного каталога
+                verifyUrl: "https://drive.google.com/file/d/1myQg2-wfi66DUiroLXw35JfI6fkWOg3i/view?usp=sharing" // Верификатор
             },
             {
                 id: 2,
@@ -1606,33 +1632,61 @@
                 
                 // Создаем содержимое кубика
                 const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
+                const hasVerify = product.verifyUrl && product.verifyUrl !== '#';
+                
+                let buttonsHTML = '';
+                
+                // Кнопка каталога если есть
+                if (hasCatalog) {
+                    buttonsHTML += `
+                        <button class="catalog-btn" data-catalog-url="${product.catalogUrl}">
+                            <i class="fas fa-folder"></i> Каталог готовых работ
+                        </button>
+                    `;
+                }
+                
+                // Кнопка верификатора если есть (только для IT Global)
+                if (hasVerify) {
+                    buttonsHTML += `
+                        <button class="verify-btn" data-verify-url="${product.verifyUrl}">
+                            <i class="fas fa-check-circle"></i> Верификатор IT Global
+                        </button>
+                    `;
+                }
                 
                 cube.innerHTML = `
                     <img src="${product.logoUrl}" alt="${product.name}" class="cube-logo">
                     <div class="cube-title">${product.name}</div>
                     <div class="cube-desc">${product.title}</div>
-                    ${hasCatalog ? 
-                        `<button class="catalog-btn" data-catalog-url="${product.catalogUrl}">
-                            <i class="fas fa-folder"></i> Каталог готовых работ
-                        </button>` 
-                        : ''
-                    }
+                    ${buttonsHTML}
                 `;
                 
                 // Добавляем обработчик клика на кубик
                 cube.addEventListener('click', (e) => {
-                    // Проверяем, не нажали ли мы на кнопку каталога
-                    if (!e.target.closest('.catalog-btn')) {
+                    // Проверяем, не нажали ли мы на кнопку
+                    if (!e.target.closest('.catalog-btn') && !e.target.closest('.verify-btn')) {
                         showPopup(product);
                     }
                 });
                 
-                // Добавляем обработчик для кнопки каталога в кубике
+                // Добавляем обработчик для кнопки каталога
                 const catalogBtn = cube.querySelector('.catalog-btn');
                 if (catalogBtn) {
                     catalogBtn.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Останавливаем всплытие события
+                        e.stopPropagation();
                         const url = catalogBtn.dataset.catalogUrl;
+                        if (url && url !== '#') {
+                            window.open(url, '_blank');
+                        }
+                    });
+                }
+                
+                // Добавляем обработчик для кнопки верификатора
+                const verifyBtn = cube.querySelector('.verify-btn');
+                if (verifyBtn) {
+                    verifyBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const url = verifyBtn.dataset.verifyUrl;
                         if (url && url !== '#') {
                             window.open(url, '_blank');
                         }
@@ -1815,6 +1869,7 @@
         ║  • Частицы на фоне с интерактивностью              ║
         ║  • Адаптивный дизайн: 9:16 и 16:9                  ║
         ║  • 7 интерактивных кубиков продуктов                ║
+        ║  • Кнопка "Верификатор IT Global" в кубике IT Global║
         ║  • Каталоги готовых работ для каждого продукта      ║
         ║  • Соцсети: Telegram, WhatsApp, YouTube             ║
         ║  • Форма заказа с автоматической темой              ║
@@ -1826,6 +1881,3 @@
     </script>
 </body>
 </html>
-
-
-
