@@ -1,233 +1,964 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <title>IT Global</title>
+    <!-- Фавикон (картинка возле URL) -->
+    <link rel="icon" href="https://i.ibb.co/RkJWBxDb/i.webp">
+    <!-- Для разных устройств -->
+    <link rel="apple-touch-icon" href="https://i.ibb.co/pBS7G57b/IT-Global.jpg">
+    <link rel="shortcut icon" href="https://i.ibb.co/RkJWBxDb/i.webp" type="image/jpeg">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>GloBank Admin + IT Global Заказы</title>
-    <link rel="icon" type="image/png" href="https://i.ibb.co/WWwR7w2r/IMG-0305.jpg">
-    <link rel="apple-touch-icon" href="https://i.ibb.co/WWwR7w2r/IMG-0305.jpg">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="GloBank Admin">
-    <meta name="theme-color" content="#0055ff">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Global :: GloBIT Кубики</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Библиотека для частиц -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background: #f5f7fa; 
-            min-height: 100vh; 
+        /* Ретро-стиль: зелёный фон, чёрный текст */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: #001a00;
+            color: #00ff00;
+            font-size: 1.1rem;
+            line-height: 1.6;
             padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 255, 0, 0.03) 50%, transparent 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.3;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: rgba(0, 34, 0, 0.9);
+            border: 3px solid #00aa00;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(0, 255, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff00, #003300, #00ff00);
+            z-index: -1;
+            border-radius: 17px;
+            opacity: 0.1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px dashed #00aa00;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 4.5rem;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 15px #00ff00, 0 0 30px rgba(0, 255, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 5px;
+            position: relative;
+            padding: 15px 30px;
+            border-radius: 15px;
+            background: rgba(0, 50, 0, 0.3);
+            border: 3px solid transparent;
+        }
+        
+        .logo:hover {
+            text-shadow: 0 0 25px #00ff00, 0 0 50px #00ff00;
+            transform: scale(1.05);
+            border-color: #00ff00;
+            background: rgba(0, 80, 0, 0.3);
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
+        }
+        
+        .logo .it {
+            color: #ffffff;
+            background: linear-gradient(45deg, #005500, #008800);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-right: 15px;
+            text-shadow: 0 0 10px #fff;
+        }
+        
+        .logo .global {
+            letter-spacing: 12px;
+            background: linear-gradient(90deg, #00aa00, #00ff00, #00aa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            color: #00cc00;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #001a00;
             display: flex;
             flex-direction: column;
-        }
-        .admin-container { max-width: 1400px; width: 100%; margin: 0 auto; flex: 1; }
-        .footer {
-            text-align: center;
-            padding: 24px 16px 16px;
-            font-size: 12px;
-            color: #8e8e93;
-            border-top: 1px solid #e5e5ea;
-            margin-top: 20px;
-            background: transparent;
-        }
-        .footer a { color: #0055ff; text-decoration: none; }
-        .card { background: white; border-radius: 24px; padding: 28px 24px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
-        .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-img { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; }
-        .logo-title { font-size: 24px; font-weight: 600; color: #1c1c1e; }
-        .admin-badge { background: #0055ff; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .btn:active { transform: scale(0.97); }
-        .btn-primary { background: #0055ff; color: white; }
-        .btn-success { background: #34c759; color: white; }
-        .btn-danger { background: #ff3b30; color: white; }
-        .btn-warning { background: #ff9500; color: white; }
-        .btn-outline { background: transparent; border: 1px solid #e5e5ea; color: #1c1c1e; }
-        .btn-download { background: #8e8e93; color: white; }
-        .main-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
-        }
-        .main-tab {
-            padding: 10px 24px;
-            background: transparent;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
-            color: #8e8e93;
-            cursor: pointer;
-            border-radius: 40px;
-            transition: all 0.2s;
-        }
-        .main-tab.active {
-            background: #0055ff;
-            color: white;
-        }
-        .tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-        .tab {
-            padding: 10px 20px;
-            background: transparent;
-            border: none;
-            font-size: 15px;
-            font-weight: 500;
-            color: #8e8e93;
-            cursor: pointer;
-            border-radius: 40px;
-        }
-        .tab.active {
-            background: #0055ff;
-            color: white;
-        }
-        .loan-card, .order-card {
-            background: #f8f9fc;
-            border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 16px;
-            border: 1px solid #e5e5ea;
-        }
-        .loan-header, .order-header {
-            display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #e5e5ea;
+            z-index: 99999;
+            transition: opacity 0.5s ease-out;
         }
-        .loan-status, .order-status {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
+        
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
-        .status-pending { background: #fff3e0; color: #e67700; }
-        .status-waiting_user_signature { background: #fff3e0; color: #e67700; }
-        .status-waiting_admin_signature { background: #fff3e0; color: #e67700; }
-        .status-completed { background: #e6f7e6; color: #2e7d32; }
-        .status-new { background: #fff3e0; color: #e67700; }
-        .loan-details, .order-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-bottom: 16px;
+        
+        .loading-title {
+            color: #00ff00;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 0 10px #00ff00;
+            animation: pulse 2s infinite;
         }
-        .detail-item { font-size: 14px; }
-        .detail-label { color: #8e8e93; margin-right: 8px; }
-        .detail-value { font-weight: 500; color: #1c1c1e; }
-        .loan-actions, .order-actions {
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .loading-cubes {
             display: flex;
-            gap: 12px;
-            margin-top: 16px;
-            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
         }
-        .signature-canvas { border: 2px dashed #e5e5ea; border-radius: 14px; width: 100%; height: 300px; margin: 16px 0; background: white; }
-        .admin-signature-img { max-width: 300px; max-height: 300px; margin: 10px 0; border: 1px solid #e5e5ea; border-radius: 12px; padding: 5px; }
-        .stats {
+        
+        .loading-cube {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #00aa00, #00ff00);
+            border-radius: 8px;
+            animation: cubeJump 1.5s infinite ease-in-out;
+            box-shadow: 0 0 15px #00ff00;
+        }
+        
+        .loading-cube:nth-child(1) { animation-delay: 0s; }
+        .loading-cube:nth-child(2) { animation-delay: 0.2s; }
+        .loading-cube:nth-child(3) { animation-delay: 0.4s; }
+        .loading-cube:nth-child(4) { animation-delay: 0.6s; }
+        .loading-cube:nth-child(5) { animation-delay: 0.8s; }
+        
+        @keyframes cubeJump {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+        
+        .loading-text {
+            color: #00cc00;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-align: center;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+        
+        .loading-progress {
+            width: 300px;
+            height: 10px;
+            background: rgba(0, 50, 0, 0.5);
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+            border: 1px solid #00aa00;
+        }
+        
+        .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #008800, #00ff00);
+            border-radius: 5px;
+            transition: width 0.3s;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        
+        .loading-dots {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-top: 10px;
+            animation: dots 1.5s infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: "."; }
+            40% { content: ".."; }
+            60%, 100% { content: "..."; }
+        }
+        
+        .cube-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 50px;
+            margin: 60px 0;
+            min-height: 400px;
+            position: relative;
+            padding: 30px;
+            justify-items: center;
+            align-items: center;
         }
-        .stat-card {
-            background: linear-gradient(135deg, #0055ff, #00aaff);
+        
+        .cube {
+            width: 220px;
+            height: 280px;
+            background: linear-gradient(145deg, #002200, #004400);
+            border: 4px solid #00aa00;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            z-index: 2;
+        }
+        
+        .cube::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff00, #003300, #00ff00);
+            z-index: -1;
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .cube:hover {
+            transform: translateY(-20px) rotateY(15deg) scale(1.08);
+            box-shadow: 0 25px 50px rgba(0, 255, 0, 0.6);
+            border-color: #00ff00;
+        }
+        
+        .cube:hover::before {
+            opacity: 0.4;
+        }
+        
+        .cube-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 12px #00ff00);
+            transition: transform 0.3s;
+        }
+        
+        .cube:hover .cube-logo {
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .cube-title {
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+        }
+        
+        .cube-desc {
+            font-size: 0.9rem;
+            color: #00cc00;
+            line-height: 1.3;
+            margin-bottom: 8px;
+            min-height: 35px;
+        }
+        
+        .catalog-btn {
+            background: linear-gradient(90deg, #008800, #00aa00);
             color: white;
-            padding: 20px;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #00ff00;
+        }
+        
+        .catalog-btn:hover {
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        .verify-btn {
+            background: linear-gradient(90deg, #0066aa, #0088cc);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #00aaff;
+        }
+        
+        .verify-btn:hover {
+            background: linear-gradient(90deg, #0088cc, #00aaff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 150, 255, 0.4);
+        }
+        
+        .description {
+            background: rgba(0, 30, 0, 0.5);
             border-radius: 15px;
+            padding: 30px;
+            margin: 50px 0;
+            border-left: 6px solid #00aa00;
             text-align: center;
         }
-        .stat-number {
-            font-size: 32px;
+        
+        .description h2 {
+            color: #00ff00;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        
+        .description p {
+            font-size: 1.3rem;
+            color: #00cc00;
+            max-width: 900px;
+            margin: 0 auto 25px;
+            line-height: 1.8;
+        }
+        
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 20, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .popup-content {
+            background: linear-gradient(145deg, #002200, #003300);
+            width: 90%;
+            max-width: 800px;
+            border: 4px solid #00aa00;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 0 60px rgba(0, 255, 0, 0.5);
+            animation: slideUp 0.4s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .close-popup {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff3333;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10001;
+        }
+        
+        .close-popup:hover {
+            background: #ff5555;
+            transform: rotate(90deg);
+        }
+        
+        .popup-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .popup-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 0 auto 20px;
+            display: block;
+            filter: drop-shadow(0 0 15px #00ff00);
+        }
+        
+        .popup-title {
+            color: #00ff00;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #00ff00;
+        }
+        
+        .popup-subtitle {
+            color: #00cc00;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+        }
+        
+        .popup-description {
+            color: #00cc00;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .popup-catalog-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #008800, #00aa00);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+            text-decoration: none;
+            text-align: center;
+            border: 2px solid #00ff00;
+        }
+        
+        .popup-catalog-btn:hover {
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        .order-form {
+            background: rgba(0, 40, 0, 0.4);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #00aa00;
+            margin-top: 30px;
+        }
+        
+        .form-title {
+            color: #00ff00;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #00cc00;
+            margin-bottom: 8px;
+            font-size: 1rem;
             font-weight: bold;
         }
-        .stat-label {
-            font-size: 14px;
-            margin-top: 5px;
-            opacity: 0.9;
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 20, 0, 0.7);
+            border: 2px solid #00aa00;
+            border-radius: 10px;
+            color: #00ff00;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
         }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+        
+        .send-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            color: #001a00;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .send-button:hover {
+            background: linear-gradient(90deg, #00ff00, #00aa00);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        .form-message {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .form-message.success {
+            background: rgba(0, 80, 0, 0.5);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            display: block;
+        }
+        
+        .form-message.error {
+            background: rgba(80, 0, 0, 0.5);
+            color: #ff6666;
+            border: 1px solid #ff6666;
+            display: block;
+        }
+        
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px dashed #00aa00;
+            color: #00aa00;
+            position: relative;
+        }
+        
+        footer::before {
+            content: "[IT-GLOBAL-SOCIAL]";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #001a00;
+            padding: 0 20px;
+            font-size: 1rem;
+            color: #00aa00;
+        }
+        
+        .social-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .social-card {
+            background: rgba(0, 40, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #00aa00;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .social-card:hover {
+            border-color: #00ff00;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.3);
+        }
+        
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .telegram .social-icon { color: #0088cc; }
+        .whatsapp .social-icon { color: #25D366; }
+        .youtube .social-icon { color: #FF0000; }
+        
+        .social-title {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            background: rgba(0, 60, 0, 0.5);
+            color: #00cc00;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: all 0.3s;
+            border: 1px solid #00aa00;
+        }
+        
+        .social-link:hover {
+            background: rgba(0, 80, 0, 0.7);
+            color: #00ff00;
+            border-color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #00aa00;
+            font-size: 1rem;
+            color: #00aa00;
+        }
+        
+        .cube.hidden {
+            opacity: 0;
+            transform: translateY(60px) scale(0.3) rotate(180deg);
+        }
+        
+        .cube.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
+        }
+        
+        .instructions {
+            text-align: center;
+            color: #00cc00;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(0, 40, 0, 0.3);
+            border-radius: 10px;
+            border: 1px dashed #00aa00;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #00aa00;
+            color: #001a00;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            z-index: 9999;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu-btn:hover {
+            background: #00ff00;
+            transform: scale(1.1);
+        }
+        
         @media (max-width: 768px) {
-            .loan-details, .order-details { grid-template-columns: 1fr; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
-            .header { flex-direction: column; text-align: center; }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .cube-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            .cube {
+                width: 180px;
+                height: 240px;
+            }
+            .logo {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .cube-container {
+                grid-template-columns: 1fr;
+            }
+            .cube {
+                width: 240px;
+                height: 280px;
+            }
+            .logo {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="admin-container">
-        <div class="card">
-            <div class="header">
-                <div class="logo-area">
-                    <img src="https://i.ibb.co/WWwR7w2r/IMG-0305.jpg" alt="GloBank" class="logo-img">
-                    <div><span class="logo-title">GloBank</span><span class="admin-badge">Админ панель</span></div>
-                </div>
-                <button class="btn btn-outline" onclick="logout()">Выйти</button>
-            </div>
-            
-            <!-- Главные вкладки -->
-            <div class="main-tabs">
-                <button class="main-tab active" onclick="switchMainTab('loans')">🏦 Займы GloBank</button>
-                <button class="main-tab" onclick="switchMainTab('orders')">📦 Заказы IT Global</button>
-            </div>
-            
-            <!-- Вкладка Займы -->
-            <div id="loansSection">
-                <div class="tabs">
-                    <button class="tab active" onclick="showTab('pending')">⏳ На модерации</button>
-                    <button class="tab" onclick="showTab('waiting_user_signature')">✍️ Ожидают подписи</button>
-                    <button class="tab" onclick="showTab('waiting_admin_signature')">🖊️ Подпись админа</button>
-                    <button class="tab" onclick="showTab('completed')">✅ Подписанные</button>
-                </div>
-                <div id="loansList"><div class="loan-card" style="text-align:center;">Загрузка...</div></div>
-            </div>
-            
-            <!-- Вкладка Заказы IT Global -->
-            <div id="ordersSection" style="display: none;">
-                <div class="tabs">
-                    <button class="tab active" onclick="showOrdersTab('new')">🆕 Новые заказы</button>
-                    <button class="tab" onclick="showOrdersTab('read')">📖 Прочитанные</button>
-                    <button class="tab" onclick="showOrdersTab('all')">📋 Все заказы</button>
-                </div>
-                <div class="stats" id="ordersStats"></div>
-                <div id="ordersList"><div class="order-card" style="text-align:center;">Загрузка...</div></div>
-            </div>
+    <div id="particles-js"></div>
+    
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-title">IT GLOBAL SYSTEMS</div>
+        <div class="loading-cubes">
+            <div class="loading-cube"></div>
+            <div class="loading-cube"></div>
+            <div class="loading-cube"></div>
+            <div class="loading-cube"></div>
+            <div class="loading-cube"></div>
         </div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="loadingProgress"></div>
+        </div>
+        <div class="loading-text">
+            >_ Загрузка кубиков GloBIT... Инициализация систем...
+        </div>
+        <div class="loading-dots" id="loadingDots"></div>
     </div>
-
-    <!-- Футер -->
-    <div class="footer">
-        <p>© 2026 IT Global. Все права защищены.</p>
-        <p>Связь с разработчиком: <a href="mailto:vasiliy.novikov389@gmail.com">vasiliy.novikov389@gmail.com</a></p>
+    
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo" id="mainLogo">
+                <span class="it">IT</span><span class="global">GLOBAL</span>
+            </div>
+            <p class="tagline">>_ Нажмите на любой кубик для получения информации и заказа</p>
+        </div>
+        
+        <div class="cube-container" id="cubeContainer"></div>
+        
+        <div class="description">
+            <h2>Кубики GloBIT от IT Global</h2>
+            <p>Каждый кубик представляет собой уникальный продукт или сервис нашей компании. Нажмите на любой кубик, чтобы увидеть подробную информацию и возможность заказа аналогичного решения для вашего бизнеса.</p>
+            <p>Мы создаем инновационные цифровые продукты под брендом IT Global. От игровых платформ до систем безопасности — каждый наш продукт тщательно проработан и готов к использованию.</p>
+            <p><strong>Для каждого продукта доступен каталог готовых работ!</strong> Нажмите кнопку "Каталог готовых работ" чтобы увидеть примеры реализованных проектов.</p>
+        </div>
+        
+        <!-- ФОРМА ЗАКАЗА (БЕЗ НОМЕРА КАРТЫ) -->
+        <div class="order-form">
+            <h3 class="form-title">📋 Заказать продукт</h3>
+            <form id="orderForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="productName">🏷️ Название продукта</label>
+                        <input type="text" id="productName" placeholder="Например: GloBIT Arcade" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="globalId">🆔 Global ID</label>
+                        <input type="text" id="globalId" placeholder="Введите ваш Global ID" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fullName">👤 ФИО</label>
+                        <input type="text" id="fullName" placeholder="Иванов Иван Иванович" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phoneNumber">📞 Номер телефона</label>
+                        <input type="tel" id="phoneNumber" placeholder="+7 999 123-45-67" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="snils">🆔 СНИЛС</label>
+                        <input type="text" id="snils" placeholder="123-456-789 01" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="orderMessage">📝 Детали заказа</label>
+                        <textarea id="orderMessage" placeholder="Опишите, какой продукт вы хотите заказать или задайте вопрос..." required></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="send-button">
+                    <i class="fas fa-paper-plane"></i> Отправить заявку
+                </button>
+            </form>
+            <div id="formMessage" class="form-message"></div>
+        </div>
+        
+        <div class="instructions">
+            <i class="fas fa-mouse-pointer"></i> Нажмите на любой кубик для просмотра подробной информации
+        </div>
+        
+        <footer>
+            <div class="social-section">
+                <div class="social-card telegram">
+                    <i class="fab fa-telegram social-icon"></i>
+                    <h3 class="social-title">Telegram канал</h3>
+                    <p>IT Global - официальный канал</p>
+                    <a href="https://t.me/itgloby" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i> Подписаться: @itgloby
+                    </a>
+                </div>
+                
+                <div class="social-card whatsapp">
+                    <i class="fab fa-whatsapp social-icon"></i>
+                    <h3 class="social-title">WhatsApp контакт</h3>
+                    <p>Свяжитесь с нами напрямую</p>
+                    <a href="https://wa.me/79950091935" target="_blank" class="social-link">
+                        <i class="fab fa-whatsapp"></i> Написать: +7 (995) 009-19-35
+                    </a>
+                </div>
+                
+                <div class="social-card youtube">
+                    <i class="fab fa-youtube social-icon"></i>
+                    <h3 class="social-title">YouTube канал</h3>
+                    <p>Саряныч - обзоры и IT новости</p>
+                    <a href="https://www.youtube.com/@saryanis389" target="_blank" class="social-link">
+                        <i class="fab fa-youtube"></i> Подписаться: @saryanis389
+                    </a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 IT Global. Все права защищены.</p>
+                <p>Связь с разработчиком сайта: vasiliy.novikov389@gmail.com</p>
+            </div>
+        </footer>
     </div>
-
-    <!-- Модальное окно для подписи админа -->
-    <div id="adminSignatureModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
-        <div style="background:white; border-radius:24px; padding:24px; max-width:500px; width:90%;">
-            <h3 style="margin-bottom:16px;">Подпись заимодавца (GloBank)</h3>
-            <p style="font-size:14px; color:#666; margin-bottom:12px;">Загрузите изображение подписи (PNG, JPG) или нарисуйте:</p>
-            <input type="file" id="adminSignatureFile" accept="image/png,image/jpeg" style="margin-bottom:16px;">
-            <canvas id="adminSignatureCanvas" width="300" height="300" style="width:100%; height:300px; border:2px dashed #e5e5ea; border-radius:14px; margin-top:10px;"></canvas>
-            <div style="display:flex; gap:12px; margin-top:16px;">
-                <button class="btn btn-secondary" onclick="clearAdminSignature()">Очистить холст</button>
-                <button class="btn btn-primary" onclick="saveAdminSignature()">Сохранить подпись</button>
-                <button class="btn btn-outline" onclick="closeModal()">Отмена</button>
+    
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <button class="close-popup" id="closePopup">×</button>
+            
+            <div class="popup-header">
+                <img id="popupLogo" class="popup-logo" src="" alt="Логотип">
+                <h1 id="popupTitle" class="popup-title"></h1>
+                <h2 id="popupSubtitle" class="popup-subtitle"></h2>
+            </div>
+            
+            <p id="popupDescription" class="popup-description"></p>
+            
+            <a id="popupCatalogBtn" class="popup-catalog-btn" href="#" target="_blank">
+                <i class="fas fa-folder-open"></i> Открыть каталог готовых работ
+            </a>
+            
+            <div class="order-form" style="margin-top: 20px;">
+                <h3 class="form-title">📋 Заказать этот продукт</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="popupFullName">👤 ФИО</label>
+                        <input type="text" id="popupFullName" placeholder="Иванов Иван Иванович" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="popupGlobalId">🆔 Global ID</label>
+                        <input type="text" id="popupGlobalId" placeholder="Введите ваш Global ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="popupPhone">📞 Телефон</label>
+                        <input type="tel" id="popupPhone" placeholder="+7 999 123-45-67" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="popupSnils">🆔 СНИЛС</label>
+                        <input type="text" id="popupSnils" placeholder="123-456-789 01" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="popupMessage">📝 Сообщение</label>
+                        <textarea id="popupMessage" placeholder="Опишите, что именно вас интересует..." required></textarea>
+                    </div>
+                </div>
+                <button type="button" class="send-button" id="popupSendBtn">
+                    <i class="fas fa-paper-plane"></i> Отправить заявку
+                </button>
+                <div id="popupFormMessage" class="form-message"></div>
             </div>
         </div>
     </div>
 
     <script type="module">
-        // GLoB Data Firebase конфиг
         const firebaseConfig = {
             apiKey: "AIzaSyA6GGJxAiao77U7_9mBUEjftmS_FnSWbIw",
             authDomain: "glob-data.firebaseapp.com",
@@ -236,389 +967,137 @@
             messagingSenderId: "122757049174",
             appId: "1:122757049174:web:ebb425edd0e1a8ea9a44f7"
         };
-
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc, deleteDoc, collection, query, where, getDocs, addDoc, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth();
-        const db = getFirestore();
-        let signatureCanvas = null, signatureCtx = null, currentLoanId = null;
-        let currentMainTab = 'loans';
-        let currentLoansTab = 'pending';
-        let currentOrdersTab = 'new';
-
-        // ============ ФУНКЦИИ ДЛЯ ЗАЙМОВ (GloBank) ============
         
-        async function downloadUserData(loan) {
-            const htmlContent = `
-            <!DOCTYPE html>
-            <html>
-            <head><meta charset="UTF-8"><title>Анкета заёмщика GloBank</title>
-            <style>
-                body { font-family: 'DejaVu Sans', 'Arial', sans-serif; padding: 40px; line-height: 1.6; }
-                h2 { color: #0055ff; margin-bottom: 20px; }
-                h3 { margin-top: 20px; margin-bottom: 10px; color: #333; }
-                .info-block { margin-bottom: 20px; }
-                .info-row { margin: 8px 0; }
-                .label { font-weight: bold; display: inline-block; width: 260px; }
-                .value { display: inline-block; }
-                hr { margin: 20px 0; border: none; border-top: 1px solid #ddd; }
-                .header { text-align: center; margin-bottom: 30px; }
-                .footer { margin-top: 30px; text-align: center; font-size: 12px; color: #999; }
-            </style>
-            </head>
-            <body>
-                <div class="header">
-                    <h2>Анкета заёмщика GloBank</h2>
-                    <p>Дата формирования: ${new Date().toLocaleString('ru-RU')}</p>
-                </div>
-                <hr>
-                <div class="info-block">
-                    <h3>Личные данные</h3>
-                    <div class="info-row"><span class="label">Global ID:</span><span class="value">${loan.userGlobalId || '—'}</span></div>
-                    <div class="info-row"><span class="label">ФИО:</span><span class="value">${loan.fullName || '—'}</span></div>
-                    <div class="info-row"><span class="label">Телефон:</span><span class="value">${loan.phoneNumber || '—'}</span></div>
-                    <div class="info-row"><span class="label">Номер карты для получения займа:</span><span class="value">${loan.userCardNumber || '—'}</span></div>
-                    <div class="info-row"><span class="label">СНИЛС:</span><span class="value">${loan.snils || '—'}</span></div>
-                    <div class="info-row"><span class="label">Email:</span><span class="value">${loan.userEmail || '—'}</span></div>
-                </div>
-                <hr>
-                <div class="info-block">
-                    <h3>Информация о займе</h3>
-                    <div class="info-row"><span class="label">Сумма займа:</span><span class="value">${loan.amount?.toLocaleString()} ₽</span></div>
-                    <div class="info-row"><span class="label">Срок:</span><span class="value">${loan.term} дней</span></div>
-                    <div class="info-row"><span class="label">К выплате:</span><span class="value">${loan.totalToPay?.toLocaleString()} ₽</span></div>
-                    <div class="info-row"><span class="label">Дата создания:</span><span class="value">${loan.createdAt ? new Date(loan.createdAt.toDate()).toLocaleString() : '—'}</span></div>
-                    <div class="info-row"><span class="label">Статус:</span><span class="value">${loan.status === 'pending' ? 'На рассмотрении' : loan.status === 'waiting_user_signature' ? 'Ожидает подписи' : loan.status === 'waiting_admin_signature' ? 'Ожидает подписи админа' : loan.status === 'completed' ? 'Подписан' : loan.status}</span></div>
-                </div>
-                <hr>
-                <div class="info-block">
-                    <h3>Реквизиты для оплаты займа</h3>
-                    <div class="info-row"><span class="label">Карта получателя:</span><span class="value">2200 7012 2658 1897</span></div>
-                    <div class="info-row"><span class="label">Получатель:</span><span class="value">Новиков Василий Антонович</span></div>
-                    <div class="info-row"><span class="label">Банк:</span><span class="value">ПАО Т-Банк</span></div>
-                </div>
-                <hr>
-                <div class="footer">
-                    <p>Документ сформирован автоматически в системе GloBank</p>
-                    <p>https://saryanich.github.io/GLoB-Data/</p>
-                </div>
-            </body>
-            </html>`;
-            
-            const tempDiv = document.createElement('div');
-            tempDiv.style.position = 'absolute';
-            tempDiv.style.left = '-9999px';
-            tempDiv.style.top = '0';
-            tempDiv.style.width = '800px';
-            tempDiv.style.background = 'white';
-            tempDiv.style.padding = '20px';
-            tempDiv.innerHTML = htmlContent;
-            document.body.appendChild(tempDiv);
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore();
+        
+        async function sendOrder(orderData, formMessageElement, successCallback) {
+            if (!orderData.productName || !orderData.globalId || !orderData.fullName || !orderData.phoneNumber || !orderData.snils || !orderData.message) {
+                formMessageElement.innerHTML = '❌ Заполните все поля!';
+                formMessageElement.className = 'form-message error';
+                return false;
+            }
             
             try {
-                await new Promise(resolve => setTimeout(resolve, 100));
-                const canvas = await html2canvas(tempDiv, { scale: 2, logging: false, backgroundColor: '#ffffff' });
-                const imgData = canvas.toDataURL('image/png');
-                const { jsPDF } = window.jspdf;
-                const imgWidth = 210;
-                const pageHeight = 297;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                let pdf = new jsPDF('p', 'mm', 'a4');
-                let heightLeft = imgHeight;
-                let position = 0;
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                }
-                pdf.save(`user_data_${loan.userGlobalId || 'user'}.pdf`);
-            } catch (err) {
-                console.error('PDF generation error:', err);
-                alert('Ошибка генерации PDF');
-            } finally {
-                document.body.removeChild(tempDiv);
+                await addDoc(collection(db, "site_orders"), {
+                    productName: orderData.productName,
+                    globalId: orderData.globalId,
+                    fullName: orderData.fullName,
+                    phoneNumber: orderData.phoneNumber,
+                    snils: orderData.snils,
+                    message: orderData.message,
+                    status: "new",
+                    createdAt: new Date(),
+                    read: false
+                });
+                
+                formMessageElement.innerHTML = '✅ Заявка отправлена! Администратор свяжется с вами.';
+                formMessageElement.className = 'form-message success';
+                
+                if (successCallback) successCallback();
+                return true;
+            } catch (error) {
+                formMessageElement.innerHTML = '❌ Ошибка отправки: ' + error.message;
+                formMessageElement.className = 'form-message error';
+                return false;
             }
         }
-
-        function initSignatureCanvas() {
-            signatureCanvas = document.getElementById('adminSignatureCanvas');
-            if (!signatureCanvas) return;
-            signatureCanvas.width = 300;
-            signatureCanvas.height = 300;
-            signatureCtx = signatureCanvas.getContext('2d');
-            signatureCtx.fillStyle = 'white';
-            signatureCtx.fillRect(0, 0, 300, 300);
-            signatureCtx.strokeStyle = '#1c1c1e';
-            signatureCtx.lineWidth = 2;
-            let drawing = false;
-            const getPos = (e) => {
-                const rect = signatureCanvas.getBoundingClientRect();
-                const scaleX = 300 / rect.width;
-                const scaleY = 300 / rect.height;
-                const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-                const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-                return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
-            };
-            signatureCanvas.addEventListener('mousedown', (e) => { drawing = true; const {x,y} = getPos(e); signatureCtx.beginPath(); signatureCtx.moveTo(x, y); });
-            signatureCanvas.addEventListener('mousemove', (e) => { if (!drawing) return; const {x,y} = getPos(e); signatureCtx.lineTo(x, y); signatureCtx.stroke(); });
-            signatureCanvas.addEventListener('mouseup', () => { drawing = false; });
-            signatureCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); drawing = true; const {x,y} = getPos(e); signatureCtx.beginPath(); signatureCtx.moveTo(x, y); });
-            signatureCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (!drawing) return; const {x,y} = getPos(e); signatureCtx.lineTo(x, y); signatureCtx.stroke(); });
-            signatureCanvas.addEventListener('touchend', () => { drawing = false; });
-            
-            const fileInput = document.getElementById('adminSignatureFile');
-            fileInput.onchange = (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        const img = new Image();
-                        img.onload = () => {
-                            signatureCtx.drawImage(img, 0, 0, 300, 300);
-                        };
-                        img.src = event.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            };
-        }
-
-        window.clearAdminSignature = () => { 
-            signatureCtx.fillStyle = 'white'; 
-            signatureCtx.fillRect(0, 0, 300, 300); 
-        };
         
-        window.saveAdminSignature = async () => {
-            const confirmMsg = confirm('Вы уверены, что хотите подписать договор как GloBank?\n\nПосле подписания изменить подпись будет нельзя.');
-            if (!confirmMsg) return;
-            
-            const signatureImage = signatureCanvas.toDataURL('image/png');
-            await updateDoc(doc(db, "loans", currentLoanId), { adminSignature: signatureImage, status: "completed" });
-            alert('✅ Договор подписан!');
-            document.getElementById('adminSignatureModal').style.display = 'none';
-            loadLoans(currentLoansTab);
-        };
+        const globitProducts = [
+            { id: 1, name: "IT Global", title: "Основная компания", description: "Головная компания, объединяющая все проекты GloBIT.", logoUrl: "https://i.ibb.co/RkJWBxDb/i.webp", catalogUrl: "#", verifyUrl: "https://drive.google.com/file/d/1EAaKnmBzcm0DiILBIMq1ONRjngQ2PikB/view?usp=sharing" },
+            { id: 2, name: "GloBIT", title: "Базовые приложения", description: "Основной пакет приложений для повседневных задач.", logoUrl: "https://i.ibb.co/S4nmJH9M/Glo-BIT.jpg", catalogUrl: "https://drive.google.com/drive/folders/1zAutS6tNFNoz8apbS4xbpRJq-w51mNac?usp=drive_link" },
+            { id: 3, name: "GloBIT Arcade", title: "Игровая платформа", description: "Платформа ретро и современных игр.", logoUrl: "https://i.ibb.co/wFK0H7rM/Glo-BIT-Arcade.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mAcKP117t2Lcic7s9TKcQZ8aOB0tqZS9?usp=drive_link" },
+            { id: 4, name: "HumoRock", title: "ИИ-композитор", description: "Искусственный интеллект для генерации музыки.", logoUrl: "https://i.ibb.co/fzLVKnMn/Humo-Rock.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mi5sBTaL4OXH41MVMoHhXgYKZfoiHpq6?usp=drive_link" },
+            { id: 5, name: "ITeep Scan", title: "Система безопасности", description: "Комплексная система проверки на вирусы.", logoUrl: "https://i.ibb.co/N2xX2Fvq/ITeep-Scan.jpg", catalogUrl: "https://drive.google.com/drive/folders/1tcScNf87KX6ltREX5t_JC4KVLCCmR90M?usp=drive_link" },
+            { id: 6, name: "Worldbal", title: "Электронная библиотека", description: "Обширная библиотека с книгами.", logoUrl: "https://i.ibb.co/TBGrCX30/Worldbal.jpg", catalogUrl: "https://drive.google.com/drive/folders/16B-ZOEHZ2ml0m_nDKLqArkD6VTxRt4EU?usp=drive_link" },
+            { id: 7, name: "Саряныч", title: "Медиа-канал", description: "Канал с обзорами технологий.", logoUrl: "https://i.ibb.co/xtm6zqKq/Saryanich-new.jpg", catalogUrl: "#" }
+        ];
         
-        window.showAdminSignatureModal = (loanId) => {
-            currentLoanId = loanId;
-            document.getElementById('adminSignatureModal').style.display = 'flex';
-            setTimeout(initSignatureCanvas, 100);
-        };
-        window.closeModal = () => { document.getElementById('adminSignatureModal').style.display = 'none'; };
-
-        async function loadLoans(statusFilter = 'pending') {
-            let q;
-            if (statusFilter === 'pending') q = query(collection(db, "loans"), where("status", "==", "pending"));
-            else if (statusFilter === 'waiting_user_signature') q = query(collection(db, "loans"), where("status", "==", "waiting_user_signature"));
-            else if (statusFilter === 'waiting_admin_signature') q = query(collection(db, "loans"), where("status", "==", "waiting_admin_signature"));
-            else if (statusFilter === 'completed') q = query(collection(db, "loans"), where("status", "==", "completed"));
-            else q = query(collection(db, "loans"));
-
-            const querySnapshot = await getDocs(q);
-            const container = document.getElementById('loansList');
-            if (querySnapshot.empty) { container.innerHTML = '<div class="loan-card" style="text-align:center;">📭 Нет заявок</div>'; return; }
-
-            let html = '';
-            for (const docSnap of querySnapshot.docs) {
-                const loan = docSnap.data();
-                const statusText = { 
-                    'pending': 'На модерации', 
-                    'waiting_user_signature': 'Ожидает подписи заёмщика', 
-                    'waiting_admin_signature': 'Ожидает подписи GloBank', 
-                    'completed': 'Подписан' 
-                }[loan.status];
-                const statusClass = loan.status === 'pending' ? 'pending' : 
-                                   loan.status === 'waiting_user_signature' ? 'waiting_user_signature' :
-                                   loan.status === 'waiting_admin_signature' ? 'waiting_admin_signature' : 'completed';
-                
-                html += `<div class="loan-card">
-                    <div class="loan-header">
-                        <div><strong>${loan.userEmail}</strong> <span class="loan-status status-${statusClass}">${statusText}</span></div>
-                        <div style="font-size:12px; color:#8e8e93;">${loan.createdAt ? new Date(loan.createdAt.toDate()).toLocaleString() : '—'}</div>
-                    </div>
-                    <div class="loan-details">
-                        <div class="detail-item"><span class="detail-label">Global ID:</span><span class="detail-value">${loan.userGlobalId}</span></div>
-                        <div class="detail-item"><span class="detail-label">ФИО:</span><span class="detail-value">${loan.fullName || '—'}</span></div>
-                        <div class="detail-item"><span class="detail-label">Телефон:</span><span class="detail-value">${loan.phoneNumber || '—'}</span></div>
-                        <div class="detail-item"><span class="detail-label">Карта для получения:</span><span class="detail-value">${loan.userCardNumber || '—'}</span></div>
-                        <div class="detail-item"><span class="detail-label">СНИЛС:</span><span class="detail-value">${loan.snils || '—'}</span></div>
-                        <div class="detail-item"><span class="detail-label">Сумма:</span><span class="detail-value">${loan.amount?.toLocaleString()} ₽</span></div>
-                        <div class="detail-item"><span class="detail-label">Срок:</span><span class="detail-value">${loan.term} дней</span></div>
-                        <div class="detail-item"><span class="detail-label">К выплате:</span><span class="detail-value">${loan.totalToPay?.toLocaleString()} ₽</span></div>
-                    </div>`;
-                
-                if (loan.adminSignature) {
-                    html += `<div><span class="detail-label">Подпись GloBank:</span><img src="${loan.adminSignature}" class="admin-signature-img" alt="Подпись"></div>`;
-                }
-                
-                html += `<div class="loan-actions">`;
-                if (loan.status === 'pending') {
-                    html += `<button class="btn btn-success" onclick="adminApproveLoan('${docSnap.id}')">✅ Одобрить</button>
-                             <button class="btn btn-danger" onclick="adminRejectLoan('${docSnap.id}')">❌ Отказать</button>`;
-                }
-                if (loan.status === 'waiting_admin_signature') {
-                    html += `<button class="btn btn-primary" onclick="showAdminSignatureModal('${docSnap.id}')">🖊️ Подписать договор</button>`;
-                }
-                html += `<button class="btn btn-download" onclick="downloadUserDataFromLoan('${docSnap.id}')">📄 Скачать данные пользователя</button>
-                        <button class="btn btn-outline" onclick="adminDeleteLoan('${docSnap.id}')">🗑 Удалить</button>
-                    </div></div>`;
-            }
-            container.innerHTML = html;
-        }
-
-        window.downloadUserDataFromLoan = async (loanId) => {
-            const loanDoc = await getDoc(doc(db, "loans", loanId));
-            const loan = loanDoc.data();
-            await downloadUserData(loan);
-        };
-
-        window.adminApproveLoan = async (loanId) => {
-            const confirmMsg = confirm('Одобрить займ?\n\nПосле одобрения пользователь сможет подписать договор.');
-            if (!confirmMsg) return;
-            await updateDoc(doc(db, "loans", loanId), { status: "waiting_user_signature" });
-            alert('✅ Займ одобрен! Пользователь должен подписать договор.');
-            loadLoans(currentLoansTab);
-        };
+        let currentProduct = null;
         
-        window.adminRejectLoan = async (loanId) => {
-            const reason = prompt('Причина отказа:');
-            if (reason) await updateDoc(doc(db, "loans", loanId), { status: "rejected", rejectedReason: reason });
-            loadLoans(currentLoansTab);
-        };
-        
-        window.adminDeleteLoan = async (loanId) => {
-            if (confirm('Удалить заявку навсегда?')) await deleteDoc(doc(db, "loans", loanId));
-            loadLoans(currentLoansTab);
-        };
-        
-        window.showTab = (tab) => {
-            currentLoansTab = tab;
-            document.querySelectorAll('#loansSection .tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            loadLoans(tab);
-        };
-
-        // ============ ФУНКЦИИ ДЛЯ ЗАКАЗОВ IT Global ============
-        
-        async function loadOrdersStats() {
-            const ordersSnap = await getDocs(collection(db, "site_orders"));
-            const orders = ordersSnap.docs.map(d => d.data());
-            const newCount = orders.filter(o => !o.read).length;
-            const readCount = orders.filter(o => o.read).length;
-            const total = orders.length;
-            
-            document.getElementById('ordersStats').innerHTML = `
-                <div class="stat-card"><div class="stat-number">${newCount}</div><div class="stat-label">🆕 Новые</div></div>
-                <div class="stat-card"><div class="stat-number">${readCount}</div><div class="stat-label">📖 Прочитанные</div></div>
-                <div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label">📋 Всего</div></div>
-            `;
-        }
-
-        async function loadOrders(statusFilter = 'new') {
-            const q = query(collection(db, "site_orders"), orderBy("createdAt", "desc"));
-            const querySnapshot = await getDocs(q);
-            const orders = [];
-            querySnapshot.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
-            
-            let filtered = orders;
-            if (statusFilter === 'new') filtered = orders.filter(o => !o.read);
-            else if (statusFilter === 'read') filtered = orders.filter(o => o.read);
-            
-            const container = document.getElementById('ordersList');
+        function createCubes() {
+            const container = document.getElementById('cubeContainer');
             container.innerHTML = '';
-            
-            if (filtered.length === 0) {
-                container.innerHTML = '<div class="order-card" style="text-align:center;">📭 Нет заказов</div>';
-                return;
-            }
-            
-            for (const order of filtered) {
-                const date = order.createdAt?.toDate().toLocaleString() || 'Дата не указана';
-                const statusClass = order.read ? 'status-completed' : 'status-new';
-                const statusText = order.read ? 'Прочитан' : '🆕 Новый';
-                
-                container.innerHTML += `
-                    <div class="order-card">
-                        <div class="order-header">
-                            <div><strong>${order.productName || 'Не указан'}</strong> <span class="loan-status ${statusClass}">${statusText}</span></div>
-                            <div style="font-size:12px; color:#8e8e93;">${date}</div>
-                        </div>
-                        <div class="order-details">
-                            <div class="detail-item"><span class="detail-label">Global ID:</span><span class="detail-value">${order.globalId || '—'}</span></div>
-                            <div class="detail-item"><span class="detail-label">ФИО:</span><span class="detail-value">${order.fullName || '—'}</span></div>
-                            <div class="detail-item"><span class="detail-label">Телефон:</span><span class="detail-value">${order.phoneNumber || '—'}</span></div>
-                            <div class="detail-item"><span class="detail-label">СНИЛС:</span><span class="detail-value">${order.snils || '—'}</span></div>
-                            <div class="detail-item"><span class="detail-label">Карта:</span><span class="detail-value">${order.cardNumber || '—'}</span></div>
-                            <div class="detail-item full-width"><span class="detail-label">Сообщение:</span><span class="detail-value">${order.message || '—'}</span></div>
-                        </div>
-                        <div class="order-actions">
-                            ${!order.read ? `<button class="btn btn-success" onclick="markOrderRead('${order.id}')">📖 Отметить прочитанным</button>` : ''}
-                            <button class="btn btn-danger" onclick="deleteOrder('${order.id}')">🗑 Удалить</button>
-                        </div>
-                    </div>
-                `;
-            }
+            globitProducts.forEach(product => {
+                const cube = document.createElement('div');
+                cube.className = 'cube hidden';
+                const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
+                const hasVerify = product.verifyUrl && product.verifyUrl !== '#';
+                let buttonsHTML = '';
+                if (hasCatalog) buttonsHTML += `<button class="catalog-btn" data-url="${product.catalogUrl}"><i class="fas fa-folder"></i> Каталог</button>`;
+                if (hasVerify) buttonsHTML += `<button class="verify-btn" data-url="${product.verifyUrl}"><i class="fas fa-check-circle"></i> Верификатор</button>`;
+                cube.innerHTML = `<img src="${product.logoUrl}" class="cube-logo"><div class="cube-title">${product.name}</div><div class="cube-desc">${product.title}</div>${buttonsHTML}`;
+                cube.addEventListener('click', (e) => { if (!e.target.closest('.catalog-btn') && !e.target.closest('.verify-btn')) showPopup(product); });
+                const catalogBtn = cube.querySelector('.catalog-btn');
+                if (catalogBtn) catalogBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(catalogBtn.dataset.url, '_blank'); });
+                const verifyBtn = cube.querySelector('.verify-btn');
+                if (verifyBtn) verifyBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(verifyBtn.dataset.url, '_blank'); });
+                container.appendChild(cube);
+            });
+            setTimeout(() => document.querySelectorAll('.cube').forEach((c, i) => setTimeout(() => { c.classList.remove('hidden'); c.classList.add('visible'); }, i * 150), 300));
         }
         
-        window.markOrderRead = async (orderId) => {
-            await updateDoc(doc(db, "site_orders", orderId), { read: true });
-            loadOrders(currentOrdersTab);
-            loadOrdersStats();
-        };
+        function showPopup(product) {
+            currentProduct = product;
+            document.getElementById('popupLogo').src = product.logoUrl;
+            document.getElementById('popupTitle').innerText = product.name;
+            document.getElementById('popupSubtitle').innerText = product.title;
+            document.getElementById('popupDescription').innerText = product.description;
+            const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
+            if (hasCatalog) { document.getElementById('popupCatalogBtn').href = product.catalogUrl; document.getElementById('popupCatalogBtn').style.display = 'block'; }
+            else { document.getElementById('popupCatalogBtn').style.display = 'none'; }
+            document.getElementById('popup').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            ['popupFullName', 'popupGlobalId', 'popupPhone', 'popupSnils', 'popupMessage'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+            document.getElementById('popupFormMessage').innerHTML = '';
+        }
         
-        window.deleteOrder = async (orderId) => {
-            if (confirm('Удалить заказ?')) {
-                await deleteDoc(doc(db, "site_orders", orderId));
-                loadOrders(currentOrdersTab);
-                loadOrdersStats();
-            }
-        };
+        function closePopupFunc() { document.getElementById('popup').style.display = 'none'; document.body.style.overflow = 'auto'; }
         
-        window.showOrdersTab = (tab) => {
-            currentOrdersTab = tab;
-            document.querySelectorAll('#ordersSection .tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            loadOrders(tab);
-        };
-
-        // ============ ОБЩИЕ ФУНКЦИИ ============
-        
-        window.switchMainTab = (tab) => {
-            currentMainTab = tab;
-            document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            if (tab === 'loans') {
-                document.getElementById('loansSection').style.display = 'block';
-                document.getElementById('ordersSection').style.display = 'none';
-                loadLoans(currentLoansTab);
-            } else {
-                document.getElementById('loansSection').style.display = 'none';
-                document.getElementById('ordersSection').style.display = 'block';
-                loadOrders(currentOrdersTab);
-                loadOrdersStats();
-            }
-        };
-
-        window.logout = async () => { await signOut(auth); window.location.href = 'index.html'; };
-
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const userDoc = await getDoc(doc(db, "users", user.uid));
-                if (userDoc.data()?.role !== 'admin') window.location.href = 'index.html';
-                else {
-                    loadLoans('pending');
-                    loadOrders('new');
-                    loadOrdersStats();
-                }
-            } else window.location.href = 'index.html';
+        const orderForm = document.getElementById('orderForm');
+        const formMessage = document.getElementById('formMessage');
+        orderForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const orderData = {
+                productName: document.getElementById('productName').value,
+                globalId: document.getElementById('globalId').value,
+                fullName: document.getElementById('fullName').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                snils: document.getElementById('snils').value,
+                message: document.getElementById('orderMessage').value
+            };
+            await sendOrder(orderData, formMessage, () => orderForm.reset());
         });
+        
+        document.getElementById('popupSendBtn').addEventListener('click', async () => {
+            const orderData = {
+                productName: currentProduct ? currentProduct.name : document.getElementById('productName')?.value || 'Не указан',
+                globalId: document.getElementById('popupGlobalId').value,
+                fullName: document.getElementById('popupFullName').value,
+                phoneNumber: document.getElementById('popupPhone').value,
+                snils: document.getElementById('popupSnils').value,
+                message: document.getElementById('popupMessage').value
+            };
+            await sendOrder(orderData, document.getElementById('popupFormMessage'), () => {
+                ['popupFullName', 'popupGlobalId', 'popupPhone', 'popupSnils', 'popupMessage'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+            });
+        });
+        
+        let progress = 0;
+        const interval = setInterval(() => { progress += Math.random() * 15; if (progress >= 100) { progress = 100; clearInterval(interval); setTimeout(() => { document.getElementById('loadingScreen').classList.add('fade-out'); setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500); }, 500); } document.getElementById('loadingProgress').style.width = `${Math.min(progress, 100)}%`; }, 200);
+        
+        particlesJS('particles-js', { particles: { number: { value: 80 }, color: { value: "#00ff00" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 1 } } });
+        
+        document.getElementById('closePopup').addEventListener('click', closePopupFunc);
+        window.addEventListener('click', (e) => { if (e.target === document.getElementById('popup')) closePopupFunc(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('popup').style.display === 'flex') closePopupFunc(); });
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => document.querySelector('.cube-container').scrollIntoView({ behavior: 'smooth' }));
+        document.getElementById('mainLogo').addEventListener('click', () => { document.querySelectorAll('.cube').forEach((cube, i) => { setTimeout(() => { cube.style.transform = 'translateY(-30px)'; setTimeout(() => { cube.style.transform = 'translateY(0)'; }, 300); }, i * 100); }); document.getElementById('mainLogo').style.transform = 'scale(1.1)'; setTimeout(() => document.getElementById('mainLogo').style.transform = 'scale(1)', 300); });
+        
+        createCubes();
     </script>
 </body>
 </html>
