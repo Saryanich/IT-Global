@@ -533,12 +533,13 @@
             box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
         }
         
-        /* Форма отправки сообщения - ОСТАЁТСЯ ОРИГИНАЛЬНОЙ */
-        .contact-form {
+        /* ФОРМА ЗАКАЗА - КАК В БАНКЕ (СНИЛС, ФИО, ТЕЛЕФОН, КАРТА) */
+        .order-form {
             background: rgba(0, 40, 0, 0.4);
             padding: 30px;
             border-radius: 15px;
             border: 2px solid #00aa00;
+            margin-top: 30px;
         }
         
         .form-title {
@@ -546,6 +547,12 @@
             font-size: 1.8rem;
             margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
         
         .form-group {
@@ -556,24 +563,36 @@
             display: block;
             color: #00cc00;
             margin-bottom: 8px;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            font-weight: bold;
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 15px;
+            padding: 12px 15px;
             background: rgba(0, 20, 0, 0.7);
             border: 2px solid #00aa00;
             border-radius: 10px;
             color: #00ff00;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-family: 'Courier New', monospace;
         }
         
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        
         .form-group textarea {
-            height: 150px;
+            height: 100px;
             resize: vertical;
+        }
+        
+        .full-width {
+            grid-column: span 2;
         }
         
         .send-button {
@@ -753,374 +772,36 @@
             transform: scale(1.1);
         }
         
-        /* Адаптивность для мобильных (9:16 ориентация) */
-        @media (max-width: 1200px) {
-            .cube-container {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 40px;
-            }
-            .cube {
-                width: 200px;
-                height: 260px;
-            }
-            .cube-logo {
-                width: 85px;
-                height: 85px;
-            }
-            .logo {
-                font-size: 3.8rem;
-            }
-            .loading-title {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 992px) and (orientation: landscape) {
-            .cube-container {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 30px;
-            }
-            .cube {
-                width: 180px;
-                height: 240px;
-            }
-            .cube-logo {
-                width: 80px;
-                height: 80px;
-            }
-            .logo {
-                font-size: 3.2rem;
-            }
-            .social-section {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .loading-cubes {
-                gap: 15px;
-            }
-            .loading-cube {
-                width: 30px;
-                height: 30px;
-            }
-        }
-        
         @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
             .cube-container {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 30px;
-                padding: 20px;
             }
             .cube {
                 width: 180px;
                 height: 240px;
-            }
-            .cube-logo {
-                width: 80px;
-                height: 80px;
             }
             .logo {
                 font-size: 2.8rem;
-                letter-spacing: 4px;
-                padding: 10px 20px;
-            }
-            .logo .global {
-                letter-spacing: 8px;
-            }
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 20px;
-            }
-            .description h2 {
-                font-size: 1.8rem;
-            }
-            .description p {
-                font-size: 1.1rem;
-            }
-            .social-section {
-                grid-template-columns: 1fr;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
-            .loading-title {
-                font-size: 1.8rem;
-            }
-            .loading-cubes {
-                gap: 10px;
-            }
-            .loading-cube {
-                width: 25px;
-                height: 25px;
-            }
-            .loading-progress {
-                width: 250px;
             }
         }
         
-        @media (max-width: 600px) and (orientation: portrait) {
+        @media (max-width: 600px) {
             .cube-container {
                 grid-template-columns: 1fr;
-                gap: 25px;
-                margin: 30px 0;
             }
-            .cube {
-                width: 280px;
-                height: 300px;
-                margin: 0 auto;
-            }
-            .cube-logo {
-                width: 100px;
-                height: 100px;
-            }
-            .cube-title {
-                font-size: 1.6rem;
-            }
-            .cube-desc {
-                font-size: 1.1rem;
-            }
-            .catalog-btn, .verify-btn {
-                padding: 10px 15px;
-                font-size: 1rem;
-            }
-            .logo {
-                font-size: 2.2rem;
-                letter-spacing: 3px;
-                padding: 10px 20px;
-            }
-            .logo .global {
-                letter-spacing: 5px;
-            }
-            .tagline {
-                font-size: 1.1rem;
-                padding: 0 10px;
-            }
-            .popup-content {
-                width: 95%;
-                padding: 25px;
-                max-height: 85vh;
-            }
-            .popup-title {
-                font-size: 2rem;
-            }
-            .popup-subtitle {
-                font-size: 1.2rem;
-            }
-            .popup-description {
-                font-size: 1.1rem;
-            }
-            .popup-catalog-btn {
-                padding: 12px;
-                font-size: 1.1rem;
-            }
-            .form-title {
-                font-size: 1.5rem;
-            }
-            .form-group input,
-            .form-group textarea {
-                font-size: 1rem;
-                padding: 12px;
-            }
-            .send-button {
-                padding: 15px;
-                font-size: 1.2rem;
-            }
-            .description {
-                padding: 20px;
-                margin: 30px 0;
-            }
-            .description h2 {
-                font-size: 1.6rem;
-            }
-            .description p {
-                font-size: 1rem;
-                line-height: 1.6;
-            }
-            .instructions {
-                font-size: 1rem;
-                margin-top: 20px;
-                padding: 12px;
-            }
-            .loading-title {
-                font-size: 1.5rem;
-            }
-            .loading-cubes {
-                gap: 8px;
-            }
-            .loading-cube {
-                width: 20px;
-                height: 20px;
-            }
-            .loading-text {
-                font-size: 1rem;
-                padding: 0 20px;
-            }
-            .loading-progress {
-                width: 200px;
-            }
-        }
-        
-        @media (max-width: 480px) and (orientation: portrait) {
             .cube {
                 width: 240px;
                 height: 280px;
             }
-            .cube-logo {
-                width: 85px;
-                height: 85px;
-            }
-            .cube-title {
-                font-size: 1.4rem;
-            }
-            .cube-desc {
-                font-size: 1rem;
-            }
             .logo {
-                font-size: 1.8rem;
-            }
-            .logo .it {
-                padding: 5px 10px;
-            }
-            .popup-content {
-                padding: 20px;
-            }
-            .popup-logo {
-                width: 120px;
-                height: 120px;
-            }
-            .social-card {
-                padding: 20px;
-            }
-            .social-title {
-                font-size: 1.3rem;
-            }
-            .loading-title {
-                font-size: 1.3rem;
-            }
-        }
-        
-        @media (max-height: 600px) and (orientation: landscape) {
-            .cube-container {
-                gap: 20px;
-                margin: 30px 0;
-                min-height: 300px;
-            }
-            .cube {
-                width: 160px;
-                height: 210px;
-            }
-            .cube-logo {
-                width: 70px;
-                height: 70px;
-                margin-bottom: 8px;
-            }
-            .cube-title {
-                font-size: 1.2rem;
-                margin-bottom: 4px;
-            }
-            .cube-desc {
-                font-size: 0.8rem;
-            }
-            .catalog-btn, .verify-btn {
-                padding: 5px 8px;
-                font-size: 0.75rem;
-            }
-            .logo {
-                font-size: 2.5rem;
-                margin-bottom: 10px;
-            }
-            .header {
-                margin-bottom: 30px;
-                padding-bottom: 20px;
-            }
-            .description {
-                padding: 20px;
-                margin: 30px 0;
-            }
-            .description h2 {
-                font-size: 1.6rem;
-                margin-bottom: 15px;
-            }
-            .description p {
-                font-size: 1rem;
-                margin-bottom: 15px;
-            }
-            footer {
-                margin-top: 30px;
-            }
-            .loading-screen {
-                justify-content: flex-start;
-                padding-top: 50px;
-            }
-            .loading-title {
-                font-size: 1.5rem;
-                margin-bottom: 20px;
-            }
-            .loading-cubes {
-                margin-bottom: 20px;
-            }
-        }
-        
-        @media (min-width: 1600px) {
-            .container {
-                max-width: 1600px;
-                padding: 40px;
-            }
-            .cube-container {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 60px;
-                margin: 80px 0;
-            }
-            .cube {
-                width: 250px;
-                height: 300px;
-            }
-            .cube-logo {
-                width: 120px;
-                height: 120px;
-            }
-            .cube-title {
-                font-size: 1.6rem;
-            }
-            .cube-desc {
-                font-size: 1.1rem;
-            }
-            .catalog-btn, .verify-btn {
-                padding: 10px 15px;
-                font-size: 1rem;
-            }
-            .logo {
-                font-size: 5rem;
-                letter-spacing: 8px;
-            }
-            .logo .global {
-                letter-spacing: 16px;
-            }
-            .tagline {
-                font-size: 1.6rem;
-            }
-            .description h2 {
-                font-size: 2.5rem;
-            }
-            .description p {
-                font-size: 1.5rem;
-                max-width: 1200px;
-            }
-            .loading-title {
-                font-size: 3rem;
-            }
-            .loading-cube {
-                width: 50px;
-                height: 50px;
-            }
-        }
-        
-        @media (min-width: 2000px) {
-            .cube-container {
-                grid-template-columns: repeat(5, 1fr);
-            }
-            body::before {
-                background-size: 100% 6px;
+                font-size: 2rem;
             }
         }
     </style>
@@ -1161,9 +842,7 @@
             <p class="tagline">>_ Нажмите на любой кубик для получения информации и заказа</p>
         </div>
         
-        <div class="cube-container" id="cubeContainer">
-            <!-- Кубики будут созданы через JavaScript -->
-        </div>
+        <div class="cube-container" id="cubeContainer"></div>
         
         <div class="description">
             <h2>Кубики GloBIT от IT Global</h2>
@@ -1172,45 +851,61 @@
             <p><strong>Для каждого продукта доступен каталог готовых работ!</strong> Нажмите кнопку "Каталог готовых работ" чтобы увидеть примеры реализованных проектов.</p>
         </div>
         
-        <!-- ФОРМА ЗАКАЗА (ОСТАЛАСЬ ОРИГИНАЛЬНОЙ, НО С FIREBASE) -->
-        <div class="contact-form">
-            <h3 class="form-title">Заказать подобный продукт</h3>
+        <!-- ФОРМА ЗАКАЗА (КАК В БАНКЕ) -->
+        <div class="order-form">
+            <h3 class="form-title">📋 Заказать продукт</h3>
             <form id="orderForm">
-                <div class="form-group">
-                    <label for="productName">Название продукта:</label>
-                    <input type="text" id="productName" placeholder="Например: GloBIT Arcade" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="clientName">Ваше имя:</label>
-                    <input type="text" id="clientName" placeholder="Введите ваше имя" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="clientGlobalId">Ваш Global ID:</label>
-                    <input type="text" id="clientGlobalId" placeholder="Введите ваш Global ID" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="clientMessage">Ваше сообщение:</label>
-                    <textarea id="clientMessage" placeholder="Опишите, какой продукт вы хотите заказать или задайте вопрос..." required></textarea>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="productName">🏷️ Название продукта</label>
+                        <input type="text" id="productName" placeholder="Например: GloBIT Arcade" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="globalId">🆔 Global ID</label>
+                        <input type="text" id="globalId" placeholder="Введите ваш Global ID" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fullName">👤 ФИО</label>
+                        <input type="text" id="fullName" placeholder="Иванов Иван Иванович" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phoneNumber">📞 Номер телефона</label>
+                        <input type="tel" id="phoneNumber" placeholder="+7 999 123-45-67" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="snils">🆔 СНИЛС</label>
+                        <input type="text" id="snils" placeholder="123-456-789 01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cardNumber">💳 Номер карты для связи</label>
+                        <input type="text" id="cardNumber" placeholder="2200 7012 2658 1897" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="orderMessage">📝 Детали заказа</label>
+                        <textarea id="orderMessage" placeholder="Опишите, какой продукт вы хотите заказать или задайте вопрос..." required></textarea>
+                    </div>
                 </div>
                 
                 <button type="submit" class="send-button">
-                    <i class="fas fa-paper-plane"></i> Отправить сообщение
+                    <i class="fas fa-paper-plane"></i> Отправить заявку
                 </button>
             </form>
             <div id="formMessage" class="form-message"></div>
         </div>
         
         <div class="instructions">
-            <i class="fas fa-mouse-pointer"></i> Нажмите на любой кубик для просмотра подробной информации и формы заказа
+            <i class="fas fa-mouse-pointer"></i> Нажмите на любой кубик для просмотра подробной информации
         </div>
         
         <!-- Футер с соцсетями -->
         <footer>
             <div class="social-section">
-                <!-- Telegram -->
                 <div class="social-card telegram">
                     <i class="fab fa-telegram social-icon"></i>
                     <h3 class="social-title">Telegram канал</h3>
@@ -1220,7 +915,6 @@
                     </a>
                 </div>
                 
-                <!-- WhatsApp -->
                 <div class="social-card whatsapp">
                     <i class="fab fa-whatsapp social-icon"></i>
                     <h3 class="social-title">WhatsApp контакт</h3>
@@ -1230,7 +924,6 @@
                     </a>
                 </div>
                 
-                <!-- YouTube -->
                 <div class="social-card youtube">
                     <i class="fab fa-youtube social-icon"></i>
                     <h3 class="social-title">YouTube канал</h3>
@@ -1261,28 +954,37 @@
             
             <p id="popupDescription" class="popup-description"></p>
             
-            <!-- Кнопка каталога в попапе -->
             <a id="popupCatalogBtn" class="popup-catalog-btn" href="#" target="_blank">
                 <i class="fas fa-folder-open"></i> Открыть каталог готовых работ
             </a>
             
-            <!-- В попапе тоже форма (для быстрого заказа) -->
-            <div class="contact-form" style="margin-top: 20px;">
-                <h3 class="form-title">Заказать этот продукт</h3>
-                <div class="form-group">
-                    <label for="popupClientName">Ваше имя:</label>
-                    <input type="text" id="popupClientName" placeholder="Введите ваше имя" required>
-                </div>
-                <div class="form-group">
-                    <label for="popupClientGlobalId">Ваш Global ID:</label>
-                    <input type="text" id="popupClientGlobalId" placeholder="Введите ваш Global ID" required>
-                </div>
-                <div class="form-group">
-                    <label for="popupClientMessage">Ваше сообщение:</label>
-                    <textarea id="popupClientMessage" placeholder="Опишите, что именно вас интересует..." required></textarea>
+            <!-- Форма в попапе (упрощённая, но с необходимыми полями) -->
+            <div class="order-form" style="margin-top: 20px;">
+                <h3 class="form-title">📋 Заказать этот продукт</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="popupFullName">👤 ФИО</label>
+                        <input type="text" id="popupFullName" placeholder="Иванов Иван Иванович" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="popupGlobalId">🆔 Global ID</label>
+                        <input type="text" id="popupGlobalId" placeholder="Введите ваш Global ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="popupPhone">📞 Телефон</label>
+                        <input type="tel" id="popupPhone" placeholder="+7 999 123-45-67" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="popupSnils">🆔 СНИЛС</label>
+                        <input type="text" id="popupSnils" placeholder="123-456-789 01" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="popupMessage">📝 Сообщение</label>
+                        <textarea id="popupMessage" placeholder="Опишите, что именно вас интересует..." required></textarea>
+                    </div>
                 </div>
                 <button type="button" class="send-button" id="popupSendBtn">
-                    <i class="fas fa-paper-plane"></i> Отправить заказ
+                    <i class="fas fa-paper-plane"></i> Отправить заявку
                 </button>
                 <div id="popupFormMessage" class="form-message"></div>
             </div>
@@ -1307,25 +1009,28 @@
         const db = getFirestore();
         
         // ========== ФУНКЦИЯ ОТПРАВКИ СООБЩЕНИЯ ==========
-        async function sendOrder(productName, clientName, clientGlobalId, clientMessage, formMessageElement, successCallback) {
-            if (!productName || !clientName || !clientGlobalId || !clientMessage) {
+        async function sendOrder(orderData, formMessageElement, successCallback) {
+            if (!orderData.productName || !orderData.globalId || !orderData.fullName || !orderData.phoneNumber || !orderData.snils || !orderData.cardNumber || !orderData.message) {
                 formMessageElement.innerHTML = '❌ Заполните все поля!';
                 formMessageElement.className = 'form-message error';
                 return false;
             }
             
             try {
-                await addDoc(collection(db, "site_messages"), {
-                    productName: productName,
-                    clientName: clientName,
-                    clientGlobalId: clientGlobalId,
-                    clientMessage: clientMessage,
+                await addDoc(collection(db, "site_orders"), {
+                    productName: orderData.productName,
+                    globalId: orderData.globalId,
+                    fullName: orderData.fullName,
+                    phoneNumber: orderData.phoneNumber,
+                    snils: orderData.snils,
+                    cardNumber: orderData.cardNumber,
+                    message: orderData.message,
                     status: "new",
                     createdAt: new Date(),
                     read: false
                 });
                 
-                formMessageElement.innerHTML = '✅ Сообщение отправлено! Администратор свяжется с вами.';
+                formMessageElement.innerHTML = '✅ Заявка отправлена! Администратор свяжется с вами.';
                 formMessageElement.className = 'form-message success';
                 
                 if (successCallback) successCallback();
@@ -1339,306 +1044,105 @@
         
         // ========== ОСНОВНОЙ КОД САЙТА ==========
         
-        // Данные о кубиках GloBIT с ссылками на каталоги
+        // Данные о кубиках GloBIT
         const globitProducts = [
-            {
-                id: 1,
-                name: "IT Global",
-                title: "Основная компания",
-                description: "Головная компания, объединяющая все проекты GloBIT. Мы создаем инновационные цифровые решения для бизнеса и развлечений. Специализируемся на разработке веб-приложений, игр, систем безопасности и AI-технологий.",
-                logoUrl: "https://i.ibb.co/RkJWBxDb/i.webp",
-                catalogUrl: "#",
-                verifyUrl: "https://drive.google.com/file/d/1EAaKnmBzcm0DiILBIMq1ONRjngQ2PikB/view?usp=sharing"
-            },
-            {
-                id: 2,
-                name: "GloBIT",
-                title: "Базовые приложения",
-                description: "Основной пакет приложений для повседневных задач. Включает инструменты для обеспечения безопасности файлов, оптимизации повседневного быта и офисных задач. Оптимизирован для скорости и удобства использования. Сайты и приложения тут",
-                logoUrl: "https://i.ibb.co/S4nmJH9M/Glo-BIT.jpg",
-                catalogUrl: "https://drive.google.com/drive/folders/1zAutS6tNFNoz8apbS4xbpRJq-w51mNac?usp=drive_link"
-            },
-            {
-                id: 3,
-                name: "GloBIT Arcade",
-                title: "Игровая платформа",
-                description: "Платформа ретро и современных игр. Поддерживает мультиплеер, достижения и турниры. Идеально подходит для геймеров, которые ценят классику и современные игровые механики.",
-                logoUrl: "https://i.ibb.co/wFK0H7rM/Glo-BIT-Arcade.jpg",
-                catalogUrl: "https://drive.google.com/drive/folders/1mAcKP117t2Lcic7s9TKcQZ8aOB0tqZS9?usp=drive_link"
-            },
-            {
-                id: 4,
-                name: "HumoRock",
-                title: "ИИ-композитор",
-                description: "Искусственный интеллект для генерации музыки. Создает уникальные композиции в различных жанрах, обучается на ваших предпочтениях и может работать в реальном времени. Идеален для музыкантов и создателей контента.",
-                logoUrl: "https://i.ibb.co/fzLVKnMn/Humo-Rock.jpg",
-                catalogUrl: "https://drive.google.com/drive/folders/1mi5sBTaL4OXH41MVMoHhXgYKZfoiHpq6?usp=drive_link"
-            },
-            {
-                id: 5,
-                name: "ITeep Scan",
-                title: "Система безопасности",
-                description: "Комплексная система проверки на вирусы, уязвимости и легальность ПО. Использует машинное обучение для обнаружения новых угроз. Подходит для бизнеса и индивидуальных пользователей.",
-                logoUrl: "https://i.ibb.co/N2xX2Fvq/ITeep-Scan.jpg",
-                catalogUrl: "https://drive.google.com/drive/folders/1tcScNf87KX6ltREX5t_JC4KVLCCmR90M?usp=drive_link"
-            },
-            {
-                id: 6,
-                name: "Worldbal",
-                title: "Электронная библиотека",
-                description: "Обширная библиотека с книгами, статьями и научными работами. Интеллектуальная система рекомендаций, поддержка форматов и удобное чтение. Для студентов, исследователей и любителей чтения.",
-                logoUrl: "https://i.ibb.co/TBGrCX30/Worldbal.jpg",
-                catalogUrl: "https://drive.google.com/drive/folders/16B-ZOEHZ2ml0m_nDKLqArkD6VTxRt4EU?usp=drive_link"
-            },
-            {
-                id: 7,
-                name: "Саряныч",
-                title: "Медиа-канал",
-                description: "Канал с обзорами технологий, гаджетов и IT-новинок. Регулярный контент, экспертные мнения и тестирование продуктов. Для всех, кто хочет быть в курсе технологических трендов.",
-                logoUrl: "https://i.ibb.co/xtm6zqKq/Saryanich-new.jpg",
-                catalogUrl: "#"
-            }
+            { id: 1, name: "IT Global", title: "Основная компания", description: "Головная компания, объединяющая все проекты GloBIT. Мы создаем инновационные цифровые решения для бизнеса и развлечений.", logoUrl: "https://i.ibb.co/RkJWBxDb/i.webp", catalogUrl: "#", verifyUrl: "https://drive.google.com/file/d/1EAaKnmBzcm0DiILBIMq1ONRjngQ2PikB/view?usp=sharing" },
+            { id: 2, name: "GloBIT", title: "Базовые приложения", description: "Основной пакет приложений для повседневных задач. Включает инструменты для обеспечения безопасности файлов, оптимизации повседневного быта и офисных задач.", logoUrl: "https://i.ibb.co/S4nmJH9M/Glo-BIT.jpg", catalogUrl: "https://drive.google.com/drive/folders/1zAutS6tNFNoz8apbS4xbpRJq-w51mNac?usp=drive_link" },
+            { id: 3, name: "GloBIT Arcade", title: "Игровая платформа", description: "Платформа ретро и современных игр. Поддерживает мультиплеер, достижения и турниры.", logoUrl: "https://i.ibb.co/wFK0H7rM/Glo-BIT-Arcade.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mAcKP117t2Lcic7s9TKcQZ8aOB0tqZS9?usp=drive_link" },
+            { id: 4, name: "HumoRock", title: "ИИ-композитор", description: "Искусственный интеллект для генерации музыки. Создает уникальные композиции в различных жанрах.", logoUrl: "https://i.ibb.co/fzLVKnMn/Humo-Rock.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mi5sBTaL4OXH41MVMoHhXgYKZfoiHpq6?usp=drive_link" },
+            { id: 5, name: "ITeep Scan", title: "Система безопасности", description: "Комплексная система проверки на вирусы, уязвимости и легальность ПО.", logoUrl: "https://i.ibb.co/N2xX2Fvq/ITeep-Scan.jpg", catalogUrl: "https://drive.google.com/drive/folders/1tcScNf87KX6ltREX5t_JC4KVLCCmR90M?usp=drive_link" },
+            { id: 6, name: "Worldbal", title: "Электронная библиотека", description: "Обширная библиотека с книгами, статьями и научными работами.", logoUrl: "https://i.ibb.co/TBGrCX30/Worldbal.jpg", catalogUrl: "https://drive.google.com/drive/folders/16B-ZOEHZ2ml0m_nDKLqArkD6VTxRt4EU?usp=drive_link" },
+            { id: 7, name: "Саряныч", title: "Медиа-канал", description: "Канал с обзорами технологий, гаджетов и IT-новинок.", logoUrl: "https://i.ibb.co/xtm6zqKq/Saryanich-new.jpg", catalogUrl: "#" }
         ];
-
-        // Элементы DOM
-        const mainLogo = document.getElementById('mainLogo');
-        const cubeContainer = document.getElementById('cubeContainer');
-        const popup = document.getElementById('popup');
-        const closePopup = document.getElementById('closePopup');
-        const popupLogo = document.getElementById('popupLogo');
-        const popupTitle = document.getElementById('popupTitle');
-        const popupSubtitle = document.getElementById('popupSubtitle');
-        const popupDescription = document.getElementById('popupDescription');
-        const popupCatalogBtn = document.getElementById('popupCatalogBtn');
-        const popupSendBtn = document.getElementById('popupSendBtn');
-        const popupFormMessage = document.getElementById('popupFormMessage');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        
-        // Форма в основной части
-        const orderForm = document.getElementById('orderForm');
-        const formMessage = document.getElementById('formMessage');
         
         let currentProduct = null;
-
-        // Создание кубиков
+        
         function createCubes() {
-            cubeContainer.innerHTML = '';
+            const container = document.getElementById('cubeContainer');
+            container.innerHTML = '';
             globitProducts.forEach(product => {
                 const cube = document.createElement('div');
                 cube.className = 'cube hidden';
-                cube.id = `cube-${product.id}`;
-                cube.dataset.product = product.name;
-                
                 const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
                 const hasVerify = product.verifyUrl && product.verifyUrl !== '#';
-                
                 let buttonsHTML = '';
-                if (hasCatalog) {
-                    buttonsHTML += `<button class="catalog-btn" data-catalog-url="${product.catalogUrl}"><i class="fas fa-folder"></i> Каталог готовых работ</button>`;
-                }
-                if (hasVerify) {
-                    buttonsHTML += `<button class="verify-btn" data-verify-url="${product.verifyUrl}"><i class="fas fa-check-circle"></i> Верификатор IT Global</button>`;
-                }
-                
-                cube.innerHTML = `
-                    <img src="${product.logoUrl}" alt="${product.name}" class="cube-logo">
-                    <div class="cube-title">${product.name}</div>
-                    <div class="cube-desc">${product.title}</div>
-                    ${buttonsHTML}
-                `;
-                
-                cube.addEventListener('click', (e) => {
-                    if (!e.target.closest('.catalog-btn') && !e.target.closest('.verify-btn')) {
-                        showPopup(product);
-                    }
-                });
-                
+                if (hasCatalog) buttonsHTML += `<button class="catalog-btn" data-url="${product.catalogUrl}"><i class="fas fa-folder"></i> Каталог</button>`;
+                if (hasVerify) buttonsHTML += `<button class="verify-btn" data-url="${product.verifyUrl}"><i class="fas fa-check-circle"></i> Верификатор</button>`;
+                cube.innerHTML = `<img src="${product.logoUrl}" class="cube-logo"><div class="cube-title">${product.name}</div><div class="cube-desc">${product.title}</div>${buttonsHTML}`;
+                cube.addEventListener('click', (e) => { if (!e.target.closest('.catalog-btn') && !e.target.closest('.verify-btn')) showPopup(product); });
                 const catalogBtn = cube.querySelector('.catalog-btn');
-                if (catalogBtn) {
-                    catalogBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const url = catalogBtn.dataset.catalogUrl;
-                        if (url && url !== '#') window.open(url, '_blank');
-                    });
-                }
-                
+                if (catalogBtn) catalogBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(catalogBtn.dataset.url, '_blank'); });
                 const verifyBtn = cube.querySelector('.verify-btn');
-                if (verifyBtn) {
-                    verifyBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const url = verifyBtn.dataset.verifyUrl;
-                        if (url && url !== '#') window.open(url, '_blank');
-                    });
-                }
-                
-                cubeContainer.appendChild(cube);
+                if (verifyBtn) verifyBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(verifyBtn.dataset.url, '_blank'); });
+                container.appendChild(cube);
             });
-            
-            setTimeout(() => {
-                const cubes = document.querySelectorAll('.cube');
-                cubes.forEach((cube, index) => {
-                    setTimeout(() => {
-                        cube.classList.remove('hidden');
-                        cube.classList.add('visible');
-                    }, index * 150);
-                });
-            }, 300);
+            setTimeout(() => document.querySelectorAll('.cube').forEach((c, i) => setTimeout(() => { c.classList.remove('hidden'); c.classList.add('visible'); }, i * 150), 300));
         }
         
-        // Показать попап
         function showPopup(product) {
             currentProduct = product;
-            popupLogo.src = product.logoUrl;
-            popupTitle.textContent = product.name;
-            popupSubtitle.textContent = product.title;
-            popupDescription.textContent = product.description;
-            
+            document.getElementById('popupLogo').src = product.logoUrl;
+            document.getElementById('popupTitle').innerText = product.name;
+            document.getElementById('popupSubtitle').innerText = product.title;
+            document.getElementById('popupDescription').innerText = product.description;
             const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
-            if (hasCatalog) {
-                popupCatalogBtn.href = product.catalogUrl;
-                popupCatalogBtn.style.display = 'block';
-                popupCatalogBtn.innerHTML = `<i class="fas fa-folder-open"></i> Открыть каталог готовых работ`;
-            } else {
-                popupCatalogBtn.style.display = 'none';
-            }
-            
-            popup.style.display = 'flex';
+            if (hasCatalog) { document.getElementById('popupCatalogBtn').href = product.catalogUrl; document.getElementById('popupCatalogBtn').style.display = 'block'; }
+            else { document.getElementById('popupCatalogBtn').style.display = 'none'; }
+            document.getElementById('popup').style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            
-            // Очищаем форму в попапе
-            document.getElementById('popupClientName').value = '';
-            document.getElementById('popupClientGlobalId').value = '';
-            document.getElementById('popupClientMessage').value = '';
-            popupFormMessage.innerHTML = '';
-            popupFormMessage.className = 'form-message';
+            ['popupFullName', 'popupGlobalId', 'popupPhone', 'popupSnils', 'popupMessage'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+            document.getElementById('popupFormMessage').innerHTML = '';
         }
         
-        // Закрыть попап
-        function closePopupFunc() {
-            popup.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        // ========== ОБРАБОТЧИКИ ФОРМ (ТОЛЬКО ОТПРАВКА В FIREBASE) ==========
+        function closePopupFunc() { document.getElementById('popup').style.display = 'none'; document.body.style.overflow = 'auto'; }
         
         // Основная форма
+        const orderForm = document.getElementById('orderForm');
+        const formMessage = document.getElementById('formMessage');
         orderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const productName = document.getElementById('productName').value;
-            const clientName = document.getElementById('clientName').value;
-            const clientGlobalId = document.getElementById('clientGlobalId').value;
-            const clientMessage = document.getElementById('clientMessage').value;
-            
-            await sendOrder(productName, clientName, clientGlobalId, clientMessage, formMessage, () => {
-                document.getElementById('productName').value = '';
-                document.getElementById('clientName').value = '';
-                document.getElementById('clientGlobalId').value = '';
-                document.getElementById('clientMessage').value = '';
-            });
+            const orderData = {
+                productName: document.getElementById('productName').value,
+                globalId: document.getElementById('globalId').value,
+                fullName: document.getElementById('fullName').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                snils: document.getElementById('snils').value,
+                cardNumber: document.getElementById('cardNumber').value,
+                message: document.getElementById('orderMessage').value
+            };
+            await sendOrder(orderData, formMessage, () => orderForm.reset());
         });
         
         // Форма в попапе
-        popupSendBtn.addEventListener('click', async () => {
-            const productName = currentProduct ? currentProduct.name : document.getElementById('productName').value || 'Не указан';
-            const clientName = document.getElementById('popupClientName').value;
-            const clientGlobalId = document.getElementById('popupClientGlobalId').value;
-            const clientMessage = document.getElementById('popupClientMessage').value;
-            
-            await sendOrder(productName, clientName, clientGlobalId, clientMessage, popupFormMessage, () => {
-                document.getElementById('popupClientName').value = '';
-                document.getElementById('popupClientGlobalId').value = '';
-                document.getElementById('popupClientMessage').value = '';
+        document.getElementById('popupSendBtn').addEventListener('click', async () => {
+            const orderData = {
+                productName: currentProduct ? currentProduct.name : document.getElementById('productName')?.value || 'Не указан',
+                globalId: document.getElementById('popupGlobalId').value,
+                fullName: document.getElementById('popupFullName').value,
+                phoneNumber: document.getElementById('popupPhone').value,
+                snils: document.getElementById('popupSnils').value,
+                cardNumber: 'Не указана',
+                message: document.getElementById('popupMessage').value
+            };
+            await sendOrder(orderData, document.getElementById('popupFormMessage'), () => {
+                ['popupFullName', 'popupGlobalId', 'popupPhone', 'popupSnils', 'popupMessage'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
             });
         });
         
-        // ========== АНИМАЦИЯ ЗАГРУЗКИ ==========
-        function simulateLoading() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            const progressBar = document.getElementById('loadingProgress');
-            const loadingDots = document.getElementById('loadingDots');
-            const loadingText = document.querySelector('.loading-text');
-            
-            let progress = 0;
-            let dotsCount = 0;
-            
-            const dotsInterval = setInterval(() => {
-                dotsCount = (dotsCount + 1) % 4;
-                loadingDots.textContent = '.'.repeat(dotsCount);
-            }, 500);
-            
-            const progressInterval = setInterval(() => {
-                progress += Math.random() * 15;
-                if (progress > 100) progress = 100;
-                progressBar.style.width = `${progress}%`;
-                
-                if (progress < 30) {
-                    loadingText.textContent = '>_ Загрузка кубиков GloBIT... Инициализация систем...';
-                } else if (progress < 60) {
-                    loadingText.textContent = '>_ Подключение к базам данных... Загрузка контента...';
-                } else if (progress < 90) {
-                    loadingText.textContent = '>_ Настройка анимаций... Подготовка к показу...';
-                } else {
-                    loadingText.textContent = '>_ Загрузка завершена! Начинаем трансляцию...';
-                }
-                
-                if (progress >= 100) {
-                    clearInterval(progressInterval);
-                    clearInterval(dotsInterval);
-                    setTimeout(() => {
-                        loadingScreen.classList.add('fade-out');
-                        setTimeout(() => {
-                            loadingScreen.style.display = 'none';
-                        }, 500);
-                    }, 1000);
-                }
-            }, 200);
-        }
+        // Анимация загрузки
+        let progress = 0;
+        const interval = setInterval(() => { progress += Math.random() * 15; if (progress >= 100) { progress = 100; clearInterval(interval); setTimeout(() => { document.getElementById('loadingScreen').classList.add('fade-out'); setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500); }, 500); } document.getElementById('loadingProgress').style.width = `${Math.min(progress, 100)}%`; }, 200);
         
-        // ========== ИНИЦИАЛИЗАЦИЯ ==========
-        function initParticles() {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
-                    color: { value: ["#00ff00", "#00aa00", "#008800", "#005500"] },
-                    shape: { type: ["circle", "square", "triangle"] },
-                    opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1 } },
-                    size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1 } },
-                    line_linked: { enable: true, distance: 150, color: "#00aa00", opacity: 0.2, width: 1 },
-                    move: { enable: true, speed: 1, direction: "none", random: true, out_mode: "out" }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true }
-                },
-                retina_detect: true
-            });
-        }
+        // Частицы
+        particlesJS('particles-js', { particles: { number: { value: 80 }, color: { value: "#00ff00" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 1 } } });
         
-        document.addEventListener('DOMContentLoaded', () => {
-            initParticles();
-            simulateLoading();
-            createCubes();
-            
-            closePopup.addEventListener('click', closePopupFunc);
-            popup.addEventListener('click', (event) => { if (event.target === popup) closePopupFunc(); });
-            document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && popup.style.display === 'flex') closePopupFunc(); });
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                cubeContainer.scrollIntoView({ behavior: 'smooth' });
-            });
-            
-            mainLogo.addEventListener('click', () => {
-                const cubes = document.querySelectorAll('.cube');
-                cubes.forEach((cube, index) => {
-                    setTimeout(() => {
-                        cube.style.transform = 'translateY(-30px)';
-                        setTimeout(() => { cube.style.transform = 'translateY(0)'; }, 300);
-                    }, index * 100);
-                });
-                mainLogo.style.transform = 'scale(1.1)';
-                setTimeout(() => { mainLogo.style.transform = 'scale(1)'; }, 300);
-            });
-        });
+        document.getElementById('closePopup').addEventListener('click', closePopupFunc);
+        window.addEventListener('click', (e) => { if (e.target === document.getElementById('popup')) closePopupFunc(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('popup').style.display === 'flex') closePopupFunc(); });
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => document.querySelector('.cube-container').scrollIntoView({ behavior: 'smooth' }));
+        document.getElementById('mainLogo').addEventListener('click', () => { document.querySelectorAll('.cube').forEach((cube, i) => { setTimeout(() => { cube.style.transform = 'translateY(-30px)'; setTimeout(() => { cube.style.transform = 'translateY(0)'; }, 300); }, i * 100); }); document.getElementById('mainLogo').style.transform = 'scale(1.1)'; setTimeout(() => document.getElementById('mainLogo').style.transform = 'scale(1)', 300); });
+        
+        createCubes();
     </script>
 </body>
 </html>
