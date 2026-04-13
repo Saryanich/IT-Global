@@ -2,19 +2,15 @@
 <html lang="ru">
 <head>
     <title>IT Global</title>
-    <!-- Фавикон (картинка возле URL) -->
     <link rel="icon" href="https://i.ibb.co/RkJWBxDb/i.webp">
-    <!-- Для разных устройств -->
-    <link rel="apple-touch-icon" href="https://i.ibb.co/pBS7G57b/IT-Global.jpg">
-    <link rel="shortcut icon" href="https://i.ibb.co/RkJWBxDb/i.webp" type="image/jpeg">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/RkJWBxDb/i.webp">
+    <link rel="shortcut icon" href="https://i.ibb.co/RkJWBxDb/i.webp" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Global :: GloBIT Кубики</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Библиотека для частиц -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        /* Ретро-стиль: зелёный фон, чёрный текст */
         * {
             margin: 0;
             padding: 0;
@@ -66,21 +62,7 @@
             padding: 30px;
             box-shadow: 0 0 50px rgba(0, 255, 0, 0.4);
             position: relative;
-            overflow: hidden;
             z-index: 2;
-        }
-        
-        .container::before {
-            content: "";
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #00ff00, #003300, #00ff00);
-            z-index: -1;
-            border-radius: 17px;
-            opacity: 0.1;
         }
         
         .header {
@@ -88,20 +70,18 @@
             margin-bottom: 50px;
             padding-bottom: 30px;
             border-bottom: 2px dashed #00aa00;
-            position: relative;
         }
         
         .logo {
             font-size: 4.5rem;
             font-weight: bold;
             color: #00ff00;
-            text-shadow: 0 0 15px #00ff00, 0 0 30px rgba(0, 255, 0, 0.5);
+            text-shadow: 0 0 15px #00ff00;
             cursor: pointer;
             transition: all 0.3s;
             display: inline-block;
             margin-bottom: 15px;
             letter-spacing: 5px;
-            position: relative;
             padding: 15px 30px;
             border-radius: 15px;
             background: rgba(0, 50, 0, 0.3);
@@ -109,11 +89,9 @@
         }
         
         .logo:hover {
-            text-shadow: 0 0 25px #00ff00, 0 0 50px #00ff00;
+            text-shadow: 0 0 25px #00ff00;
             transform: scale(1.05);
             border-color: #00ff00;
-            background: rgba(0, 80, 0, 0.3);
-            box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
         }
         
         .logo .it {
@@ -122,15 +100,14 @@
             padding: 10px 20px;
             border-radius: 10px;
             margin-right: 15px;
-            text-shadow: 0 0 10px #fff;
         }
         
         .logo .global {
             letter-spacing: 12px;
             background: linear-gradient(90deg, #00aa00, #00ff00, #00aa00);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
+            color: transparent;
         }
         
         .tagline {
@@ -138,6 +115,174 @@
             color: #00cc00;
             font-style: italic;
             margin-top: 15px;
+        }
+        
+        /* Панель входа (заменяет форму заказа) */
+        .login-panel {
+            background: rgba(0, 40, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #00aa00;
+            margin-top: 30px;
+        }
+        
+        .login-title {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 20, 0, 0.7);
+            border: 2px solid #00aa00;
+            border-radius: 10px;
+            color: #00ff00;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            color: #001a00;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .login-error {
+            color: #ff6666;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .register-link {
+            color: #00cc00;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .order-form {
+            background: rgba(0, 40, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #00aa00;
+            margin-top: 30px;
+        }
+        
+        .form-title {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #00cc00;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 20, 0, 0.7);
+            border: 2px solid #00aa00;
+            border-radius: 8px;
+            color: #00ff00;
+            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+        
+        .send-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #00aa00, #00ff00);
+            color: #001a00;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        .form-message {
+            text-align: center;
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.8rem;
+        }
+        
+        .form-message.success {
+            background: rgba(0, 80, 0, 0.5);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            display: block;
+        }
+        
+        .form-message.error {
+            background: rgba(80, 0, 0, 0.5);
+            color: #ff6666;
+            border: 1px solid #ff6666;
+            display: block;
+        }
+        
+        .user-bar {
+            background: rgba(0, 50, 0, 0.5);
+            border-radius: 10px;
+            padding: 8px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .user-info {
+            color: #00ff00;
+            font-size: 0.8rem;
+        }
+        
+        .logout-btn {
+            background: #aa3333;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.7rem;
         }
         
         .loading-screen {
@@ -165,14 +310,12 @@
             font-size: 2.5rem;
             margin-bottom: 30px;
             text-align: center;
-            text-shadow: 0 0 10px #00ff00;
             animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
-            0% { opacity: 0.7; }
+            0%, 100% { opacity: 0.7; }
             50% { opacity: 1; }
-            100% { opacity: 0.7; }
         }
         
         .loading-cubes {
@@ -187,7 +330,6 @@
             background: linear-gradient(45deg, #00aa00, #00ff00);
             border-radius: 8px;
             animation: cubeJump 1.5s infinite ease-in-out;
-            box-shadow: 0 0 15px #00ff00;
         }
         
         .loading-cube:nth-child(1) { animation-delay: 0s; }
@@ -199,15 +341,6 @@
         @keyframes cubeJump {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-30px) rotate(180deg); }
-        }
-        
-        .loading-text {
-            color: #00cc00;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            text-align: center;
-            max-width: 500px;
-            line-height: 1.5;
         }
         
         .loading-progress {
@@ -226,20 +359,6 @@
             background: linear-gradient(90deg, #008800, #00ff00);
             border-radius: 5px;
             transition: width 0.3s;
-            box-shadow: 0 0 10px #00ff00;
-        }
-        
-        .loading-dots {
-            color: #00ff00;
-            font-size: 1.5rem;
-            margin-top: 10px;
-            animation: dots 1.5s infinite;
-        }
-        
-        @keyframes dots {
-            0%, 20% { content: "."; }
-            40% { content: ".."; }
-            60%, 100% { content: "..."; }
         }
         
         .cube-container {
@@ -247,8 +366,6 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 50px;
             margin: 60px 0;
-            min-height: 400px;
-            position: relative;
             padding: 30px;
             justify-items: center;
             align-items: center;
@@ -267,35 +384,20 @@
             text-align: center;
             padding: 15px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.4s;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            z-index: 2;
+            opacity: 0;
+            transform: translateY(60px) scale(0.3) rotate(180deg);
         }
         
-        .cube::before {
-            content: "";
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #00ff00, #003300, #00ff00);
-            z-index: -1;
-            border-radius: 22px;
-            opacity: 0;
-            transition: opacity 0.4s;
+        .cube.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
         }
         
         .cube:hover {
             transform: translateY(-20px) rotateY(15deg) scale(1.08);
-            box-shadow: 0 25px 50px rgba(0, 255, 0, 0.6);
             border-color: #00ff00;
-        }
-        
-        .cube:hover::before {
-            opacity: 0.4;
         }
         
         .cube-logo {
@@ -304,11 +406,6 @@
             object-fit: contain;
             margin-bottom: 10px;
             filter: drop-shadow(0 0 12px #00ff00);
-            transition: transform 0.3s;
-        }
-        
-        .cube:hover .cube-logo {
-            transform: scale(1.15) rotate(5deg);
         }
         
         .cube-title {
@@ -316,7 +413,6 @@
             color: #ffffff;
             font-size: 1.4rem;
             margin-bottom: 4px;
-            text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
         }
         
         .cube-desc {
@@ -324,55 +420,23 @@
             color: #00cc00;
             line-height: 1.3;
             margin-bottom: 8px;
-            min-height: 35px;
         }
         
-        .catalog-btn {
+        .catalog-btn, .verify-btn {
             background: linear-gradient(90deg, #008800, #00aa00);
             color: white;
             border: none;
             padding: 8px 15px;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.3s;
             width: 100%;
             margin-top: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
             border: 1px solid #00ff00;
-        }
-        
-        .catalog-btn:hover {
-            background: linear-gradient(90deg, #00aa00, #00ff00);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
         }
         
         .verify-btn {
             background: linear-gradient(90deg, #0066aa, #0088cc);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border: 1px solid #00aaff;
-        }
-        
-        .verify-btn:hover {
-            background: linear-gradient(90deg, #0088cc, #00aaff);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 150, 255, 0.4);
         }
         
         .description {
@@ -388,7 +452,6 @@
             color: #00ff00;
             font-size: 2.2rem;
             margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
         
         .description p {
@@ -396,7 +459,6 @@
             color: #00cc00;
             max-width: 900px;
             margin: 0 auto 25px;
-            line-height: 1.8;
         }
         
         .popup {
@@ -410,12 +472,6 @@
             z-index: 10000;
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         
         .popup-content {
@@ -424,221 +480,84 @@
             max-width: 800px;
             border: 4px solid #00aa00;
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             position: relative;
-            box-shadow: 0 0 60px rgba(0, 255, 0, 0.5);
-            animation: slideUp 0.4s;
             max-height: 90vh;
             overflow-y: auto;
         }
         
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
         .close-popup {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: #ff3333;
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.3s;
-            z-index: 10001;
-        }
-        
-        .close-popup:hover {
-            background: #ff5555;
-            transform: rotate(90deg);
-        }
-        
-        .popup-header {
-            text-align: center;
-            margin-bottom: 30px;
         }
         
         .popup-logo {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             object-fit: contain;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
             display: block;
             filter: drop-shadow(0 0 15px #00ff00);
         }
         
         .popup-title {
             color: #00ff00;
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px #00ff00;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 5px;
         }
         
         .popup-subtitle {
             color: #00cc00;
-            font-size: 1.4rem;
-            margin-bottom: 30px;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 20px;
         }
         
         .popup-description {
             color: #00cc00;
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 40px;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
             text-align: center;
         }
         
         .popup-catalog-btn {
             display: block;
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: linear-gradient(90deg, #008800, #00aa00);
             color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 30px;
-            text-decoration: none;
             text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 20px;
             border: 2px solid #00ff00;
         }
         
-        .popup-catalog-btn:hover {
-            background: linear-gradient(90deg, #00aa00, #00ff00);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
-        }
-        
-        .order-form {
+        .popup-order-form {
             background: rgba(0, 40, 0, 0.4);
-            padding: 30px;
+            padding: 20px;
             border-radius: 15px;
             border: 2px solid #00aa00;
-            margin-top: 30px;
-        }
-        
-        .form-title {
-            color: #00ff00;
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            color: #00cc00;
-            margin-bottom: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(0, 20, 0, 0.7);
-            border: 2px solid #00aa00;
-            border-radius: 10px;
-            color: #00ff00;
-            font-size: 1rem;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #00ff00;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-        }
-        
-        .form-group textarea {
-            height: 100px;
-            resize: vertical;
-        }
-        
-        .full-width {
-            grid-column: span 2;
-        }
-        
-        .send-button {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(90deg, #00aa00, #00ff00);
-            color: #001a00;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
-        }
-        
-        .send-button:hover {
-            background: linear-gradient(90deg, #00ff00, #00aa00);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
-        }
-        
-        .form-message {
-            text-align: center;
             margin-top: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            display: none;
-        }
-        
-        .form-message.success {
-            background: rgba(0, 80, 0, 0.5);
-            color: #00ff00;
-            border: 1px solid #00ff00;
-            display: block;
-        }
-        
-        .form-message.error {
-            background: rgba(80, 0, 0, 0.5);
-            color: #ff6666;
-            border: 1px solid #ff6666;
-            display: block;
         }
         
         footer {
             margin-top: 60px;
             padding-top: 30px;
             border-top: 2px dashed #00aa00;
-            color: #00aa00;
-            position: relative;
-        }
-        
-        footer::before {
-            content: "[IT-GLOBAL-SOCIAL]";
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #001a00;
-            padding: 0 20px;
-            font-size: 1rem;
-            color: #00aa00;
         }
         
         .social-section {
@@ -651,21 +570,14 @@
         .social-card {
             background: rgba(0, 40, 0, 0.4);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             border: 2px solid #00aa00;
             text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .social-card:hover {
-            border-color: #00ff00;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.3);
         }
         
         .social-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
             display: block;
         }
         
@@ -675,58 +587,41 @@
         
         .social-title {
             color: #00ff00;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
         }
         
         .social-link {
             display: inline-block;
             background: rgba(0, 60, 0, 0.5);
             color: #00cc00;
-            padding: 12px 25px;
-            border-radius: 10px;
+            padding: 8px 20px;
+            border-radius: 8px;
             text-decoration: none;
-            margin-top: 10px;
-            transition: all 0.3s;
+            margin-top: 8px;
             border: 1px solid #00aa00;
-        }
-        
-        .social-link:hover {
-            background: rgba(0, 80, 0, 0.7);
-            color: #00ff00;
-            border-color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            font-size: 0.8rem;
         }
         
         .copyright {
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid #00aa00;
-            font-size: 1rem;
+            font-size: 0.8rem;
             color: #00aa00;
-        }
-        
-        .cube.hidden {
-            opacity: 0;
-            transform: translateY(60px) scale(0.3) rotate(180deg);
-        }
-        
-        .cube.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1) rotate(0deg);
         }
         
         .instructions {
             text-align: center;
             color: #00cc00;
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin-top: 30px;
-            padding: 15px;
+            padding: 12px;
             background: rgba(0, 40, 0, 0.3);
             border-radius: 10px;
             border: 1px dashed #00aa00;
         }
-
+        
         .mobile-menu-btn {
             display: none;
             position: fixed;
@@ -736,18 +631,11 @@
             color: #001a00;
             border: none;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
             z-index: 9999;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-            transition: all 0.3s;
-        }
-        
-        .mobile-menu-btn:hover {
-            background: #00ff00;
-            transform: scale(1.1);
         }
         
         @media (max-width: 768px) {
@@ -777,6 +665,7 @@
             .cube {
                 width: 240px;
                 height: 280px;
+                margin: 0 auto;
             }
             .logo {
                 font-size: 2rem;
@@ -799,15 +688,10 @@
         <div class="loading-progress">
             <div class="loading-progress-bar" id="loadingProgress"></div>
         </div>
-        <div class="loading-text">
-            >_ Загрузка кубиков GloBIT... Инициализация систем...
-        </div>
-        <div class="loading-dots" id="loadingDots"></div>
+        <div class="loading-text">>_ Загрузка кубиков GloBIT... Инициализация систем...</div>
     </div>
     
-    <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <i class="fas fa-bars"></i>
-    </button>
+    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
     
     <div class="container">
         <div class="header">
@@ -822,12 +706,34 @@
         <div class="description">
             <h2>Кубики GloBIT от IT Global</h2>
             <p>Каждый кубик представляет собой уникальный продукт или сервис нашей компании. Нажмите на любой кубик, чтобы увидеть подробную информацию и возможность заказа аналогичного решения для вашего бизнеса.</p>
-            <p>Мы создаем инновационные цифровые продукты под брендом IT Global. От игровых платформ до систем безопасности — каждый наш продукт тщательно проработан и готов к использованию.</p>
-            <p><strong>Для каждого продукта доступен каталог готовых работ!</strong> Нажмите кнопку "Каталог готовых работ" чтобы увидеть примеры реализованных проектов.</p>
+            <p>Для каждого продукта доступен каталог готовых работ! Нажмите кнопку "Каталог готовых работ" чтобы увидеть примеры реализованных проектов.</p>
         </div>
         
-        <!-- ФОРМА ЗАКАЗА (БЕЗ НОМЕРА КАРТЫ) -->
-        <div class="order-form">
+        <!-- Панель входа (видна до авторизации) -->
+        <div id="loginPanel" class="login-panel">
+            <div class="login-title">🔐 Вход в систему</div>
+            <div id="loginForm">
+                <input type="text" id="loginIdentifier" class="login-input" placeholder="Email или Global ID">
+                <input type="password" id="loginPassword" class="login-input" placeholder="Пароль">
+                <button class="login-btn" id="loginBtn">Войти</button>
+                <div class="login-error" id="loginError"></div>
+            </div>
+            <div id="registerForm" style="display: none;">
+                <input type="email" id="regEmail" class="login-input" placeholder="Email">
+                <input type="password" id="regPassword" class="login-input" placeholder="Пароль (мин. 6 символов)">
+                <button class="login-btn" id="registerBtn">Зарегистрироваться</button>
+                <div class="login-error" id="regError"></div>
+            </div>
+            <div class="register-link" id="switchToRegister">Нет аккаунта? Зарегистрироваться</div>
+            <div class="register-link" id="switchToLogin" style="display: none;">Уже есть аккаунт? Войти</div>
+        </div>
+        
+        <!-- Форма заказа (скрыта до входа) -->
+        <div id="orderFormBlock" class="order-form" style="display: none;">
+            <div class="user-bar" id="userBar">
+                <span class="user-info" id="userInfoDisplay">Загрузка...</span>
+                <button class="logout-btn" id="logoutBtn">Выйти</button>
+            </div>
             <h3 class="form-title">📋 Заказать продукт</h3>
             <form id="orderForm">
                 <div class="form-grid">
@@ -835,36 +741,28 @@
                         <label for="productName">🏷️ Название продукта</label>
                         <input type="text" id="productName" placeholder="Например: GloBIT Arcade" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="globalId">🆔 Global ID</label>
-                        <input type="text" id="globalId" placeholder="Введите ваш Global ID" required>
+                        <input type="text" id="globalId" placeholder="Ваш Global ID" readonly style="background: #0a2a0a;">
                     </div>
-                    
                     <div class="form-group">
                         <label for="fullName">👤 ФИО</label>
                         <input type="text" id="fullName" placeholder="Иванов Иван Иванович" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="phoneNumber">📞 Номер телефона</label>
                         <input type="tel" id="phoneNumber" placeholder="+7 999 123-45-67" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="snils">🆔 СНИЛС</label>
                         <input type="text" id="snils" placeholder="123-456-789 01" required>
                     </div>
-                    
                     <div class="form-group full-width">
                         <label for="orderMessage">📝 Детали заказа</label>
-                        <textarea id="orderMessage" placeholder="Опишите, какой продукт вы хотите заказать или задайте вопрос..." required></textarea>
+                        <textarea id="orderMessage" placeholder="Опишите, какой продукт вы хотите заказать..." required></textarea>
                     </div>
                 </div>
-                
-                <button type="submit" class="send-button">
-                    <i class="fas fa-paper-plane"></i> Отправить заявку
-                </button>
+                <button type="submit" class="send-button"><i class="fas fa-paper-plane"></i> Отправить заявку</button>
             </form>
             <div id="formMessage" class="form-message"></div>
         </div>
@@ -878,34 +776,22 @@
                 <div class="social-card telegram">
                     <i class="fab fa-telegram social-icon"></i>
                     <h3 class="social-title">Telegram канал</h3>
-                    <p>IT Global - официальный канал</p>
-                    <a href="https://t.me/itgloby" target="_blank" class="social-link">
-                        <i class="fab fa-telegram"></i> Подписаться: @itgloby
-                    </a>
+                    <a href="https://t.me/itgloby" target="_blank" class="social-link">Подписаться: @itgloby</a>
                 </div>
-                
                 <div class="social-card whatsapp">
                     <i class="fab fa-whatsapp social-icon"></i>
                     <h3 class="social-title">WhatsApp контакт</h3>
-                    <p>Свяжитесь с нами напрямую</p>
-                    <a href="https://wa.me/79950091935" target="_blank" class="social-link">
-                        <i class="fab fa-whatsapp"></i> Написать: +7 (995) 009-19-35
-                    </a>
+                    <a href="https://wa.me/79950091935" target="_blank" class="social-link">Написать: +7 (995) 009-19-35</a>
                 </div>
-                
                 <div class="social-card youtube">
                     <i class="fab fa-youtube social-icon"></i>
                     <h3 class="social-title">YouTube канал</h3>
-                    <p>Саряныч - обзоры и IT новости</p>
-                    <a href="https://www.youtube.com/@saryanis389" target="_blank" class="social-link">
-                        <i class="fab fa-youtube"></i> Подписаться: @saryanis389
-                    </a>
+                    <a href="https://www.youtube.com/@saryanis389" target="_blank" class="social-link">Подписаться: @saryanis389</a>
                 </div>
             </div>
-            
             <div class="copyright">
                 <p>© 2026 IT Global. Все права защищены.</p>
-                <p>Связь с разработчиком сайта: vasiliy.novikov389@gmail.com</p>
+                <p>Связь с разработчиком: vasiliy.novikov389@gmail.com</p>
             </div>
         </footer>
     </div>
@@ -913,20 +799,12 @@
     <div class="popup" id="popup">
         <div class="popup-content">
             <button class="close-popup" id="closePopup">×</button>
-            
-            <div class="popup-header">
-                <img id="popupLogo" class="popup-logo" src="" alt="Логотип">
-                <h1 id="popupTitle" class="popup-title"></h1>
-                <h2 id="popupSubtitle" class="popup-subtitle"></h2>
-            </div>
-            
+            <img id="popupLogo" class="popup-logo" src="">
+            <h1 id="popupTitle" class="popup-title"></h1>
+            <h2 id="popupSubtitle" class="popup-subtitle"></h2>
             <p id="popupDescription" class="popup-description"></p>
-            
-            <a id="popupCatalogBtn" class="popup-catalog-btn" href="#" target="_blank">
-                <i class="fas fa-folder-open"></i> Открыть каталог готовых работ
-            </a>
-            
-            <div class="order-form" style="margin-top: 20px;">
+            <a id="popupCatalogBtn" class="popup-catalog-btn" href="#" target="_blank"><i class="fas fa-folder-open"></i> Открыть каталог</a>
+            <div class="popup-order-form" id="popupOrderFormBlock">
                 <h3 class="form-title">📋 Заказать этот продукт</h3>
                 <div class="form-grid">
                     <div class="form-group">
@@ -935,7 +813,7 @@
                     </div>
                     <div class="form-group">
                         <label for="popupGlobalId">🆔 Global ID</label>
-                        <input type="text" id="popupGlobalId" placeholder="Введите ваш Global ID" required>
+                        <input type="text" id="popupGlobalId" placeholder="Ваш Global ID" readonly style="background: #0a2a0a;">
                     </div>
                     <div class="form-group">
                         <label for="popupPhone">📞 Телефон</label>
@@ -950,9 +828,7 @@
                         <textarea id="popupMessage" placeholder="Опишите, что именно вас интересует..." required></textarea>
                     </div>
                 </div>
-                <button type="button" class="send-button" id="popupSendBtn">
-                    <i class="fas fa-paper-plane"></i> Отправить заявку
-                </button>
+                <button type="button" class="send-button" id="popupSendBtn"><i class="fas fa-paper-plane"></i> Отправить заявку</button>
                 <div id="popupFormMessage" class="form-message"></div>
             </div>
         </div>
@@ -969,10 +845,38 @@
         };
         
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
         const db = getFirestore();
+        setPersistence(auth, browserLocalPersistence);
+        
+        let currentUserData = null;
+        let currentProduct = null;
+        
+        function generateGlobalId() {
+            const digits = '0123456789';
+            const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let result = [];
+            for (let i = 0; i < 5; i++) result.push(digits[Math.floor(Math.random() * digits.length)]);
+            for (let i = 0; i < 10; i++) {
+                let letter = letters[Math.floor(Math.random() * letters.length)];
+                letter = Math.random() > 0.5 ? letter.toUpperCase() : letter.toLowerCase();
+                result.push(letter);
+            }
+            for (let i = 0; i < 7; i++) {
+                let char = (digits + letters)[Math.floor(Math.random() * (digits + letters).length)];
+                if (char.match(/[a-zA-Z]/)) char = Math.random() > 0.5 ? char.toUpperCase() : char.toLowerCase();
+                result.push(char);
+            }
+            for (let i = result.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [result[i], result[j]] = [result[j], result[i]];
+            }
+            return result.join('');
+        }
         
         async function sendOrder(orderData, formMessageElement, successCallback) {
             if (!orderData.productName || !orderData.globalId || !orderData.fullName || !orderData.phoneNumber || !orderData.snils || !orderData.message) {
@@ -980,7 +884,6 @@
                 formMessageElement.className = 'form-message error';
                 return false;
             }
-            
             try {
                 await addDoc(collection(db, "site_orders"), {
                     productName: orderData.productName,
@@ -993,16 +896,58 @@
                     createdAt: new Date(),
                     read: false
                 });
-                
                 formMessageElement.innerHTML = '✅ Заявка отправлена! Администратор свяжется с вами.';
                 formMessageElement.className = 'form-message success';
-                
                 if (successCallback) successCallback();
                 return true;
             } catch (error) {
-                formMessageElement.innerHTML = '❌ Ошибка отправки: ' + error.message;
+                formMessageElement.innerHTML = '❌ Ошибка: ' + error.message;
                 formMessageElement.className = 'form-message error';
                 return false;
+            }
+        }
+        
+        async function loadUserProfile() {
+            const user = auth.currentUser;
+            if (!user) return null;
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+                currentUserData = userDoc.data();
+                return currentUserData;
+            }
+            return null;
+        }
+        
+        async function saveUserProfile(fullName, phoneNumber, snils) {
+            const user = auth.currentUser;
+            if (!user) return;
+            await updateDoc(doc(db, "users", user.uid), {
+                fullName: fullName,
+                phoneNumber: phoneNumber,
+                snils: snils,
+                profileCompleted: true
+            });
+            currentUserData = { ...currentUserData, fullName, phoneNumber, snils, profileCompleted: true };
+        }
+        
+        async function updateFormsWithProfile() {
+            if (currentUserData) {
+                if (currentUserData.globalId) {
+                    document.getElementById('globalId').value = currentUserData.globalId;
+                    document.getElementById('popupGlobalId').value = currentUserData.globalId;
+                }
+                if (currentUserData.fullName) {
+                    document.getElementById('fullName').value = currentUserData.fullName;
+                    document.getElementById('popupFullName').value = currentUserData.fullName;
+                }
+                if (currentUserData.phoneNumber) {
+                    document.getElementById('phoneNumber').value = currentUserData.phoneNumber;
+                    document.getElementById('popupPhone').value = currentUserData.phoneNumber;
+                }
+                if (currentUserData.snils) {
+                    document.getElementById('snils').value = currentUserData.snils;
+                    document.getElementById('popupSnils').value = currentUserData.snils;
+                }
             }
         }
         
@@ -1015,8 +960,6 @@
             { id: 6, name: "Worldbal", title: "Электронная библиотека", description: "Обширная библиотека с книгами.", logoUrl: "https://i.ibb.co/TBGrCX30/Worldbal.jpg", catalogUrl: "https://drive.google.com/drive/folders/16B-ZOEHZ2ml0m_nDKLqArkD6VTxRt4EU?usp=drive_link" },
             { id: 7, name: "Саряныч", title: "Медиа-канал", description: "Канал с обзорами технологий.", logoUrl: "https://i.ibb.co/xtm6zqKq/Saryanich-new.jpg", catalogUrl: "#" }
         ];
-        
-        let currentProduct = null;
         
         function createCubes() {
             const container = document.getElementById('cubeContainer');
@@ -1046,48 +989,126 @@
             document.getElementById('popupTitle').innerText = product.name;
             document.getElementById('popupSubtitle').innerText = product.title;
             document.getElementById('popupDescription').innerText = product.description;
-            const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
-            if (hasCatalog) { document.getElementById('popupCatalogBtn').href = product.catalogUrl; document.getElementById('popupCatalogBtn').style.display = 'block'; }
-            else { document.getElementById('popupCatalogBtn').style.display = 'none'; }
+            if (product.catalogUrl && product.catalogUrl !== '#') {
+                document.getElementById('popupCatalogBtn').href = product.catalogUrl;
+                document.getElementById('popupCatalogBtn').style.display = 'block';
+            } else {
+                document.getElementById('popupCatalogBtn').style.display = 'none';
+            }
+            updateFormsWithProfile();
             document.getElementById('popup').style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            ['popupFullName', 'popupGlobalId', 'popupPhone', 'popupSnils', 'popupMessage'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
             document.getElementById('popupFormMessage').innerHTML = '';
         }
         
         function closePopupFunc() { document.getElementById('popup').style.display = 'none'; document.body.style.overflow = 'auto'; }
         
-        const orderForm = document.getElementById('orderForm');
-        const formMessage = document.getElementById('formMessage');
-        orderForm.addEventListener('submit', async (e) => {
+        document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const orderData = {
                 productName: document.getElementById('productName').value,
-                globalId: document.getElementById('globalId').value,
+                globalId: currentUserData?.globalId || document.getElementById('globalId').value,
                 fullName: document.getElementById('fullName').value,
                 phoneNumber: document.getElementById('phoneNumber').value,
                 snils: document.getElementById('snils').value,
                 message: document.getElementById('orderMessage').value
             };
-            await sendOrder(orderData, formMessage, () => orderForm.reset());
+            await saveUserProfile(orderData.fullName, orderData.phoneNumber, orderData.snils);
+            await sendOrder(orderData, document.getElementById('formMessage'), () => {
+                document.getElementById('orderMessage').value = '';
+                document.getElementById('productName').value = '';
+            });
         });
         
         document.getElementById('popupSendBtn').addEventListener('click', async () => {
             const orderData = {
-                productName: currentProduct ? currentProduct.name : document.getElementById('productName')?.value || 'Не указан',
-                globalId: document.getElementById('popupGlobalId').value,
+                productName: currentProduct ? currentProduct.name : 'Не указан',
+                globalId: currentUserData?.globalId || document.getElementById('popupGlobalId').value,
                 fullName: document.getElementById('popupFullName').value,
                 phoneNumber: document.getElementById('popupPhone').value,
                 snils: document.getElementById('popupSnils').value,
                 message: document.getElementById('popupMessage').value
             };
+            await saveUserProfile(orderData.fullName, orderData.phoneNumber, orderData.snils);
             await sendOrder(orderData, document.getElementById('popupFormMessage'), () => {
-                ['popupFullName', 'popupGlobalId', 'popupPhone', 'popupSnils', 'popupMessage'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+                document.getElementById('popupMessage').value = '';
             });
         });
         
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const identifier = document.getElementById('loginIdentifier').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            if (!identifier || !password) { errorDiv.textContent = '❌ Заполните все поля'; return; }
+            try {
+                let email = identifier;
+                if (!identifier.includes('@')) {
+                    const usersQuery = query(collection(db, "users"), where("globalId", "==", identifier));
+                    const usersSnap = await getDocs(usersQuery);
+                    if (usersSnap.empty) { errorDiv.textContent = '❌ Global ID не найден'; return; }
+                    email = usersSnap.docs[0].data().email;
+                }
+                await signInWithEmailAndPassword(auth, email, password);
+                await loadUserProfile();
+                await updateFormsWithProfile();
+                document.getElementById('loginPanel').style.display = 'none';
+                document.getElementById('orderFormBlock').style.display = 'block';
+                document.getElementById('userInfoDisplay').innerHTML = `👤 ${currentUserData?.globalId || email}`;
+            } catch (error) { errorDiv.textContent = '❌ Неверный email/Global ID или пароль'; }
+        });
+        
+        document.getElementById('registerBtn').addEventListener('click', async () => {
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const errorDiv = document.getElementById('regError');
+            if (!email || !password) { errorDiv.textContent = '❌ Заполните все поля'; return; }
+            if (password.length < 6) { errorDiv.textContent = '❌ Пароль должен быть минимум 6 символов'; return; }
+            try {
+                const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                const globalId = generateGlobalId();
+                await setDoc(doc(db, "users", userCred.user.uid), {
+                    email: email,
+                    globalId: globalId,
+                    createdAt: new Date(),
+                    profileCompleted: false
+                });
+                await loadUserProfile();
+                await updateFormsWithProfile();
+                document.getElementById('loginPanel').style.display = 'none';
+                document.getElementById('orderFormBlock').style.display = 'block';
+                document.getElementById('userInfoDisplay').innerHTML = `👤 ${globalId}`;
+            } catch (error) { errorDiv.textContent = error.message; }
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await signOut(auth);
+            document.getElementById('orderFormBlock').style.display = 'none';
+            document.getElementById('loginPanel').style.display = 'block';
+            document.getElementById('loginIdentifier').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('loginError').textContent = '';
+        });
+        
+        document.getElementById('switchToRegister').addEventListener('click', () => {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('switchToRegister').style.display = 'none';
+            document.getElementById('switchToLogin').style.display = 'block';
+        });
+        
+        document.getElementById('switchToLogin').addEventListener('click', () => {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('switchToRegister').style.display = 'block';
+            document.getElementById('switchToLogin').style.display = 'none';
+        });
+        
         let progress = 0;
-        const interval = setInterval(() => { progress += Math.random() * 15; if (progress >= 100) { progress = 100; clearInterval(interval); setTimeout(() => { document.getElementById('loadingScreen').classList.add('fade-out'); setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500); }, 500); } document.getElementById('loadingProgress').style.width = `${Math.min(progress, 100)}%`; }, 200);
+        const interval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress >= 100) { clearInterval(interval); setTimeout(() => { document.getElementById('loadingScreen').classList.add('fade-out'); setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500); }, 500); }
+            document.getElementById('loadingProgress').style.width = `${Math.min(progress, 100)}%`;
+        }, 200);
         
         particlesJS('particles-js', { particles: { number: { value: 80 }, color: { value: "#00ff00" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 1 } } });
         
@@ -1095,9 +1116,27 @@
         window.addEventListener('click', (e) => { if (e.target === document.getElementById('popup')) closePopupFunc(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('popup').style.display === 'flex') closePopupFunc(); });
         document.getElementById('mobileMenuBtn').addEventListener('click', () => document.querySelector('.cube-container').scrollIntoView({ behavior: 'smooth' }));
-        document.getElementById('mainLogo').addEventListener('click', () => { document.querySelectorAll('.cube').forEach((cube, i) => { setTimeout(() => { cube.style.transform = 'translateY(-30px)'; setTimeout(() => { cube.style.transform = 'translateY(0)'; }, 300); }, i * 100); }); document.getElementById('mainLogo').style.transform = 'scale(1.1)'; setTimeout(() => document.getElementById('mainLogo').style.transform = 'scale(1)', 300); });
+        document.getElementById('mainLogo').addEventListener('click', () => {
+            document.querySelectorAll('.cube').forEach((cube, i) => { setTimeout(() => { cube.style.transform = 'translateY(-30px)'; setTimeout(() => { cube.style.transform = 'translateY(0)'; }, 300); }, i * 100); });
+            document.getElementById('mainLogo').style.transform = 'scale(1.1)';
+            setTimeout(() => document.getElementById('mainLogo').style.transform = 'scale(1)', 300);
+        });
         
         createCubes();
+        
+        // Проверяем, не авторизован ли уже пользователь
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                await loadUserProfile();
+                await updateFormsWithProfile();
+                document.getElementById('loginPanel').style.display = 'none';
+                document.getElementById('orderFormBlock').style.display = 'block';
+                document.getElementById('userInfoDisplay').innerHTML = `👤 ${currentUserData?.globalId || user.email}`;
+            } else {
+                document.getElementById('orderFormBlock').style.display = 'none';
+                document.getElementById('loginPanel').style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
