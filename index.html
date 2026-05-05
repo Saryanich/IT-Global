@@ -554,6 +554,27 @@
             margin-top: 15px;
         }
         
+        /* Стили для плеера Яндекс Музыки */
+        .yandex-music-widget {
+            margin: 20px auto;
+            text-align: center;
+            background: rgba(0, 30, 0, 0.6);
+            border-radius: 16px;
+            padding: 10px;
+            border: 1px solid #00aa00;
+        }
+        
+        .yandex-music-widget iframe {
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        .yandex-music-widget p {
+            font-size: 0.8rem;
+            margin-top: 8px;
+            color: #00cc00;
+        }
+        
         footer {
             margin-top: 60px;
             padding-top: 30px;
@@ -803,6 +824,8 @@
             <h1 id="popupTitle" class="popup-title"></h1>
             <h2 id="popupSubtitle" class="popup-subtitle"></h2>
             <p id="popupDescription" class="popup-description"></p>
+            <!-- Контейнер для виджета Яндекс Музыки (будет добавлен для HumoRock) -->
+            <div id="yandexMusicWidget" class="yandex-music-widget" style="display: none;"></div>
             <a id="popupCatalogBtn" class="popup-catalog-btn" href="#" target="_blank"><i class="fas fa-folder-open"></i> Открыть каталог</a>
             <div class="popup-order-form" id="popupOrderFormBlock">
                 <h3 class="form-title">📋 Заказать этот продукт</h3>
@@ -955,7 +978,7 @@
             { id: 1, name: "IT Global", title: "Основная компания", description: "Головная компания, объединяющая все проекты GloBIT.", logoUrl: "https://i.ibb.co/RkJWBxDb/i.webp", catalogUrl: "#", verifyUrl: "https://drive.google.com/file/d/1EAaKnmBzcm0DiILBIMq1ONRjngQ2PikB/view?usp=sharing" },
             { id: 2, name: "GloBIT", title: "Базовые приложения", description: "Основной пакет приложений для повседневных задач.", logoUrl: "https://i.ibb.co/S4nmJH9M/Glo-BIT.jpg", catalogUrl: "https://drive.google.com/drive/folders/1zAutS6tNFNoz8apbS4xbpRJq-w51mNac?usp=drive_link" },
             { id: 3, name: "GloBIT Arcade", title: "Игровая платформа", description: "Платформа ретро и современных игр.", logoUrl: "https://i.ibb.co/wFK0H7rM/Glo-BIT-Arcade.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mAcKP117t2Lcic7s9TKcQZ8aOB0tqZS9?usp=drive_link" },
-            { id: 4, name: "HumoRock", title: "ИИ-композитор", description: "Искусственный интеллект для генерации музыки.", logoUrl: "https://i.ibb.co/fzLVKnMn/Humo-Rock.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mi5sBTaL4OXH41MVMoHhXgYKZfoiHpq6?usp=drive_link" },
+            { id: 4, name: "HumoRock", title: "ИИ-композитор", description: "Искусственный интеллект для генерации музыки. Слушайте плейлист с примерами треков.", logoUrl: "https://i.ibb.co/fzLVKnMn/Humo-Rock.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mi5sBTaL4OXH41MVMoHhXgYKZfoiHpq6?usp=drive_link" },
             { id: 5, name: "ITeep Scan", title: "Система безопасности", description: "Комплексная система проверки на вирусы.", logoUrl: "https://i.ibb.co/N2xX2Fvq/ITeep-Scan.jpg", catalogUrl: "https://drive.google.com/drive/folders/1tcScNf87KX6ltREX5t_JC4KVLCCmR90M?usp=drive_link" },
             { id: 6, name: "Worldbal", title: "Электронная библиотека", description: "Обширная библиотека с книгами.", logoUrl: "https://i.ibb.co/TBGrCX30/Worldbal.jpg", catalogUrl: "https://drive.google.com/drive/folders/16B-ZOEHZ2ml0m_nDKLqArkD6VTxRt4EU?usp=drive_link" },
             { id: 7, name: "Саряныч", title: "Медиа-канал", description: "Канал с обзорами технологий.", logoUrl: "https://i.ibb.co/xtm6zqKq/Saryanich-new.jpg", catalogUrl: "#" }
@@ -989,6 +1012,22 @@
             document.getElementById('popupTitle').innerText = product.name;
             document.getElementById('popupSubtitle').innerText = product.title;
             document.getElementById('popupDescription').innerText = product.description;
+            
+            // Добавляем виджет Яндекс Музыки только для HumoRock (id 4)
+            const widgetContainer = document.getElementById('yandexMusicWidget');
+            if (product.name === "HumoRock") {
+                widgetContainer.style.display = 'block';
+                widgetContainer.innerHTML = `
+                    <iframe frameborder="0" allow="clipboard-write" style="border:none; width:100%; max-width:220px; height:500px; display:block; margin:0 auto;" width="220" height="500" src="https://music.yandex.ru/iframe/playlist/vasiliy389.ru/1007">
+                        Слушайте <a href="https://music.yandex.ru/playlists/90a1d4bc-b62f-8ac2-a436-8e777c0b38fd?utm_source=desktop&utm_medium=copy_link">HumoRock</a> — <a href="https://music.yandex.ru/users/vasiliy389.ru">Василий</a> на Яндекс Музыке
+                    </iframe>
+                    <p>🎵 Треки Saryanich - HumoRock</p>
+                `;
+            } else {
+                widgetContainer.style.display = 'none';
+                widgetContainer.innerHTML = '';
+            }
+            
             if (product.catalogUrl && product.catalogUrl !== '#') {
                 document.getElementById('popupCatalogBtn').href = product.catalogUrl;
                 document.getElementById('popupCatalogBtn').style.display = 'block';
