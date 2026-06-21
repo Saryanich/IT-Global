@@ -422,7 +422,7 @@
             margin-bottom: 8px;
         }
         
-        .catalog-btn, .verify-btn {
+        .catalog-btn, .verify-btn, .github-btn {
             background: linear-gradient(90deg, #008800, #00aa00);
             color: white;
             border: none;
@@ -437,6 +437,11 @@
         
         .verify-btn {
             background: linear-gradient(90deg, #0066aa, #0088cc);
+        }
+        
+        .github-btn {
+            background: linear-gradient(90deg, #333333, #666666);
+            border-color: #aaaaaa;
         }
         
         .description {
@@ -531,7 +536,7 @@
             text-align: center;
         }
         
-        .popup-catalog-btn {
+        .popup-catalog-btn, .popup-github-btn {
             display: block;
             width: 100%;
             padding: 12px;
@@ -544,6 +549,11 @@
             font-weight: bold;
             margin-bottom: 20px;
             border: 2px solid #00ff00;
+        }
+        
+        .popup-github-btn {
+            background: linear-gradient(90deg, #333333, #666666);
+            border-color: #aaaaaa;
         }
         
         .popup-order-form {
@@ -827,6 +837,7 @@
             <!-- Контейнер для виджета Яндекс Музыки (будет добавлен для HumoRock) -->
             <div id="yandexMusicWidget" class="yandex-music-widget" style="display: none;"></div>
             <a id="popupCatalogBtn" class="popup-catalog-btn" href="#" target="_blank"><i class="fas fa-folder-open"></i> Открыть каталог</a>
+            <a id="popupGithubBtn" class="popup-github-btn" href="#" target="_blank"><i class="fab fa-github"></i> Открыть на GitHub</a>
             <div class="popup-order-form" id="popupOrderFormBlock">
                 <h3 class="form-title">📋 Заказать этот продукт</h3>
                 <div class="form-grid">
@@ -923,259 +934,3 @@
                 formMessageElement.className = 'form-message success';
                 if (successCallback) successCallback();
                 return true;
-            } catch (error) {
-                formMessageElement.innerHTML = '❌ Ошибка: ' + error.message;
-                formMessageElement.className = 'form-message error';
-                return false;
-            }
-        }
-        
-        async function loadUserProfile() {
-            const user = auth.currentUser;
-            if (!user) return null;
-            const userDoc = await getDoc(doc(db, "users", user.uid));
-            if (userDoc.exists()) {
-                currentUserData = userDoc.data();
-                return currentUserData;
-            }
-            return null;
-        }
-        
-        async function saveUserProfile(fullName, phoneNumber, snils) {
-            const user = auth.currentUser;
-            if (!user) return;
-            await updateDoc(doc(db, "users", user.uid), {
-                fullName: fullName,
-                phoneNumber: phoneNumber,
-                snils: snils,
-                profileCompleted: true
-            });
-            currentUserData = { ...currentUserData, fullName, phoneNumber, snils, profileCompleted: true };
-        }
-        
-        async function updateFormsWithProfile() {
-            if (currentUserData) {
-                if (currentUserData.globalId) {
-                    document.getElementById('globalId').value = currentUserData.globalId;
-                    document.getElementById('popupGlobalId').value = currentUserData.globalId;
-                }
-                if (currentUserData.fullName) {
-                    document.getElementById('fullName').value = currentUserData.fullName;
-                    document.getElementById('popupFullName').value = currentUserData.fullName;
-                }
-                if (currentUserData.phoneNumber) {
-                    document.getElementById('phoneNumber').value = currentUserData.phoneNumber;
-                    document.getElementById('popupPhone').value = currentUserData.phoneNumber;
-                }
-                if (currentUserData.snils) {
-                    document.getElementById('snils').value = currentUserData.snils;
-                    document.getElementById('popupSnils').value = currentUserData.snils;
-                }
-            }
-        }
-        
-        const globitProducts = [
-            { id: 1, name: "IT Global", title: "Основная компания", description: "Головная компания, объединяющая все проекты GloBIT.", logoUrl: "https://i.ibb.co/RkJWBxDb/i.webp", catalogUrl: "#", verifyUrl: "https://drive.google.com/file/d/1EAaKnmBzcm0DiILBIMq1ONRjngQ2PikB/view?usp=sharing" },
-            { id: 2, name: "GloBIT", title: "Базовые приложения", description: "Основной пакет приложений для повседневных задач.", logoUrl: "https://i.ibb.co/S4nmJH9M/Glo-BIT.jpg", catalogUrl: "https://drive.google.com/drive/folders/1zAutS6tNFNoz8apbS4xbpRJq-w51mNac?usp=drive_link" },
-            { id: 3, name: "GloBIT Arcade", title: "Игровая платформа", description: "Платформа ретро и современных игр.", logoUrl: "https://i.ibb.co/wFK0H7rM/Glo-BIT-Arcade.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mAcKP117t2Lcic7s9TKcQZ8aOB0tqZS9?usp=drive_link" },
-            { id: 4, name: "HumoRock", title: "ИИ-композитор", description: "Искусственный интеллект для генерации музыки. Слушайте плейлист с примерами треков.", logoUrl: "https://i.ibb.co/fzLVKnMn/Humo-Rock.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mi5sBTaL4OXH41MVMoHhXgYKZfoiHpq6?usp=drive_link" },
-            { id: 5, name: "ITeep Scan", title: "Система безопасности", description: "Комплексная система проверки на вирусы.", logoUrl: "https://i.ibb.co/N2xX2Fvq/ITeep-Scan.jpg", catalogUrl: "https://drive.google.com/drive/folders/1tcScNf87KX6ltREX5t_JC4KVLCCmR90M?usp=drive_link" },
-            { id: 6, name: "Worldbal", title: "Электронная библиотека", description: "Обширная библиотека с книгами.", logoUrl: "https://i.ibb.co/TBGrCX30/Worldbal.jpg", catalogUrl: "https://drive.google.com/drive/folders/16B-ZOEHZ2ml0m_nDKLqArkD6VTxRt4EU?usp=drive_link" },
-            { id: 7, name: "Саряныч", title: "Медиа-канал", description: "Канал с обзорами технологий.", logoUrl: "https://i.ibb.co/xtm6zqKq/Saryanich-new.jpg", catalogUrl: "#" }
-        ];
-        
-        function createCubes() {
-            const container = document.getElementById('cubeContainer');
-            container.innerHTML = '';
-            globitProducts.forEach(product => {
-                const cube = document.createElement('div');
-                cube.className = 'cube hidden';
-                const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
-                const hasVerify = product.verifyUrl && product.verifyUrl !== '#';
-                let buttonsHTML = '';
-                if (hasCatalog) buttonsHTML += `<button class="catalog-btn" data-url="${product.catalogUrl}"><i class="fas fa-folder"></i> Каталог</button>`;
-                if (hasVerify) buttonsHTML += `<button class="verify-btn" data-url="${product.verifyUrl}"><i class="fas fa-check-circle"></i> Верификатор</button>`;
-                cube.innerHTML = `<img src="${product.logoUrl}" class="cube-logo"><div class="cube-title">${product.name}</div><div class="cube-desc">${product.title}</div>${buttonsHTML}`;
-                cube.addEventListener('click', (e) => { if (!e.target.closest('.catalog-btn') && !e.target.closest('.verify-btn')) showPopup(product); });
-                const catalogBtn = cube.querySelector('.catalog-btn');
-                if (catalogBtn) catalogBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(catalogBtn.dataset.url, '_blank'); });
-                const verifyBtn = cube.querySelector('.verify-btn');
-                if (verifyBtn) verifyBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(verifyBtn.dataset.url, '_blank'); });
-                container.appendChild(cube);
-            });
-            setTimeout(() => document.querySelectorAll('.cube').forEach((c, i) => setTimeout(() => { c.classList.remove('hidden'); c.classList.add('visible'); }, i * 150), 300));
-        }
-        
-        function showPopup(product) {
-            currentProduct = product;
-            document.getElementById('popupLogo').src = product.logoUrl;
-            document.getElementById('popupTitle').innerText = product.name;
-            document.getElementById('popupSubtitle').innerText = product.title;
-            document.getElementById('popupDescription').innerText = product.description;
-            
-            // Добавляем виджет Яндекс Музыки только для HumoRock (id 4)
-            const widgetContainer = document.getElementById('yandexMusicWidget');
-            if (product.name === "HumoRock") {
-                widgetContainer.style.display = 'block';
-                widgetContainer.innerHTML = `
-                    <iframe frameborder="0" allow="clipboard-write" style="border:none; width:100%; max-width:220px; height:500px; display:block; margin:0 auto;" width="220" height="500" src="https://music.yandex.ru/iframe/playlist/vasiliy389.ru/1007">
-                        Слушайте <a href="https://music.yandex.ru/playlists/90a1d4bc-b62f-8ac2-a436-8e777c0b38fd?utm_source=desktop&utm_medium=copy_link">HumoRock</a> — <a href="https://music.yandex.ru/users/vasiliy389.ru">Василий</a> на Яндекс Музыке
-                    </iframe>
-                    <p>🎵 Треки Saryanich - HumoRock</p>
-                `;
-            } else {
-                widgetContainer.style.display = 'none';
-                widgetContainer.innerHTML = '';
-            }
-            
-            if (product.catalogUrl && product.catalogUrl !== '#') {
-                document.getElementById('popupCatalogBtn').href = product.catalogUrl;
-                document.getElementById('popupCatalogBtn').style.display = 'block';
-            } else {
-                document.getElementById('popupCatalogBtn').style.display = 'none';
-            }
-            updateFormsWithProfile();
-            document.getElementById('popup').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            document.getElementById('popupFormMessage').innerHTML = '';
-        }
-        
-        function closePopupFunc() { document.getElementById('popup').style.display = 'none'; document.body.style.overflow = 'auto'; }
-        
-        document.getElementById('orderForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const orderData = {
-                productName: document.getElementById('productName').value,
-                globalId: currentUserData?.globalId || document.getElementById('globalId').value,
-                fullName: document.getElementById('fullName').value,
-                phoneNumber: document.getElementById('phoneNumber').value,
-                snils: document.getElementById('snils').value,
-                message: document.getElementById('orderMessage').value
-            };
-            await saveUserProfile(orderData.fullName, orderData.phoneNumber, orderData.snils);
-            await sendOrder(orderData, document.getElementById('formMessage'), () => {
-                document.getElementById('orderMessage').value = '';
-                document.getElementById('productName').value = '';
-            });
-        });
-        
-        document.getElementById('popupSendBtn').addEventListener('click', async () => {
-            const orderData = {
-                productName: currentProduct ? currentProduct.name : 'Не указан',
-                globalId: currentUserData?.globalId || document.getElementById('popupGlobalId').value,
-                fullName: document.getElementById('popupFullName').value,
-                phoneNumber: document.getElementById('popupPhone').value,
-                snils: document.getElementById('popupSnils').value,
-                message: document.getElementById('popupMessage').value
-            };
-            await saveUserProfile(orderData.fullName, orderData.phoneNumber, orderData.snils);
-            await sendOrder(orderData, document.getElementById('popupFormMessage'), () => {
-                document.getElementById('popupMessage').value = '';
-            });
-        });
-        
-        document.getElementById('loginBtn').addEventListener('click', async () => {
-            const identifier = document.getElementById('loginIdentifier').value;
-            const password = document.getElementById('loginPassword').value;
-            const errorDiv = document.getElementById('loginError');
-            if (!identifier || !password) { errorDiv.textContent = '❌ Заполните все поля'; return; }
-            try {
-                let email = identifier;
-                if (!identifier.includes('@')) {
-                    const usersQuery = query(collection(db, "users"), where("globalId", "==", identifier));
-                    const usersSnap = await getDocs(usersQuery);
-                    if (usersSnap.empty) { errorDiv.textContent = '❌ Global ID не найден'; return; }
-                    email = usersSnap.docs[0].data().email;
-                }
-                await signInWithEmailAndPassword(auth, email, password);
-                await loadUserProfile();
-                await updateFormsWithProfile();
-                document.getElementById('loginPanel').style.display = 'none';
-                document.getElementById('orderFormBlock').style.display = 'block';
-                document.getElementById('userInfoDisplay').innerHTML = `👤 ${currentUserData?.globalId || email}`;
-            } catch (error) { errorDiv.textContent = '❌ Неверный email/Global ID или пароль'; }
-        });
-        
-        document.getElementById('registerBtn').addEventListener('click', async () => {
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
-            const errorDiv = document.getElementById('regError');
-            if (!email || !password) { errorDiv.textContent = '❌ Заполните все поля'; return; }
-            if (password.length < 6) { errorDiv.textContent = '❌ Пароль должен быть минимум 6 символов'; return; }
-            try {
-                const userCred = await createUserWithEmailAndPassword(auth, email, password);
-                const globalId = generateGlobalId();
-                await setDoc(doc(db, "users", userCred.user.uid), {
-                    email: email,
-                    globalId: globalId,
-                    createdAt: new Date(),
-                    profileCompleted: false
-                });
-                await loadUserProfile();
-                await updateFormsWithProfile();
-                document.getElementById('loginPanel').style.display = 'none';
-                document.getElementById('orderFormBlock').style.display = 'block';
-                document.getElementById('userInfoDisplay').innerHTML = `👤 ${globalId}`;
-            } catch (error) { errorDiv.textContent = error.message; }
-        });
-        
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            await signOut(auth);
-            document.getElementById('orderFormBlock').style.display = 'none';
-            document.getElementById('loginPanel').style.display = 'block';
-            document.getElementById('loginIdentifier').value = '';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('loginError').textContent = '';
-        });
-        
-        document.getElementById('switchToRegister').addEventListener('click', () => {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-            document.getElementById('switchToRegister').style.display = 'none';
-            document.getElementById('switchToLogin').style.display = 'block';
-        });
-        
-        document.getElementById('switchToLogin').addEventListener('click', () => {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('switchToRegister').style.display = 'block';
-            document.getElementById('switchToLogin').style.display = 'none';
-        });
-        
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += Math.random() * 15;
-            if (progress >= 100) { clearInterval(interval); setTimeout(() => { document.getElementById('loadingScreen').classList.add('fade-out'); setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500); }, 500); }
-            document.getElementById('loadingProgress').style.width = `${Math.min(progress, 100)}%`;
-        }, 200);
-        
-        particlesJS('particles-js', { particles: { number: { value: 80 }, color: { value: "#00ff00" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 1 } } });
-        
-        document.getElementById('closePopup').addEventListener('click', closePopupFunc);
-        window.addEventListener('click', (e) => { if (e.target === document.getElementById('popup')) closePopupFunc(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('popup').style.display === 'flex') closePopupFunc(); });
-        document.getElementById('mobileMenuBtn').addEventListener('click', () => document.querySelector('.cube-container').scrollIntoView({ behavior: 'smooth' }));
-        document.getElementById('mainLogo').addEventListener('click', () => {
-            document.querySelectorAll('.cube').forEach((cube, i) => { setTimeout(() => { cube.style.transform = 'translateY(-30px)'; setTimeout(() => { cube.style.transform = 'translateY(0)'; }, 300); }, i * 100); });
-            document.getElementById('mainLogo').style.transform = 'scale(1.1)';
-            setTimeout(() => document.getElementById('mainLogo').style.transform = 'scale(1)', 300);
-        });
-        
-        createCubes();
-        
-        // Проверяем, не авторизован ли уже пользователь
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                await loadUserProfile();
-                await updateFormsWithProfile();
-                document.getElementById('loginPanel').style.display = 'none';
-                document.getElementById('orderFormBlock').style.display = 'block';
-                document.getElementById('userInfoDisplay').innerHTML = `👤 ${currentUserData?.globalId || user.email}`;
-            } else {
-                document.getElementById('orderFormBlock').style.display = 'none';
-                document.getElementById('loginPanel').style.display = 'block';
-            }
-        });
-    </script>
-</body>
-</html>
