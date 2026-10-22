@@ -956,7 +956,7 @@
                 if (successCallback) successCallback();
                 return true;
             } catch (error) {
-                formMessageElement.innerHTML = '❌ Ошибка: ' + error.message;
+                formMessageElement.textContent = '❌ Ошибка: ' + (error?.message || 'Не удалось отправить заявку.');
                 formMessageElement.className = 'form-message error';
                 return false;
             }
