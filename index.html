@@ -1247,7 +1247,7 @@
                 await updateFormsWithProfile();
                 document.getElementById('loginPanel').style.display = 'none';
                 document.getElementById('orderFormBlock').style.display = 'block';
-                document.getElementById('userInfoDisplay').innerHTML = `👤 ${currentUserData?.globalId || user.email}`;
+                document.getElementById('userInfoDisplay').textContent = `👤 ${currentUserData?.globalId || user.email}`;
             } else {
                 document.getElementById('orderFormBlock').style.display = 'none';
                 document.getElementById('loginPanel').style.display = 'block';
