@@ -1105,13 +1105,38 @@
             const errorDiv = document.getElementById('loginError');
             if (!identifier || !password) { errorDiv.textContent = '❌ Заполните все поля'; return; }
             try {
-                let email = identifier;
-                if (!identifier.includes('@')) {
-                    const usersQuery = query(collection(db, "users"), where("globalId", "==", identifier));
-                    const usersSnap = await getDocs(usersQuery);
-                    if (usersSnap.empty) { errorDiv.textContent = '❌ Global ID не найден'; return; }
-                    email = usersSnap.docs[0].data().email;
+                let email = identifier.trim();
+                if (!email.includes('@')) {
+                    const normalizedGlobalId = email;
+                    let mapping = null;
+                    try {
+                        const mappingSnap = await getDoc(doc(db, "global_ids", normalizedGlobalId));
+                        if (mappingSnap.exists()) mapping = mappingSnap.data();
+                    } catch (lookupError) {
+                        console.warn("global_ids lookup failed; trying legacy accounts:", lookupError);
+                    }
+
+                    if (mapping?.email) {
+                        email = mapping.email;
+                    } else {
+                        // Compatibility for older accounts without global_ids/{globalId}.
+                        try {
+                            const usersQuery = query(collection(db, "users"), where("globalId", "==", normalizedGlobalId));
+                            const usersSnap = await getDocs(usersQuery);
+                            if (!usersSnap.empty) email = usersSnap.docs[0].data().email || "";
+                            else email = "";
+                        } catch (legacyError) {
+                            console.warn("Legacy Global ID lookup failed:", legacyError);
+                            email = "";
+                        }
+                    }
+
+                    if (!email || !email.includes("@")) {
+                        errorDiv.textContent = "❌ Global ID не найден. Проверьте ID или войдите по email.";
+                        return;
+                    }
                 }
+                await setPersistence(auth, browserLocalPersistence);
                 await signInWithEmailAndPassword(auth, email, password);
                 await loadUserProfile();
                 await updateFormsWithProfile();
@@ -1135,6 +1160,12 @@
                     globalId: globalId,
                     createdAt: new Date(),
                     profileCompleted: false
+                });
+                // Keep the same Global ID mapping used by the rest of the ecosystem.
+                await setDoc(doc(db, "global_ids", globalId), {
+                    uid: userCred.user.uid,
+                    email: email,
+                    createdAt: new Date()
                 });
                 await loadUserProfile();
                 await updateFormsWithProfile();
