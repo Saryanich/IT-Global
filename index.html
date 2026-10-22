@@ -880,12 +880,26 @@
         
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
         const db = getFirestore();
         setPersistence(auth, browserLocalPersistence);
+
+        // Удаление устройства в Global ID отзывает его сессию во всех сервисах на этом origin.
+        let deviceRevocationUnsub = null;
+        onAuthStateChanged(auth, user => {
+            if (deviceRevocationUnsub) { deviceRevocationUnsub(); deviceRevocationUnsub = null; }
+            const token = (() => { try { return localStorage.getItem('itglobal_shared_device_token'); } catch { return null; } })();
+            if (!user || !token) return;
+            deviceRevocationUnsub = onSnapshot(doc(db, 'users', user.uid), snap => {
+                if (snap.exists() && (snap.data().revokedDeviceTokens || []).includes(token)) {
+                    if (deviceRevocationUnsub) { deviceRevocationUnsub(); deviceRevocationUnsub = null; }
+                    signOut(auth).finally(() => location.replace('index.html?deviceRevoked=1'));
+                }
+            }, error => console.warn('Проверка отзыва устройства:', error));
+        });
         
         let currentUserData = null;
         let currentProduct = null;
