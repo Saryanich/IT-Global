@@ -918,7 +918,7 @@
             for (let i = 0; i < 5; i++) result.push(digits[secureRandomIndex(digits.length)]);
             for (let i = 0; i < 10; i++) {
                 let letter = letters[secureRandomIndex(letters.length)];
-                letter = letter.toLowerCase();
+                letter = secureRandomIndex(2) ? letter.toUpperCase() : letter.toLowerCase();
                 result.push(letter);
             }
             for (let i = 0; i < 7; i++) {
