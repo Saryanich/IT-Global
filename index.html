@@ -633,6 +633,61 @@
             font-size: 0.8rem;
         }
         
+        
+        /* Modern portal styling while preserving the traditional particle layer */
+        :root{--portal-bg:#07111f;--portal-panel:rgba(10,25,40,.88);--portal-line:rgba(128,183,221,.2);--portal-text:#edf5fc;--portal-muted:#a6b8ca;--portal-accent:#43b5e8}
+        body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 12% 0%,#123b4b 0,transparent 38%),radial-gradient(ellipse at 90% 12%,#172c51 0,transparent 36%),var(--portal-bg);color:var(--portal-text);padding:clamp(10px,2vw,28px);font-size:16px}
+        body::before{display:none}
+        .container{max-width:1440px;background:rgba(7,17,30,.78);border:1px solid var(--portal-line);border-radius:24px;padding:clamp(16px,3vw,40px);box-shadow:0 24px 90px rgba(0,0,0,.28)}
+        .header{text-align:left;margin-bottom:26px;padding-bottom:20px;border-bottom:1px solid var(--portal-line)}
+        .logo{font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:clamp(2px,.6vw,8px);padding:8px 0;margin:0 0 12px;background:none;border:0;text-shadow:none;color:#f4f8ff}
+        .logo .it{background:linear-gradient(135deg,#35c27d,#169fbc);padding:6px 14px;border-radius:10px;margin-right:10px;color:#fff}
+        .logo .global{background:linear-gradient(90deg,#39c6a0,#55a8ff);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:clamp(2px,.6vw,8px)}
+        .logo:hover{transform:none;border-color:transparent;text-shadow:none}
+        .tagline{font-family:inherit;font-style:normal;font-size:clamp(.85rem,1.2vw,1rem);color:var(--portal-muted);margin-top:8px}
+        .cube-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:18px;margin:30px 0;padding:0;align-items:stretch}
+        .cube{width:100%;height:auto;min-height:270px;padding:24px;background:linear-gradient(145deg,rgba(19,42,64,.94),rgba(10,24,39,.94));border:1px solid var(--portal-line);border-radius:20px;display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;text-align:left;opacity:1;transform:none;box-shadow:0 8px 24px rgba(0,0,0,.16);transition:transform .2s,border-color .2s,box-shadow .2s}
+        .cube.visible{opacity:1;transform:none}
+        .cube:hover,.cube:focus-visible{transform:translateY(-5px);border-color:rgba(67,181,232,.55);box-shadow:0 18px 38px rgba(0,0,0,.25)}
+        .cube:focus-visible{outline:2px solid var(--portal-accent);outline-offset:3px}
+        .cube:active{transform:scale(.985)}
+        .cube-logo{width:clamp(72px,7vw,104px);height:clamp(72px,7vw,104px);object-fit:contain;margin:0 0 18px;filter:none;border-radius:14px}
+        .cube-title{font-family:inherit;font-size:1.2rem;font-weight:650;color:var(--portal-text);margin-bottom:7px}
+        .cube-desc{font-size:.92rem;color:var(--portal-muted);line-height:1.55;margin-bottom:18px}
+        .catalog-btn,.verify-btn,.github-btn{margin-top:auto;padding:10px 14px;border-radius:10px;width:100%;font-family:inherit;font-size:.88rem;font-weight:600;background:#187fd3;border:1px solid transparent;color:#fff;transition:background .2s,transform .2s}
+        .catalog-btn:hover,.verify-btn:hover,.github-btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+        .verify-btn{background:#167e91}.github-btn{background:#263548;border-color:#44566a}
+        .description{background:rgba(13,31,48,.82);border:1px solid var(--portal-line);border-left:3px solid #299bd7;border-radius:18px;padding:clamp(20px,3vw,36px);margin:34px 0;text-align:left}
+        .description h2{font-family:inherit;color:var(--portal-text);font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:14px}
+        .description p{font-family:inherit;font-size:1rem;color:var(--portal-muted);max-width:1000px;margin:0 0 14px;line-height:1.8}
+        .login-panel,.order-form{background:var(--portal-panel);border:1px solid var(--portal-line);border-radius:18px;padding:clamp(18px,3vw,30px);margin-top:24px}
+        .login-title,.form-title{color:var(--portal-text);font-family:inherit;font-size:1.3rem}
+        .login-input,.form-group input,.form-group textarea{background:#081727;border:1px solid #29445c;border-radius:10px;color:var(--portal-text);font-family:inherit}
+        .login-btn,.send-button{background:linear-gradient(90deg,#187fd3,#25a6c7);color:white;border-radius:10px;font-family:inherit}
+        .user-bar{background:rgba(13,31,48,.8);border:1px solid var(--portal-line);border-radius:12px}
+        .popup{background:rgba(3,10,18,.84);backdrop-filter:blur(12px)}
+        .popup-content{background:linear-gradient(145deg,#10263a,#091827);border:1px solid #31516a;border-radius:22px}
+        .popup-title{color:var(--portal-text)}.popup-subtitle,.popup-description{color:var(--portal-muted)}
+        .popup-logo{filter:none}
+        .popup-catalog-btn,.popup-github-btn{border-radius:10px;border-width:1px}
+        .yandex-music-widget{background:rgba(13,31,48,.8);border:1px solid var(--portal-line)}
+        footer{border-top:1px solid var(--portal-line)}
+        .social-card{background:rgba(13,31,48,.8);border:1px solid var(--portal-line);border-radius:16px;text-align:left}
+        .social-title{color:var(--portal-text)}.social-link{border-radius:9px}
+        .copyright{border-color:var(--portal-line);color:var(--portal-muted)}
+        .company-overview{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(220px,.8fr);gap:22px;align-items:stretch;margin:24px 0 34px}
+        .company-copy,.company-values{background:rgba(13,31,48,.82);border:1px solid var(--portal-line);border-radius:20px;padding:clamp(20px,3vw,34px)}
+        .company-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6fc8ed;margin-bottom:10px}
+        .company-copy h1{font-size:clamp(1.7rem,3.2vw,2.8rem);line-height:1.15;letter-spacing:-.035em;margin-bottom:16px;color:var(--portal-text)}
+        .company-copy p{font-size:1rem;line-height:1.8;color:var(--portal-muted);margin-bottom:12px}
+        .company-values{display:flex;flex-direction:column;justify-content:center;gap:16px}
+        .value-item{padding-bottom:14px;border-bottom:1px solid var(--portal-line)}
+        .value-item:last-child{padding-bottom:0;border-bottom:0}
+        .value-item strong{display:block;font-size:1rem;color:var(--portal-text);margin-bottom:3px}
+        .value-item span{display:block;font-size:.88rem;color:var(--portal-muted);line-height:1.5}
+        @media(max-width:760px){.company-overview{grid-template-columns:1fr;gap:12px;margin:18px 0 24px}.cube-container{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.cube{min-height:220px;padding:16px;border-radius:16px}.cube-logo{width:60px;height:60px;margin-bottom:12px;border-radius:10px}.cube-title{font-size:1rem}.cube-desc{font-size:.8rem;line-height:1.4}.catalog-btn,.verify-btn,.github-btn{font-size:.78rem;padding:9px 10px}.header{margin-bottom:18px;padding-bottom:16px}.container{padding:14px;border-radius:18px}.description{margin:22px 0;padding:20px}}
+        @media(max-width:380px){.cube-container{grid-template-columns:1fr}.cube{min-height:0}.cube-logo{width:70px;height:70px}}
+        @media(prefers-reduced-motion:reduce){.cube,.cube-logo,.catalog-btn{transition:none!important}}
         .copyright {
             text-align: center;
             padding-top: 20px;
@@ -731,6 +786,20 @@
             <p class="tagline">>_ Нажмите на любой кубик для получения информации и заказа</p>
         </div>
         
+        <section class="company-overview" aria-label="О компании IT Global">
+            <div class="company-copy">
+                <div class="company-eyebrow">Люди • технологии • возможности</div>
+                <h1>Создаём цифровые решения, которые работают для людей</h1>
+                <p>IT Global — технологическая команда, которая разрабатывает программные продукты, сервисы и цифровые системы. Мы объединяем инженерный подход, разработку и творческое мышление, чтобы превращать идеи в работающие решения.</p>
+                <p>В экосистему входят собственные проекты и сервисы: от коммуникаций и цифровой идентификации до банковских инструментов, игровых платформ и музыкальных технологий. Каждый продукт развивается как часть единого цифрового пространства.</p>
+                <p>Наша цель — делать технологии понятными, полезными и доступными, сохраняя внимание к качеству, безопасности и удобству пользователей.</p>
+            </div>
+            <aside class="company-values" aria-label="Принципы компании">
+                <div class="value-item"><strong>Инженерное мышление</strong><span>Разбираемся в задаче и создаём решения, а не просто интерфейсы.</span></div>
+                <div class="value-item"><strong>Связанные продукты</strong><span>Развиваем сервисы, которые дополняют друг друга в общей экосистеме.</span></div>
+                <div class="value-item"><strong>Человек в центре</strong><span>Технологии должны помогать людям и упрощать повседневные задачи.</span></div>
+            </aside>
+        </section>
         <div class="cube-container" id="cubeContainer"></div>
         
         <div class="description">
