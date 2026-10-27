@@ -756,7 +756,22 @@
                 font-size: 2rem;
             }
         }
-    </style>
+    
+        /* Consistent portal palette and alignment overrides */
+        .brand-lockup{display:flex;flex-direction:column;align-items:flex-start;gap:12px;cursor:pointer;max-width:100%}
+        .brand-logo{display:block;width:min(100%,360px);height:auto;max-height:110px;object-fit:contain;object-position:left center}
+        .tagline{margin:0;color:#a6b8ca;font-size:clamp(.95rem,1.5vw,1.15rem);line-height:1.5;font-style:normal}
+        .header{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:0}
+        .container{overflow:hidden}
+        .company-overview{width:100%;min-width:0}
+        .company-copy,.company-values,.cube,.description,.login-panel,.order-form,.popup-content,.social-card{min-width:0}
+        .form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+        .form-group{min-width:0}
+        .form-group input,.form-group textarea{min-width:0;max-width:100%}
+        .form-group.full-width{grid-column:1/-1}
+        @media(max-width:760px){.header{align-items:center;text-align:center}.brand-lockup{align-items:center;width:100%}.brand-logo{width:min(82vw,320px);max-height:90px;object-position:center}.tagline{text-align:center}.form-grid{grid-template-columns:minmax(0,1fr)}.form-group.full-width{grid-column:1}.container{width:100%}}
+        @media(max-width:420px){body{padding:8px}.container{padding:12px}.brand-logo{width:min(80vw,280px)}}
+</style>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -780,10 +795,10 @@
     
     <div class="container">
         <div class="header">
-            <div class="logo" id="mainLogo">
-                <span class="it">IT</span><span class="global">GLOBAL</span>
+            <div class="brand-lockup" id="mainLogo">
+                <img class="brand-logo" src="https://i.ibb.co/v6NY3drT/IT-Global-New.png" alt="IT Global">
+                <p class="tagline">Ваш личный помощник в цифровом мире</p>
             </div>
-            <p class="tagline">>_ Нажмите на любой кубик для получения информации и заказа</p>
         </div>
         
         <section class="company-overview" aria-label="О компании IT Global">
@@ -852,10 +867,6 @@
                         <label for="phoneNumber">📞 Номер телефона</label>
                         <input type="tel" id="phoneNumber" placeholder="+7 999 123-45-67" required>
                     </div>
-                    <div class="form-group">
-                        <label for="snils">🆔 СНИЛС</label>
-                        <input type="text" id="snils" placeholder="123-456-789 01" required>
-                    </div>
                     <div class="form-group full-width">
                         <label for="orderMessage">📝 Детали заказа</label>
                         <textarea id="orderMessage" placeholder="Опишите, какой продукт вы хотите заказать..." required></textarea>
@@ -920,10 +931,6 @@
                     <div class="form-group">
                         <label for="popupPhone">📞 Телефон</label>
                         <input type="tel" id="popupPhone" placeholder="+7 999 123-45-67" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="popupSnils">🆔 СНИЛС</label>
-                        <input type="text" id="popupSnils" placeholder="123-456-789 01" required>
                     </div>
                     <div class="form-group full-width">
                         <label for="popupMessage">📝 Сообщение</label>
@@ -1003,7 +1010,7 @@
         }
         
         async function sendOrder(orderData, formMessageElement, successCallback) {
-            if (!orderData.productName || !orderData.globalId || !orderData.fullName || !orderData.phoneNumber || !orderData.snils || !orderData.message) {
+            if (!orderData.productName || !orderData.globalId || !orderData.fullName || !orderData.phoneNumber || !orderData.message) {
                 formMessageElement.innerHTML = '❌ Заполните все поля!';
                 formMessageElement.className = 'form-message error';
                 return false;
@@ -1014,7 +1021,6 @@
                     globalId: orderData.globalId,
                     fullName: orderData.fullName,
                     phoneNumber: orderData.phoneNumber,
-                    snils: orderData.snils,
                     message: orderData.message,
                     status: "new",
                     createdAt: new Date(),
@@ -1042,16 +1048,15 @@
             return null;
         }
         
-        async function saveUserProfile(fullName, phoneNumber, snils) {
+        async function saveUserProfile(fullName, phoneNumber) {
             const user = auth.currentUser;
             if (!user) return;
             await updateDoc(doc(db, "users", user.uid), {
                 fullName: fullName,
                 phoneNumber: phoneNumber,
-                snils: snils,
                 profileCompleted: true
             });
-            currentUserData = { ...currentUserData, fullName, phoneNumber, snils, profileCompleted: true };
+            currentUserData = { ...currentUserData, fullName, phoneNumber, profileCompleted: true };
         }
         
         async function updateFormsWithProfile() {
@@ -1067,10 +1072,6 @@
                 if (currentUserData.phoneNumber) {
                     document.getElementById('phoneNumber').value = currentUserData.phoneNumber;
                     document.getElementById('popupPhone').value = currentUserData.phoneNumber;
-                }
-                if (currentUserData.snils) {
-                    document.getElementById('snils').value = currentUserData.snils;
-                    document.getElementById('popupSnils').value = currentUserData.snils;
                 }
             }
         }
@@ -1164,10 +1165,9 @@
                 globalId: currentUserData?.globalId || document.getElementById('globalId').value,
                 fullName: document.getElementById('fullName').value,
                 phoneNumber: document.getElementById('phoneNumber').value,
-                snils: document.getElementById('snils').value,
                 message: document.getElementById('orderMessage').value
             };
-            await saveUserProfile(orderData.fullName, orderData.phoneNumber, orderData.snils);
+            await saveUserProfile(orderData.fullName, orderData.phoneNumber);
             await sendOrder(orderData, document.getElementById('formMessage'), () => {
                 document.getElementById('orderMessage').value = '';
                 document.getElementById('productName').value = '';
@@ -1180,7 +1180,6 @@
                 globalId: currentUserData?.globalId || document.getElementById('popupGlobalId').value,
                 fullName: document.getElementById('popupFullName').value,
                 phoneNumber: document.getElementById('popupPhone').value,
-                snils: document.getElementById('popupSnils').value,
                 message: document.getElementById('popupMessage').value
             };
             await saveUserProfile(orderData.fullName, orderData.phoneNumber, orderData.snils);
