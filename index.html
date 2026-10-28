@@ -801,6 +801,22 @@ img.brand-logo{display:block!important;width:min(82vw,360px)!important;max-width
  .cube-container{gap:10px!important}
  .cube{padding:12px!important}
 }
+
+/* Hard reset mobile width constraints that caused the portal to collapse */
+html{width:100%!important;min-width:0!important;max-width:100%!important;overflow-x:clip!important}
+body{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;margin:0!important;padding:8px!important;overflow-x:clip!important}
+body>.container{display:block!important;width:calc(100vw - 16px)!important;max-width:calc(100vw - 16px)!important;min-width:0!important;margin:0 auto!important;padding:14px!important;box-sizing:border-box!important}
+body>.container *{box-sizing:border-box!important;min-width:0!important;max-width:100%}
+body>.container .header,body>.container .brand-lockup{width:100%!important;max-width:100%!important}
+body>.container img{height:auto!important;max-width:100%!important}
+body>.container img.brand-logo{width:min(76vw,300px)!important;height:auto!important;max-height:90px!important;object-fit:contain!important;object-position:center!important}
+body>.container .company-overview{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important;max-width:100%!important;margin:18px 0!important}
+body>.container .company-copy,body>.container .company-values{width:100%!important;max-width:100%!important;padding:clamp(12px,4vw,22px)!important;overflow-wrap:anywhere!important}
+body>.container .company-copy h1{font-size:clamp(1.25rem,5.5vw,1.8rem)!important;line-height:1.25!important}
+body>.container .company-copy p{font-size:clamp(.85rem,3.7vw,1rem)!important;line-height:1.65!important;overflow-wrap:anywhere!important}
+body>.container .cube-container{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important;max-width:100%!important;padding:0!important;margin:20px 0!important;gap:10px!important}
+body>.container .cube{width:100%!important;max-width:100%!important;min-width:0!important;padding:12px!important}
+@media(max-width:380px){body>.container .cube-container{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 </style>
 </head>
 <body>
