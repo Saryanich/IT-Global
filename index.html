@@ -775,6 +775,32 @@
 .popup-content{animation:popupReveal .32s cubic-bezier(.2,.8,.2,1) both}
 @keyframes popupReveal{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Emergency responsive layout repair */
+html,body{width:100%;max-width:100%;overflow-x:hidden!important}
+body{padding:clamp(8px,2.5vw,20px)!important}
+.container{width:100%!important;max-width:1400px!important;margin-inline:auto!important;padding:clamp(12px,3vw,30px)!important;overflow:hidden!important}
+.header,.brand-lockup{width:100%!important;max-width:100%!important;min-width:0!important}
+.header{display:flex!important;align-items:center!important;text-align:center!important}
+.brand-lockup{display:flex!important;flex-direction:column!important;align-items:center!important}
+img.brand-logo{display:block!important;width:min(82vw,360px)!important;max-width:100%!important;height:auto!important;max-height:110px!important;object-fit:contain!important;object-position:center!important}
+.tagline{max-width:100%!important;overflow-wrap:anywhere!important;text-align:center!important}
+.company-overview{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important;max-width:100%!important;min-width:0!important}
+.company-copy{width:100%!important;max-width:100%!important;min-width:0!important;overflow-wrap:anywhere!important}
+.company-copy h1{font-size:clamp(1.35rem,5.5vw,2.5rem)!important;line-height:1.25!important;overflow-wrap:anywhere!important}
+.company-copy p,.company-values{font-size:clamp(.9rem,3.8vw,1.05rem)!important;overflow-wrap:anywhere!important}
+.cube-container{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important;max-width:100%!important;min-width:0!important}
+.cube{width:100%!important;max-width:100%!important;min-width:0!important}
+@media(max-width:600px){
+ body{padding:8px!important}
+ .container{padding:12px!important;border-width:1px!important}
+ .brand-logo{width:min(72vw,280px)!important;max-height:80px!important}
+ .header{margin-bottom:18px!important;padding-bottom:14px!important}
+ .company-overview{gap:14px!important;margin:16px 0!important}
+ .company-copy h1{font-size:1.45rem!important}
+ .cube-container{gap:10px!important}
+ .cube{padding:12px!important}
+}
 </style>
 </head>
 <body>
