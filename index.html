@@ -421,18 +421,7 @@
             margin-bottom: 8px;
         }
         
-        .catalog-btn, .verify-btn, .github-btn {
-            background: linear-gradient(90deg, #008800, #00aa00);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 5px;
-            border: 1px solid #00ff00;
-        }
+        .verify-btn, .github-btn {
         
         .verify-btn {
             background: linear-gradient(90deg, #0066aa, #0088cc);
@@ -654,8 +643,8 @@
         .cube-logo{width:clamp(72px,7vw,104px);height:clamp(72px,7vw,104px);object-fit:contain;margin:0 0 18px;filter:none;border-radius:14px}
         .cube-title{font-family:inherit;font-size:1.2rem;font-weight:650;color:var(--portal-text);margin-bottom:7px}
         .cube-desc{font-size:.92rem;color:var(--portal-muted);line-height:1.55;margin-bottom:18px}
-        .catalog-btn,.verify-btn,.github-btn{margin-top:auto;padding:10px 14px;border-radius:10px;width:100%;font-family:inherit;font-size:.88rem;font-weight:600;background:#187fd3;border:1px solid transparent;color:#fff;transition:background .2s,transform .2s}
-        .catalog-btn:hover,.verify-btn:hover,.github-btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+        .verify-btn,.github-btn{margin-top:auto;padding:10px 14px;border-radius:10px;width:100%;font-family:inherit;font-size:.88rem;font-weight:600;background:#187fd3;border:1px solid transparent;color:#fff;transition:background .2s,transform .2s}
+        .verify-btn:hover,.github-btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
         .verify-btn{background:#167e91}.github-btn{background:#263548;border-color:#44566a}
         .description{background:rgba(13,31,48,.82);border:1px solid var(--portal-line);border-left:3px solid #299bd7;border-radius:18px;padding:clamp(20px,3vw,36px);margin:34px 0;text-align:left}
         .description h2{font-family:inherit;color:var(--portal-text);font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:14px}
@@ -669,7 +658,7 @@
         .popup-content{background:linear-gradient(145deg,#10263a,#091827);border:1px solid #31516a;border-radius:22px}
         .popup-title{color:var(--portal-text)}.popup-subtitle,.popup-description{color:var(--portal-muted)}
         .popup-logo{filter:none}
-        .popup-catalog-btn,.popup-github-btn{border-radius:10px;border-width:1px}
+        .popup-github-btn{border-radius:10px;border-width:1px}
         .yandex-music-widget{background:rgba(13,31,48,.8);border:1px solid var(--portal-line)}
         footer{border-top:1px solid var(--portal-line)}
         .social-card{background:rgba(13,31,48,.8);border:1px solid var(--portal-line);border-radius:16px;text-align:left}
@@ -685,9 +674,9 @@
         .value-item:last-child{padding-bottom:0;border-bottom:0}
         .value-item strong{display:block;font-size:1rem;color:var(--portal-text);margin-bottom:3px}
         .value-item span{display:block;font-size:.88rem;color:var(--portal-muted);line-height:1.5}
-        @media(max-width:760px){.company-overview{grid-template-columns:1fr;gap:12px;margin:18px 0 24px}.cube-container{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.cube{min-height:220px;padding:16px;border-radius:16px}.cube-logo{width:60px;height:60px;margin-bottom:12px;border-radius:10px}.cube-title{font-size:1rem}.cube-desc{font-size:.8rem;line-height:1.4}.catalog-btn,.verify-btn,.github-btn{font-size:.78rem;padding:9px 10px}.header{margin-bottom:18px;padding-bottom:16px}.container{padding:14px;border-radius:18px}.description{margin:22px 0;padding:20px}}
+        @media(max-width:760px){.company-overview{grid-template-columns:1fr;gap:12px;margin:18px 0 24px}.cube-container{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.cube{min-height:220px;padding:16px;border-radius:16px}.cube-logo{width:60px;height:60px;margin-bottom:12px;border-radius:10px}.cube-title{font-size:1rem}.cube-desc{font-size:.8rem;line-height:1.4}.verify-btn,.github-btn{margin-top:auto;padding:10px 14px;border-radius:10px;width:100%;font-family:inherit;font-size:.88rem;font-weight:600;background:#187fd3;border:1px solid transparent;color:#fff;transition:background .2s,transform .2s}.header{margin-bottom:18px;padding-bottom:16px}.container{padding:14px;border-radius:18px}.description{margin:22px 0;padding:20px}}
         @media(max-width:380px){.cube-container{grid-template-columns:1fr}.cube{min-height:0}.cube-logo{width:70px;height:70px}}
-        @media(prefers-reduced-motion:reduce){.cube,.cube-logo,.catalog-btn{transition:none!important}}
+        @media(prefers-reduced-motion:reduce){.cube,.cube-logo{transition:none!important}}
         .copyright {
             text-align: center;
             padding-top: 20px;
@@ -773,7 +762,7 @@
         @media(max-width:420px){body{padding:8px}.container{padding:12px}.brand-logo{width:min(80vw,280px)}}
 
         /* Mobile cards: two compact columns, including iPhone 11 Pro width */
-        @media(max-width:600px){.cube-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}.cube{width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:14px!important;align-items:flex-start!important;text-align:left!important}.cube-logo{width:64px!important;height:64px!important;margin-bottom:10px!important}.cube-title{font-size:clamp(.88rem,3.8vw,1rem)!important;overflow-wrap:anywhere}.cube-desc{font-size:.78rem!important;line-height:1.35!important}.catalog-btn,.verify-btn,.github-btn{font-size:.72rem!important;padding:8px 9px!important}.cube-container{align-items:stretch!important}}
+        @media(max-width:600px){.cube-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}.cube{width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:14px!important;align-items:flex-start!important;text-align:left!important}.cube-logo{width:64px!important;height:64px!important;margin-bottom:10px!important}.cube-title{font-size:clamp(.88rem,3.8vw,1rem)!important;overflow-wrap:anywhere}.cube-desc{font-size:.78rem!important;line-height:1.35!important}.verify-btn,.github-btn{margin-top:auto;padding:10px 14px;border-radius:10px;width:100%;font-family:inherit;font-size:.88rem;font-weight:600;background:#187fd3;border:1px solid transparent;color:#fff;transition:background .2s,transform .2s}.cube-container{align-items:stretch!important}}
         @media(max-width:360px){.cube-container{gap:8px!important}.cube{padding:10px!important}.cube-logo{width:52px!important;height:52px!important}}
 
 /* Smooth scroll reveal and polished transitions */
@@ -820,8 +809,7 @@
         <div class="description">
             <h2>Кубики GloBIT от IT Global</h2>
             <p>Каждый кубик представляет собой уникальный продукт или сервис нашей компании. Нажмите на любой кубик, чтобы увидеть подробную информацию и возможность заказа аналогичного решения для вашего бизнеса.</p>
-            <p>Для каждого продукта доступен каталог готовых работ! Нажмите кнопку "Каталог готовых работ" чтобы увидеть примеры реализованных проектов.</p>
-        </div>
+</div>
         
         <!-- Панель входа (видна до авторизации) -->
         <div id="loginPanel" class="login-panel">
@@ -915,7 +903,6 @@
             <p id="popupDescription" class="popup-description"></p>
             <!-- Контейнер для виджета Яндекс Музыки (будет добавлен для HumoRock) -->
             <div id="yandexMusicWidget" class="yandex-music-widget" style="display: none;"></div>
-            <a id="popupCatalogBtn" class="popup-catalog-btn" href="#" target="_blank"><i class="fas fa-folder-open"></i> Открыть каталог</a>
             <a id="popupGithubBtn" class="popup-github-btn" href="#" target="_blank"><i class="fab fa-github"></i> Открыть на GitHub</a>
             <div class="popup-order-form" id="popupOrderFormBlock">
                 <h3 class="form-title">📋 Заказать этот продукт</h3>
@@ -1093,17 +1080,14 @@
             globitProducts.forEach(product => {
                 const cube = document.createElement('div');
                 cube.className = 'cube hidden'; cube.style.setProperty('--card-index', globitProducts.indexOf(product));
-                const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
-                const hasVerify = product.verifyUrl && product.verifyUrl !== '#';
+const hasVerify = product.verifyUrl && product.verifyUrl !== '#';
                 const hasGithub = product.githubUrl && product.githubUrl !== '#';
                 let buttonsHTML = '';
-                if (hasCatalog) buttonsHTML += `<button class="catalog-btn" data-url="${product.catalogUrl}"><i class="fas fa-folder"></i> Каталог</button>`;
-                if (hasVerify) buttonsHTML += `<button class="verify-btn" data-url="${product.verifyUrl}"><i class="fas fa-check-circle"></i> Верификатор</button>`;
+if (hasVerify) buttonsHTML += `<button class="verify-btn" data-url="${product.verifyUrl}"><i class="fas fa-check-circle"></i> Верификатор</button>`;
                 if (hasGithub) buttonsHTML += `<button class="github-btn" data-url="${product.githubUrl}"><i class="fab fa-github"></i> GitHub</button>`;
                 cube.innerHTML = `<img src="${product.logoUrl}" class="cube-logo"><div class="cube-title">${product.name}</div><div class="cube-desc">${product.title}</div>${buttonsHTML}`;
-                cube.addEventListener('click', (e) => { if (!e.target.closest('.catalog-btn') && !e.target.closest('.verify-btn') && !e.target.closest('.github-btn')) showPopup(product); });
-                const catalogBtn = cube.querySelector('.catalog-btn');
-                if (catalogBtn) catalogBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(catalogBtn.dataset.url, '_blank'); });
+                cube.addEventListener('click', (e) => { if (!e.target.closest('.verify-btn') && !e.target.closest('.github-btn')) showPopup(product); });
+    window.open(catalogBtn.dataset.url, '_blank'); });
                 const verifyBtn = cube.querySelector('.verify-btn');
                 if (verifyBtn) verifyBtn.addEventListener('click', (e) => { e.stopPropagation(); window.open(verifyBtn.dataset.url, '_blank'); });
                 const githubBtn = cube.querySelector('.github-btn');
@@ -1135,15 +1119,7 @@
                 widgetContainer.innerHTML = '';
             }
             
-            // Показываем/скрываем кнопки каталога и GitHub
-            if (product.catalogUrl && product.catalogUrl !== '#') {
-                document.getElementById('popupCatalogBtn').href = product.catalogUrl;
-                document.getElementById('popupCatalogBtn').style.display = 'block';
-            } else {
-                document.getElementById('popupCatalogBtn').style.display = 'none';
-            }
-            
-            if (product.githubUrl && product.githubUrl !== '#') {
+if (product.githubUrl && product.githubUrl !== '#') {
                 document.getElementById('popupGithubBtn').href = product.githubUrl;
                 document.getElementById('popupGithubBtn').style.display = 'block';
             } else {
