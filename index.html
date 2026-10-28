@@ -771,6 +771,10 @@
         .form-group.full-width{grid-column:1/-1}
         @media(max-width:760px){.header{align-items:center;text-align:center}.brand-lockup{align-items:center;width:100%}.brand-logo{width:min(82vw,320px);max-height:90px;object-position:center}.tagline{text-align:center}.form-grid{grid-template-columns:minmax(0,1fr)}.form-group.full-width{grid-column:1}.container{width:100%}}
         @media(max-width:420px){body{padding:8px}.container{padding:12px}.brand-logo{width:min(80vw,280px)}}
+
+        /* Mobile cards: two compact columns, including iPhone 11 Pro width */
+        @media(max-width:600px){.cube-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}.cube{width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:14px!important;align-items:flex-start!important;text-align:left!important}.cube-logo{width:64px!important;height:64px!important;margin-bottom:10px!important}.cube-title{font-size:clamp(.88rem,3.8vw,1rem)!important;overflow-wrap:anywhere}.cube-desc{font-size:.78rem!important;line-height:1.35!important}.catalog-btn,.verify-btn,.github-btn{font-size:.72rem!important;padding:8px 9px!important}.cube-container{align-items:stretch!important}}
+        @media(max-width:360px){.cube-container{gap:8px!important}.cube{padding:10px!important}.cube-logo{width:52px!important;height:52px!important}}
 </style>
 </head>
 <body>
@@ -1150,6 +1154,8 @@
                 document.getElementById('popupGithubBtn').style.display = 'none';
             }
             
+            const popupOrderForm = document.getElementById('popupOrderFormBlock');
+            popupOrderForm.style.display = product.name === "BITOS" ? "none" : "block";
             updateFormsWithProfile();
             document.getElementById('popup').style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -1294,7 +1300,7 @@
             document.getElementById('loadingProgress').style.width = `${Math.min(progress, 100)}%`;
         }, 200);
         
-        particlesJS('particles-js', { particles: { number: { value: 80 }, color: { value: "#00ff00" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 1 } } });
+        particlesJS('particles-js', { particles: { number: { value: 80 }, color: { value: "#43b5e8" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 1 } } });
         
         document.getElementById('closePopup').addEventListener('click', closePopupFunc);
         window.addEventListener('click', (e) => { if (e.target === document.getElementById('popup')) closePopupFunc(); });
