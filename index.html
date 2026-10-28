@@ -775,25 +775,21 @@
         /* Mobile cards: two compact columns, including iPhone 11 Pro width */
         @media(max-width:600px){.cube-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}.cube{width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:14px!important;align-items:flex-start!important;text-align:left!important}.cube-logo{width:64px!important;height:64px!important;margin-bottom:10px!important}.cube-title{font-size:clamp(.88rem,3.8vw,1rem)!important;overflow-wrap:anywhere}.cube-desc{font-size:.78rem!important;line-height:1.35!important}.catalog-btn,.verify-btn,.github-btn{font-size:.72rem!important;padding:8px 9px!important}.cube-container{align-items:stretch!important}}
         @media(max-width:360px){.cube-container{gap:8px!important}.cube{padding:10px!important}.cube-logo{width:52px!important;height:52px!important}}
+
+/* Smooth scroll reveal and polished transitions */
+.loading-screen{display:none!important}
+.cube-logo{border-radius:50%;object-fit:cover}
+.cube{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s,opacity .5s}
+.cube.visible{animation:cardReveal .65s cubic-bezier(.2,.75,.25,1) both;animation-delay:calc(var(--card-index,0)*80ms)}
+@keyframes cardReveal{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.cube:active{transform:scale(.98)}
+.popup-content{animation:popupReveal .32s cubic-bezier(.2,.8,.2,1) both}
+@keyframes popupReveal{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
     <div id="particles-js"></div>
-    
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-title">IT GLOBAL SYSTEMS</div>
-        <div class="loading-cubes">
-            <div class="loading-cube"></div>
-            <div class="loading-cube"></div>
-            <div class="loading-cube"></div>
-            <div class="loading-cube"></div>
-            <div class="loading-cube"></div>
-        </div>
-        <div class="loading-progress">
-            <div class="loading-progress-bar" id="loadingProgress"></div>
-        </div>
-        <div class="loading-text">>_ Загрузка кубиков GloBIT... Инициализация систем...</div>
-    </div>
     
     <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
     
@@ -1081,14 +1077,14 @@
         }
         
         const globitProducts = [
-            { id: 1, name: "IT Global", title: "Основная компания", description: "Головная компания, объединяющая все проекты GloBIT.", logoUrl: "https://i.ibb.co/RkJWBxDb/i.webp", catalogUrl: "#", verifyUrl: "https://drive.google.com/file/d/1EAaKnmBzcm0DiILBIMq1ONRjngQ2PikB/view?usp=sharing" },
+            { id: 1, name: "IT Global", title: "Основная компания", description: "Головная компания, объединяющая все проекты GloBIT.", logoUrl: "https://i.ibb.co/v6NY3drT/IT-Global-New.png", catalogUrl: "#", verifyUrl: "https://drive.google.com/file/d/1EAaKnmBzcm0DiILBIMq1ONRjngQ2PikB/view?usp=sharing" },
             { id: 2, name: "GloBIT", title: "Базовые приложения", description: "Основной пакет приложений для повседневных задач.", logoUrl: "https://i.ibb.co/S4nmJH9M/Glo-BIT.jpg", catalogUrl: "https://drive.google.com/drive/folders/1zAutS6tNFNoz8apbS4xbpRJq-w51mNac?usp=drive_link" },
             { id: 3, name: "GloBIT Arcade", title: "Игровая платформа", description: "Платформа ретро и современных игр.", logoUrl: "https://i.ibb.co/wFK0H7rM/Glo-BIT-Arcade.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mAcKP117t2Lcic7s9TKcQZ8aOB0tqZS9?usp=drive_link" },
             { id: 4, name: "HumoRock", title: "ИИ-композитор", description: "Искусственный интеллект для генерации музыки. Слушайте плейлист с примерами треков.", logoUrl: "https://i.ibb.co/fzLVKnMn/Humo-Rock.jpg", catalogUrl: "https://drive.google.com/drive/folders/1mi5sBTaL4OXH41MVMoHhXgYKZfoiHpq6?usp=drive_link" },
             { id: 5, name: "ITeep Scan", title: "Система безопасности", description: "Комплексная система проверки на вирусы.", logoUrl: "https://i.ibb.co/N2xX2Fvq/ITeep-Scan.jpg", catalogUrl: "https://drive.google.com/drive/folders/1tcScNf87KX6ltREX5t_JC4KVLCCmR90M?usp=drive_link" },
             { id: 6, name: "Worldbal", title: "Электронная библиотека", description: "Обширная библиотека с книгами.", logoUrl: "https://i.ibb.co/TBGrCX30/Worldbal.jpg", catalogUrl: "https://drive.google.com/drive/folders/16B-ZOEHZ2ml0m_nDKLqArkD6VTxRt4EU?usp=drive_link" },
             { id: 7, name: "Саряныч", title: "Медиа-канал", description: "Канал с обзорами технологий.", logoUrl: "https://i.ibb.co/xtm6zqKq/Saryanich-new.jpg", catalogUrl: "#" },
-            { id: 8, name: "BITOS", title: "Операционная система", description: "Собственная операционная система IT Global. Открытый исходный код, основана на современных технологиях.", logoUrl: "https://i.ibb.co/RkJWBxDb/i.webp", githubUrl: "https://github.com/Saryanich/BITOS" }
+            { id: 8, name: "BITOS", title: "Операционная система", description: "Собственная операционная система IT Global. Открытый исходный код, основана на современных технологиях.", logoUrl: "https://i.ibb.co/v6NY3drT/IT-Global-New.png", githubUrl: "https://github.com/Saryanich/BITOS" }
         ];
         
         function createCubes() {
@@ -1096,7 +1092,7 @@
             container.innerHTML = '';
             globitProducts.forEach(product => {
                 const cube = document.createElement('div');
-                cube.className = 'cube hidden';
+                cube.className = 'cube hidden'; cube.style.setProperty('--card-index', globitProducts.indexOf(product));
                 const hasCatalog = product.catalogUrl && product.catalogUrl !== '#';
                 const hasVerify = product.verifyUrl && product.verifyUrl !== '#';
                 const hasGithub = product.githubUrl && product.githubUrl !== '#';
@@ -1292,13 +1288,6 @@
             document.getElementById('switchToRegister').style.display = 'block';
             document.getElementById('switchToLogin').style.display = 'none';
         });
-        
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += Math.random() * 15;
-            if (progress >= 100) { clearInterval(interval); setTimeout(() => { document.getElementById('loadingScreen').classList.add('fade-out'); setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500); }, 500); }
-            document.getElementById('loadingProgress').style.width = `${Math.min(progress, 100)}%`;
-        }, 200);
         
         particlesJS('particles-js', { particles: { number: { value: 80 }, color: { value: "#43b5e8" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 1 } } });
         
