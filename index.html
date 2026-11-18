@@ -995,6 +995,9 @@ body>.container .cube{width:100%!important;max-width:100%!important;min-width:0!
         const db = getFirestore();
         setPersistence(auth, browserLocalPersistence);
 
+        let currentUserData = null;
+        let currentProduct = null;
+
         // Удаление устройства в Global ID отзывает его сессию во всех сервисах на этом origin.
         let deviceRevocationUnsub = null;
         onAuthStateChanged(auth, async user => {
@@ -1051,9 +1054,6 @@ body>.container .cube{width:100%!important;max-width:100%!important;min-width:0!
                 redirectToGlobalId();
             }
         });
-        
-        let currentUserData = null;
-        let currentProduct = null;
         
         function generateGlobalId() {
             const digits = '0123456789';
