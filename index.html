@@ -856,21 +856,24 @@ body>.container .cube{width:100%!important;max-width:100%!important;min-width:0!
         
         <!-- Панель входа (видна до авторизации) -->
         <div id="loginPanel" class="login-panel">
-            <div class="login-title">🔐 Вход в систему</div>
-            <div id="loginForm">
-                <input type="text" id="loginIdentifier" class="login-input" placeholder="Email или Global ID">
-                <input type="password" id="loginPassword" class="login-input" placeholder="Пароль">
-                <button class="login-btn" id="loginBtn">Войти</button>
-                <div class="login-error" id="loginError"></div>
+            <div class="login-title">🔐 Единый вход IT Global</div>
+            <p style="text-align:center;margin:0 0 18px;color:#cbd5e1;">Регистрация, вход, подтверждение почты и двухфакторная защита выполняются через Global ID.</p>
+            <button class="login-btn" id="loginBtn" type="button">Продолжить через Global ID</button>
+            <div class="login-error" id="loginError" role="status" aria-live="polite"></div>
+            <div style="display:none">
+                <div id="loginForm">
+                    <input type="text" id="loginIdentifier" class="login-input">
+                    <input type="password" id="loginPassword" class="login-input">
+                </div>
+                <div id="registerForm">
+                    <input type="email" id="regEmail" class="login-input">
+                    <input type="password" id="regPassword" class="login-input">
+                    <button class="login-btn" id="registerBtn" type="button">Регистрация</button>
+                    <div class="login-error" id="regError"></div>
+                </div>
+                <div class="register-link" id="switchToRegister"></div>
+                <div class="register-link" id="switchToLogin"></div>
             </div>
-            <div id="registerForm" style="display: none;">
-                <input type="email" id="regEmail" class="login-input" placeholder="Email">
-                <input type="password" id="regPassword" class="login-input" placeholder="Пароль (мин. 6 символов)">
-                <button class="login-btn" id="registerBtn">Зарегистрироваться</button>
-                <div class="login-error" id="regError"></div>
-            </div>
-            <div class="register-link" id="switchToRegister">Нет аккаунта? Зарегистрироваться</div>
-            <div class="register-link" id="switchToLogin" style="display: none;">Уже есть аккаунт? Войти</div>
         </div>
         
         <!-- Форма заказа (скрыта до входа) -->
@@ -984,7 +987,7 @@ body>.container .cube{width:100%!important;max-width:100%!important;min-width:0!
         };
         
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, query, where, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         
         const app = initializeApp(firebaseConfig);
@@ -994,16 +997,59 @@ body>.container .cube{width:100%!important;max-width:100%!important;min-width:0!
 
         // Удаление устройства в Global ID отзывает его сессию во всех сервисах на этом origin.
         let deviceRevocationUnsub = null;
-        onAuthStateChanged(auth, user => {
+        onAuthStateChanged(auth, async user => {
             if (deviceRevocationUnsub) { deviceRevocationUnsub(); deviceRevocationUnsub = null; }
-            const token = (() => { try { return localStorage.getItem('itglobal_shared_device_token'); } catch { return null; } })();
-            if (!user || !token) return;
-            deviceRevocationUnsub = onSnapshot(doc(db, 'users', user.uid), snap => {
-                if (snap.exists() && (snap.data().revokedDeviceTokens || []).includes(token)) {
-                    if (deviceRevocationUnsub) { deviceRevocationUnsub(); deviceRevocationUnsub = null; }
-                    signOut(auth).finally(() => location.replace('index.html?deviceRevoked=1'));
+
+            if (!user) {
+                document.getElementById('orderFormBlock').style.display = 'none';
+                document.getElementById('loginPanel').style.display = 'block';
+                return;
+            }
+
+            if (!user.emailVerified) {
+                await signOut(auth);
+                redirectToGlobalId();
+                return;
+            }
+
+            try {
+                const profileSnap = await getDoc(doc(db, 'users', user.uid));
+                if (!profileSnap.exists()) {
+                    await signOut(auth);
+                    redirectToGlobalId();
+                    return;
                 }
-            }, error => console.warn('Проверка отзыва устройства:', error));
+
+                const profile = profileSnap.data() || {};
+                let token = null;
+                try { token = localStorage.getItem('itglobal_shared_device_token'); } catch {}
+                if (profile.accountLocked === true || (token && (profile.revokedDeviceTokens || []).includes(token))) {
+                    await signOut(auth);
+                    redirectToGlobalId();
+                    return;
+                }
+
+                currentUserData = profile;
+                await updateFormsWithProfile();
+                document.getElementById('loginPanel').style.display = 'none';
+                document.getElementById('orderFormBlock').style.display = 'block';
+                document.getElementById('userInfoDisplay').textContent = '👤 ' + (profile.globalId || user.email || 'Global ID');
+
+                if (token) {
+                    deviceRevocationUnsub = onSnapshot(doc(db, 'users', user.uid), snap => {
+                        const latest = snap.data() || {};
+                        if (!snap.exists() || latest.accountLocked === true ||
+                            (token && (latest.revokedDeviceTokens || []).includes(token))) {
+                            if (deviceRevocationUnsub) { deviceRevocationUnsub(); deviceRevocationUnsub = null; }
+                            signOut(auth).finally(redirectToGlobalId);
+                        }
+                    }, error => console.warn('Проверка отзыва устройства:', error));
+                }
+            } catch (error) {
+                console.error('Не удалось загрузить профиль Global ID:', error);
+                await signOut(auth);
+                redirectToGlobalId();
+            }
         });
         
         let currentUserData = null;
@@ -1209,82 +1255,14 @@ if (product.githubUrl && product.githubUrl !== '#') {
             });
         });
         
-        document.getElementById('loginBtn').addEventListener('click', async () => {
-            const identifier = document.getElementById('loginIdentifier').value;
-            const password = document.getElementById('loginPassword').value;
-            const errorDiv = document.getElementById('loginError');
-            if (!identifier || !password) { errorDiv.textContent = '❌ Заполните все поля'; return; }
-            try {
-                let email = identifier.trim();
-                if (!email.includes('@')) {
-                    const normalizedGlobalId = email;
-                    let mapping = null;
-                    try {
-                        const mappingSnap = await getDoc(doc(db, "global_ids", normalizedGlobalId));
-                        if (mappingSnap.exists()) mapping = mappingSnap.data();
-                    } catch (lookupError) {
-                        console.warn("global_ids lookup failed; trying legacy accounts:", lookupError);
-                    }
+        function redirectToGlobalId() {
+            const target = new URL('/Global-ID/', window.location.origin);
+            target.searchParams.set('continue', window.location.href);
+            window.location.replace(target.href);
+        }
 
-                    if (mapping?.email) {
-                        email = mapping.email;
-                    } else {
-                        // Compatibility for older accounts without global_ids/{globalId}.
-                        try {
-                            const usersQuery = query(collection(db, "users"), where("globalId", "==", normalizedGlobalId));
-                            const usersSnap = await getDocs(usersQuery);
-                            if (!usersSnap.empty) email = usersSnap.docs[0].data().email || "";
-                            else email = "";
-                        } catch (legacyError) {
-                            console.warn("Legacy Global ID lookup failed:", legacyError);
-                            email = "";
-                        }
-                    }
+        document.getElementById('loginBtn').addEventListener('click', redirectToGlobalId);
 
-                    if (!email || !email.includes("@")) {
-                        errorDiv.textContent = "❌ Global ID не найден. Проверьте ID или войдите по email.";
-                        return;
-                    }
-                }
-                await setPersistence(auth, browserLocalPersistence);
-                await signInWithEmailAndPassword(auth, email, password);
-                await loadUserProfile();
-                await updateFormsWithProfile();
-                document.getElementById('loginPanel').style.display = 'none';
-                document.getElementById('orderFormBlock').style.display = 'block';
-                document.getElementById('userInfoDisplay').innerHTML = `👤 ${currentUserData?.globalId || email}`;
-            } catch (error) { errorDiv.textContent = '❌ Неверный email/Global ID или пароль'; }
-        });
-        
-        document.getElementById('registerBtn').addEventListener('click', async () => {
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
-            const errorDiv = document.getElementById('regError');
-            if (!email || !password) { errorDiv.textContent = '❌ Заполните все поля'; return; }
-            if (password.length < 6) { errorDiv.textContent = '❌ Пароль должен быть минимум 6 символов'; return; }
-            try {
-                const userCred = await createUserWithEmailAndPassword(auth, email, password);
-                const globalId = generateGlobalId();
-                await setDoc(doc(db, "users", userCred.user.uid), {
-                    email: email,
-                    globalId: globalId,
-                    createdAt: new Date(),
-                    profileCompleted: false
-                });
-                // Keep the same Global ID mapping used by the rest of the ecosystem.
-                await setDoc(doc(db, "global_ids", globalId), {
-                    uid: userCred.user.uid,
-                    email: email,
-                    createdAt: new Date()
-                });
-                await loadUserProfile();
-                await updateFormsWithProfile();
-                document.getElementById('loginPanel').style.display = 'none';
-                document.getElementById('orderFormBlock').style.display = 'block';
-                document.getElementById('userInfoDisplay').innerHTML = `👤 ${globalId}`;
-            } catch (error) { errorDiv.textContent = error.message; }
-        });
-        
         document.getElementById('logoutBtn').addEventListener('click', async () => {
             await signOut(auth);
             document.getElementById('orderFormBlock').style.display = 'none';
